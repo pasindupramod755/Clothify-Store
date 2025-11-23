@@ -175,11 +175,6 @@ public class DashBoardFromContraller implements Initializable {
     }
 
     @FXML
-    void btnDeleteOrderAction(ActionEvent event) {
-
-    }
-
-    @FXML
     void btnResetOrderAction(ActionEvent event) {
 
     }
@@ -204,6 +199,24 @@ public class DashBoardFromContraller implements Initializable {
             txtOrderPrice.setText(String.valueOf(newValue.getPrice()));
             txtOrderQty.setText("1");
         });
+
+        tblOrder1.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) ->{
+            txtOrderName.setText(newValue.getName());
+            txtOrderPrice.setText(String.valueOf(newValue.getPrice()));
+            txtOrderQty.setText(String.valueOf(newValue.getQty()));
+        });
+
+    }
+
+    //------------------------------------Update Total Summary------------------------------------------>
+    public void updateTotalSummary(){
+        lblOrderItem.setText((tblOrder1.getItems().size())+" Items");
+        double subTotal = 0.0;
+        for(Item item : tblOrder1.getItems()){
+            subTotal += item.getTotal();
+        }
+        lblOrderSubTotal.setText("Rs."+String.format("%.2f",subTotal));
+
     }
 
     //------------------------------------------OrderPane----------------------------------------------->
@@ -219,6 +232,15 @@ public class DashBoardFromContraller implements Initializable {
         colOrderPrice1.setCellValueFactory(new PropertyValueFactory<>("price"));
         colOrderTotalPrice1.setCellValueFactory(new PropertyValueFactory<>("total"));
         tblOrder1.setItems(item);
+        updateTotalSummary();
         tblOrder1.refresh();
+    }
+
+    //--------------------------------------------Delete Order-------------------------------------------->
+    @FXML
+    void btnDeleteOrderAction(ActionEvent event) {
+        dashBoardService.deleteOrder(tblOrder1.getSelectionModel().getSelectedItem());
+        tblOrder1.refresh();
+        updateTotalSummary();
     }
 }
