@@ -1,0 +1,36 @@
+package repository;
+
+import dbConnection.DBConnection;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
+import model.dto.Item;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+public class DashBoardRepository {
+
+    ObservableList<Item> items = FXCollections.observableArrayList();
+
+    public ObservableList<Item> getAllItem() throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM item");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            items.add(
+                    new Item(
+                            resultSet.getString("id"),
+                            resultSet.getString("name"),
+                            resultSet.getString("category"),
+                            resultSet.getString("size"),
+                            resultSet.getDouble("price"),
+                            resultSet.getInt("qty"),
+                            resultSet.getBoolean("isAvailable"),
+                            1.0
+                    ));
+        }
+        return items;
+    }
+}
