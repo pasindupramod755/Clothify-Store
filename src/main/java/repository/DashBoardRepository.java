@@ -2,7 +2,6 @@ package repository;
 
 import dbConnection.DBConnection;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import model.dto.Customer;
 import model.dto.Item;
@@ -10,7 +9,6 @@ import model.dto.Item;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class DashBoardRepository {
 
@@ -53,5 +51,27 @@ public class DashBoardRepository {
                     ));
         }
         return customers;
+    }
+
+
+    //-----------------------------------------Customer---------------------------------------------->
+
+    public void addCustomer(Customer customer) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?,?,?,?)");
+        preparedStatement.setString(1, customer.getId());
+        preparedStatement.setString(2, customer.getTitle());
+        preparedStatement.setString(3, customer.getName());
+        preparedStatement.setString(4, customer.getDob());
+        preparedStatement.setString(5, customer.getAddress());
+        preparedStatement.setString(6, customer.getCity());
+        preparedStatement.setString(7, customer.getProvince());
+        preparedStatement.setString(8, customer.getPostalCode());
+        preparedStatement.executeUpdate();
+    }
+
+    public void deleteCustomer(String id) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("DELETE FROM Customer WHERE CustID = ?");
+        preparedStatement.setString(1,id);
+        preparedStatement.executeUpdate();
     }
 }

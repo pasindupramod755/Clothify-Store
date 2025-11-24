@@ -77,4 +77,30 @@ public class DashBoardService {
     }
 
 
+    public void addCustomer(Customer customer) {
+        try {
+            dashBoardRepository.addCustomer(customer);
+            customers.add(customer);
+            new Alert(Alert.AlertType.INFORMATION, "Customer Added successfully!").show();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteCustomer(Customer customer) {
+        try {
+            dashBoardRepository.deleteCustomer(customer.getId());
+            for (int i = 0; i < customers.size(); i++) {
+                if (customers.get(i).getId().equals(customer.getId())) {
+                    customers.remove(i);
+                    break;
+                }
+            }
+            new Alert(Alert.AlertType.INFORMATION, "Customer Deleted successfully!").show();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+            throw new RuntimeException(e);
+        }
+    }
 }

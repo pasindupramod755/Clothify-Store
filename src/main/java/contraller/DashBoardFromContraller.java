@@ -291,25 +291,6 @@ public class DashBoardFromContraller implements Initializable {
     @FXML
     private DatePicker txtCustomerDate;
 
-    @FXML
-    void btnCustomerAddAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnCustomerDeleteAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnCustomerResetAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnCustomerUpdateAction(ActionEvent event) {
-
-    }
 
     @FXML
     void btnEmployeeAddAction(ActionEvent event) {
@@ -523,5 +504,49 @@ public class DashBoardFromContraller implements Initializable {
     }
 
     //-------------------------------------------Customer--------------------------------------------------->
-    //----------------------------------------
+    //----------------------------------------Add Customer-------------------------------------------------->
+    @FXML
+    void btnCustomerAddAction(ActionEvent event) {
+        if (
+                txtCustomerId.getText().isEmpty() ||
+                txtCustomerTitle.getValue() == null ||
+                txtCustomerName.getText().isEmpty() ||
+                txtCustomerDate.getValue() == null ||
+                txtCustomerCity.getText().isEmpty() ||
+                txtCustomerProvince.getText().isEmpty() ||
+                txtCustomerPostalCode.getText().isEmpty() ||
+                txtCustomerAddress.getText().isEmpty()
+        ) {
+            new Alert(Alert.AlertType.WARNING, "Please fill all fields before proceeding!").show();
+        }else {
+            Customer customer = new Customer(
+                    txtCustomerId.getText(),
+                    txtCustomerTitle.getValue(),
+                    txtCustomerName.getText(),
+                    String.valueOf(txtCustomerDate.getValue()),
+                    txtCustomerAddress.getText(),
+                    txtCustomerCity.getText(),
+                    txtCustomerProvince.getText(),
+                    txtCustomerPostalCode.getText()
+            );
+            dashBoardService.addCustomer(customer);
+            tblCustomer.refresh();
+            }
+    }
+
+    @FXML
+    void btnCustomerDeleteAction(ActionEvent event) {
+        dashBoardService.deleteCustomer(tblCustomer.getSelectionModel().getSelectedItem());
+        tblCustomer.refresh();
+    }
+
+    @FXML
+    void btnCustomerResetAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnCustomerUpdateAction(ActionEvent event) {
+
+    }
 }
