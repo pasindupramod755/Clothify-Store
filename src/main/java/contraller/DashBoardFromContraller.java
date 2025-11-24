@@ -9,9 +9,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import model.dto.Customer;
 import model.dto.Item;
+import model.dto.Supplier;
 import service.DashBoardService;
 
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,9 +20,10 @@ import java.util.ResourceBundle;
 public class DashBoardFromContraller implements Initializable {
 
     DashBoardService dashBoardService = new DashBoardService();
-    ObservableList<Item> itemObservableList= dashBoardService.getAllItem();
-    ObservableList<Customer> customerObservableList= dashBoardService.getAllCustomer();
-    String[] titleArray = {"Mr","Mrs","Miss","Ms"};
+    ObservableList<Item> itemObservableList = dashBoardService.getAllItem();
+    ObservableList<Customer> customerObservableList = dashBoardService.getAllCustomer();
+    ObservableList<Supplier> supplierObservableList = dashBoardService.getAllSupplier();
+    String[] titleArray = {"Mr", "Mrs", "Miss", "Ms"};
 
     @FXML
     private Button btnCustomer;
@@ -202,7 +203,7 @@ public class DashBoardFromContraller implements Initializable {
     private TableView<Item> tblOrder1;
 
     @FXML
-    private TableView<?> tblSupplier;
+    private TableView<Supplier> tblSupplier;
 
     @FXML
     private TextField txtCustomerAddress;
@@ -313,26 +314,6 @@ public class DashBoardFromContraller implements Initializable {
     }
 
     @FXML
-    void btnSupplierAddAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnSupplierDeleteAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnSupplierResetAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnSupplierUpdateAction(ActionEvent event) {
-
-    }
-
-    @FXML
     void bthHistoryAction(ActionEvent event) {
 
     }
@@ -407,13 +388,13 @@ public class DashBoardFromContraller implements Initializable {
         colOrderPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         colOrderQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
         tblOrder.setItems(itemObservableList);
-        tblOrder.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) ->{
+        tblOrder.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             txtOrderName.setText(newValue.getName());
             txtOrderPrice.setText(String.valueOf(newValue.getPrice()));
             txtOrderQty.setText("1");
         });
 
-        tblOrder1.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) ->{
+        tblOrder1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             txtOrderName.setText(newValue.getName());
             txtOrderPrice.setText(String.valueOf(newValue.getPrice()));
             txtOrderQty.setText(String.valueOf(newValue.getQty()));
@@ -432,7 +413,7 @@ public class DashBoardFromContraller implements Initializable {
         colCustomerPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         tblCustomer.setItems(customerObservableList);
 
-        tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) ->{
+        tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             txtCustomerId.setText(newValue.getId());
             txtCustomerName.setText(newValue.getName());
             txtCustomerAddress.setText(newValue.getAddress());
@@ -442,29 +423,53 @@ public class DashBoardFromContraller implements Initializable {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate localDate = LocalDate.parse(newValue.getDob(), formatter);
             txtCustomerDate.setValue(localDate);
-            if (newValue.getTitle().equals("Mr")){
+            if (newValue.getTitle().equals("Mr")) {
                 txtCustomerTitle.setValue(txtCustomerTitle.getItems().get(0));
             } else if (newValue.getTitle().equals("Mrs")) {
                 txtCustomerTitle.setValue(txtCustomerTitle.getItems().get(1));
-            }else if (newValue.getTitle().equals("Miss")){
+            } else if (newValue.getTitle().equals("Miss")) {
                 txtCustomerTitle.setValue(txtCustomerTitle.getItems().get(2));
-            }else if (newValue.getTitle().equals("Ms")){
+            } else if (newValue.getTitle().equals("Ms")) {
                 txtCustomerTitle.setValue(txtCustomerTitle.getItems().get(3));
             }
         });
 
+        //---------------------------------------Supplier---------------------------------------------->
+        colSupplierId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colSupplierName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colSupplierCompanyName.setCellValueFactory(new PropertyValueFactory<>("companyName"));
+        colSupplierAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colSupplierCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+        colSupplierProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
+        colSupplierPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        colSupplierPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        colSupplierEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        tblSupplier.setItems(supplierObservableList);
+
+        tblSupplier.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            txtSupplierId.setText(newValue.getId());
+            txtSupplierName.setText(newValue.getName());
+            txtSupplierCompanyName.setText(newValue.getCompanyName());
+            txtSupplierAddress.setText(newValue.getAddress());
+            txtSupplierCity.setText(newValue.getCity());
+            txtSupplierProvince.setText(newValue.getProvince());
+            txtSupplierPostalCode.setText(newValue.getPostalCode());
+            txtSupplierPhone.setText(newValue.getPhone());
+            txtSupplierEmail.setText(newValue.getEmail());
+        });
 
 
     }
 
     //------------------------------------Update Total Summary------------------------------------------>
-    public void updateTotalSummary(){
-        lblOrderItem.setText((tblOrder1.getItems().size())+" Items");
+    public void updateTotalSummary() {
+        lblOrderItem.setText((tblOrder1.getItems().size()) + " Items");
         double subTotal = 0.0;
-        for(Item item : tblOrder1.getItems()){
+        for (Item item : tblOrder1.getItems()) {
             subTotal += item.getTotal();
         }
-        lblOrderSubTotal.setText("Rs."+String.format("%.2f",subTotal));
+        lblOrderSubTotal.setText("Rs." + String.format("%.2f", subTotal));
 
     }
 
@@ -475,7 +480,7 @@ public class DashBoardFromContraller implements Initializable {
     void btnAddOrderAction(ActionEvent event) {
         Item selectedItem = tblOrder.getSelectionModel().getSelectedItem();
         int OrderQty = Integer.parseInt(txtOrderQty.getText());
-        ObservableList<Item> item = dashBoardService.addItem(selectedItem , OrderQty);
+        ObservableList<Item> item = dashBoardService.addItem(selectedItem, OrderQty);
         colOrderName1.setCellValueFactory(new PropertyValueFactory<>("name"));
         colOrderSize1.setCellValueFactory(new PropertyValueFactory<>("size"));
         colOrderQty1.setCellValueFactory(new PropertyValueFactory<>("qty"));
@@ -498,7 +503,7 @@ public class DashBoardFromContraller implements Initializable {
     @FXML
     void btnUpdateOrderAction(ActionEvent event) {
         int qty = Integer.parseInt(txtOrderQty.getText());
-        dashBoardService.updateOrder(tblOrder1.getSelectionModel().getSelectedItem(),qty);
+        dashBoardService.updateOrder(tblOrder1.getSelectionModel().getSelectedItem(), qty);
         tblOrder1.refresh();
         updateTotalSummary();
     }
@@ -509,16 +514,16 @@ public class DashBoardFromContraller implements Initializable {
     void btnCustomerAddAction(ActionEvent event) {
         if (
                 txtCustomerId.getText().isEmpty() ||
-                txtCustomerTitle.getValue() == null ||
-                txtCustomerName.getText().isEmpty() ||
-                txtCustomerDate.getValue() == null ||
-                txtCustomerCity.getText().isEmpty() ||
-                txtCustomerProvince.getText().isEmpty() ||
-                txtCustomerPostalCode.getText().isEmpty() ||
-                txtCustomerAddress.getText().isEmpty()
+                        txtCustomerTitle.getValue() == null ||
+                        txtCustomerName.getText().isEmpty() ||
+                        txtCustomerDate.getValue() == null ||
+                        txtCustomerCity.getText().isEmpty() ||
+                        txtCustomerProvince.getText().isEmpty() ||
+                        txtCustomerPostalCode.getText().isEmpty() ||
+                        txtCustomerAddress.getText().isEmpty()
         ) {
             new Alert(Alert.AlertType.WARNING, "Please fill all fields before proceeding!").show();
-        }else {
+        } else {
             Customer customer = new Customer(
                     txtCustomerId.getText(),
                     txtCustomerTitle.getValue(),
@@ -531,7 +536,7 @@ public class DashBoardFromContraller implements Initializable {
             );
             dashBoardService.addCustomer(customer);
             tblCustomer.refresh();
-            }
+        }
     }
 
     //----------------------------------------Delete Customer-------------------------------------------------->
@@ -556,30 +561,53 @@ public class DashBoardFromContraller implements Initializable {
 
     //----------------------------------------Update Customer-------------------------------------------------->
     @FXML
-    void btnCustomerUpdateAction(ActionEvent event) {if (
-            txtCustomerId.getText().isEmpty() ||
-                    txtCustomerTitle.getValue() == null ||
-                    txtCustomerName.getText().isEmpty() ||
-                    txtCustomerDate.getValue() == null ||
-                    txtCustomerCity.getText().isEmpty() ||
-                    txtCustomerProvince.getText().isEmpty() ||
-                    txtCustomerPostalCode.getText().isEmpty() ||
-                    txtCustomerAddress.getText().isEmpty()
-    ) {
-        new Alert(Alert.AlertType.WARNING, "Please fill all fields before proceeding!").show();
-    }else {
-        Customer customer = new Customer(
-                txtCustomerId.getText(),
-                txtCustomerTitle.getValue(),
-                txtCustomerName.getText(),
-                String.valueOf(txtCustomerDate.getValue()),
-                txtCustomerAddress.getText(),
-                txtCustomerCity.getText(),
-                txtCustomerProvince.getText(),
-                txtCustomerPostalCode.getText()
-        );
-        dashBoardService.updateCustomer(customer);
-        tblCustomer.refresh();
+    void btnCustomerUpdateAction(ActionEvent event) {
+        if (
+                txtCustomerId.getText().isEmpty() ||
+                        txtCustomerTitle.getValue() == null ||
+                        txtCustomerName.getText().isEmpty() ||
+                        txtCustomerDate.getValue() == null ||
+                        txtCustomerCity.getText().isEmpty() ||
+                        txtCustomerProvince.getText().isEmpty() ||
+                        txtCustomerPostalCode.getText().isEmpty() ||
+                        txtCustomerAddress.getText().isEmpty()
+        ) {
+            new Alert(Alert.AlertType.WARNING, "Please fill all fields before proceeding!").show();
+        } else {
+            Customer customer = new Customer(
+                    txtCustomerId.getText(),
+                    txtCustomerTitle.getValue(),
+                    txtCustomerName.getText(),
+                    String.valueOf(txtCustomerDate.getValue()),
+                    txtCustomerAddress.getText(),
+                    txtCustomerCity.getText(),
+                    txtCustomerProvince.getText(),
+                    txtCustomerPostalCode.getText()
+            );
+            dashBoardService.updateCustomer(customer);
+            tblCustomer.refresh();
+        }
     }
+
+    //--------------------------------------------Supplier---------------------------------------------->
+    //--------------------------------------Add Supplier------------------------------------------------>
+    @FXML
+    void btnSupplierAddAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnSupplierDeleteAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnSupplierResetAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnSupplierUpdateAction(ActionEvent event) {
+
     }
 }
