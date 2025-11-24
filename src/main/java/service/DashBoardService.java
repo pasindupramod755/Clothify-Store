@@ -3,6 +3,7 @@ package service;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import model.dto.Customer;
 import model.dto.Item;
 import repository.DashBoardRepository;
 
@@ -12,6 +13,7 @@ public class DashBoardService {
 
     DashBoardRepository dashBoardRepository = new DashBoardRepository();
     ObservableList<Item> orderItem = FXCollections.observableArrayList();
+    ObservableList<Customer> customers = FXCollections.observableArrayList();
 
 
     //--------------------------------Order--------------------------------------------------------------->
@@ -53,4 +55,26 @@ public class DashBoardService {
             }
         }
     }
+
+    public void updateOrder(Item selectedItem, int qty) {
+        for(Item item : orderItem){
+            if ((item.getId()).equals((selectedItem.getId()))){
+                item.setQty(qty);
+                item.setTotal((item.getPrice())*qty);
+            }
+        }
+    }
+
+    //-----------------------------------------------Customer--------------------------------------------->
+    public ObservableList<Customer> getAllCustomer() {
+        try {
+            customers = dashBoardRepository.getAllCustomer();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+            throw new RuntimeException(e);
+        }
+        return customers;
+    }
+
+
 }
