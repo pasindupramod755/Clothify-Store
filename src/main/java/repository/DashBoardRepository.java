@@ -2,18 +2,18 @@ package repository;
 
 import dbConnection.DBConnection;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
+import model.dto.Customer;
 import model.dto.Item;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class DashBoardRepository {
 
     ObservableList<Item> items = FXCollections.observableArrayList();
+    ObservableList<Customer> customers = FXCollections.observableArrayList();
 
     public ObservableList<Item> getAllItem() throws SQLException {
         PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM item");
@@ -32,5 +32,66 @@ public class DashBoardRepository {
                     ));
         }
         return items;
+    }
+
+    public ObservableList<Customer> getAllCustomer() throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM customer");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            customers.add(
+                    new Customer(
+                            resultSet.getString("CustID"),
+                            resultSet.getString("CustTitle"),
+                            resultSet.getString("CustName"),
+                            resultSet.getString("DOB"),
+                            resultSet.getString("CustAddress"),
+                            resultSet.getString("City"),
+                            resultSet.getString("Province"),
+                            resultSet.getString("PostalCode")
+                    ));
+        }
+        return customers;
+    }
+
+
+    //-----------------------------------------Customer---------------------------------------------->
+
+    public void addCustomer(Customer customer) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?,?,?,?)");
+        preparedStatement.setString(1, customer.getId());
+        preparedStatement.setString(2, customer.getTitle());
+        preparedStatement.setString(3, customer.getName());
+        preparedStatement.setString(4, customer.getDob());
+        preparedStatement.setString(5, customer.getAddress());
+        preparedStatement.setString(6, customer.getCity());
+        preparedStatement.setString(7, customer.getProvince());
+        preparedStatement.setString(8, customer.getPostalCode());
+        preparedStatement.executeUpdate();
+    }
+
+    public void deleteCustomer(String id) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("DELETE FROM Customer WHERE CustID = ?");
+        preparedStatement.setString(1,id);
+        preparedStatement.executeUpdate();
+    }
+
+    public void updateCustomer(Customer customer) throws SQLException {
+        String sql = "UPDATE Customer SET CustTitle=?, CustName=?, DOB=?, CustAddress=?, City=?, Province=?, PostalCode=? WHERE CustID=?";
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement(sql);
+        preparedStatement.setString(8, customer.getId());
+        preparedStatement.setString(1, customer.getTitle());
+        preparedStatement.setString(2, customer.getName());
+        preparedStatement.setString(3, customer.getDob());
+        preparedStatement.setString(4, customer.getAddress());
+        preparedStatement.setString(5, customer.getCity());
+        preparedStatement.setString(6, customer.getProvince());
+        preparedStatement.setString(7, customer.getPostalCode());
+        preparedStatement.executeUpdate();
+    }
+
+    public ResultSet getAllSupplier() throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM supplier");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return resultSet;
     }
 }

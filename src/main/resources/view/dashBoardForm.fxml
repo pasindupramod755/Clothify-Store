@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -54,7 +56,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="orderPane" layoutX="116.0" layoutY="30.0" prefHeight="708.0" prefWidth="1236.0">
+      <AnchorPane fx:id="orderPane" layoutX="116.0" layoutY="30.0" prefHeight="708.0" prefWidth="1236.0" visible="false">
          <children>
             <TextField fx:id="txtOrderSearch" layoutX="61.0" layoutY="31.0" onAction="#txtOrderSearchAction" prefHeight="32.0" prefWidth="259.0" />
             <Button layoutX="289.0" layoutY="34.0" mnemonicParsing="false" onAction="#btnOrderSearchAction" style="-fx-background-color: white;" text="🔍">
@@ -151,6 +153,148 @@
             </Label>
             <Button layoutX="932.0" layoutY="430.0" mnemonicParsing="false" onAction="#btnPlaceOrder" prefHeight="26.0" prefWidth="259.0" text="Place Order" />
             <Button layoutX="932.0" layoutY="468.0" mnemonicParsing="false" onAction="#btnCancelOrder" prefHeight="26.0" prefWidth="259.0" text="Canel Order" />
+            <Label layoutX="381.0" layoutY="32.0" prefHeight="26.0" prefWidth="39.0" text="C001">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="425.0" layoutY="32.0" prefHeight="26.0" prefWidth="246.0" text="Pasindu Pramod">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="customerPane" layoutX="116.0" layoutY="30.0" prefHeight="708.0" prefWidth="1236.0" visible="false">
+         <children>
+            <Label alignment="CENTER" layoutX="452.0" layoutY="46.0" prefHeight="32.0" prefWidth="330.0" text="Customer Management">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tblCustomer" layoutX="66.0" layoutY="106.0" prefHeight="298.0" prefWidth="1103.0">
+               <columns>
+                  <TableColumn fx:id="colCustomerId" prefWidth="67.19998168945312" text="ID" />
+                  <TableColumn fx:id="colCustomerName" prefWidth="116.79998779296875" text="Name" />
+                  <TableColumn fx:id="colCustomerDOB" prefWidth="135.20001220703125" text="Date Of Birth" />
+                  <TableColumn fx:id="colCustomerTitle" prefWidth="105.5999755859375" text="Title" />
+                  <TableColumn fx:id="colCustomerAddress" prefWidth="253.5999755859375" text="Address" />
+                  <TableColumn fx:id="colCustomerCity" prefWidth="154.4000244140625" text="City" />
+                  <TableColumn fx:id="colCustomerProvince" prefWidth="151.99993896484375" text="Province" />
+                  <TableColumn fx:id="colCustomerPostalCode" prefWidth="115.199951171875" text="Postal Code" />
+               </columns>
+            </TableView>
+            <TextField fx:id="txtCustomerId" layoutX="195.0" layoutY="440.0" prefHeight="26.0" prefWidth="222.0" />
+            <ChoiceBox fx:id="txtCustomerTitle" layoutX="195.0" layoutY="493.0" prefHeight="26.0" prefWidth="222.0" />
+            <TextField fx:id="txtCustomerName" layoutX="518.0" layoutY="439.0" prefHeight="26.0" prefWidth="216.0" />
+            <DatePicker fx:id="txtCustomerDate" layoutX="824.0" layoutY="438.0" prefHeight="26.0" prefWidth="216.0" />
+            <Label layoutX="195.0" layoutY="421.0" prefHeight="18.0" prefWidth="120.0" text="Customer ID" />
+            <Label layoutX="518.0" layoutY="420.0" prefHeight="18.0" prefWidth="120.0" text="Name" />
+            <Label layoutX="824.0" layoutY="419.0" prefHeight="18.0" prefWidth="120.0" text="Date of Birth" />
+            <Label layoutX="195.0" layoutY="474.0" prefHeight="18.0" prefWidth="120.0" text="Title" />
+            <TextField fx:id="txtCustomerAddress" layoutX="518.0" layoutY="493.0" prefHeight="26.0" prefWidth="216.0" />
+            <Label layoutX="519.0" layoutY="475.0" prefHeight="18.0" prefWidth="120.0" text="Address" />
+            <TextField fx:id="txtCustomerCity" layoutX="823.0" layoutY="490.0" prefHeight="26.0" prefWidth="216.0" />
+            <Label layoutX="825.0" layoutY="471.0" prefHeight="18.0" prefWidth="120.0" text="city" />
+            <TextField fx:id="txtCustomerProvince" layoutX="197.0" layoutY="548.0" prefHeight="26.0" prefWidth="222.0" />
+            <Label layoutX="197.0" layoutY="529.0" prefHeight="18.0" prefWidth="120.0" text="province" />
+            <TextField fx:id="txtCustomerPostalCode" layoutX="519.0" layoutY="547.0" prefHeight="26.0" prefWidth="216.0" />
+            <Label layoutX="519.0" layoutY="529.0" prefHeight="18.0" prefWidth="120.0" text="postalCode" />
+            <Button layoutX="165.0" layoutY="627.0" mnemonicParsing="false" onAction="#btnCustomerAddAction" prefHeight="26.0" prefWidth="194.0" text="Add" />
+            <Button layoutX="406.0" layoutY="627.0" mnemonicParsing="false" onAction="#btnCustomerDeleteAction" prefHeight="26.0" prefWidth="194.0" text="Delete" />
+            <Button layoutX="644.0" layoutY="627.0" mnemonicParsing="false" onAction="#btnCustomerUpdateAction" prefHeight="26.0" prefWidth="194.0" text="Update" />
+            <Button layoutX="875.0" layoutY="627.0" mnemonicParsing="false" onAction="#btnCustomerResetAction" prefHeight="26.0" prefWidth="194.0" text="Reset" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="supplierPane" layoutX="116.0" layoutY="30.0" prefHeight="708.0" prefWidth="1236.0">
+         <children>
+            <Label alignment="CENTER" layoutX="452.0" layoutY="46.0" prefHeight="32.0" prefWidth="330.0" text="Supplier Management">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Button layoutX="165.0" layoutY="627.0" mnemonicParsing="false" onAction="#btnSupplierAddAction" prefHeight="26.0" prefWidth="194.0" text="Add" />
+            <Button layoutX="406.0" layoutY="627.0" mnemonicParsing="false" onAction="#btnSupplierDeleteAction" prefHeight="26.0" prefWidth="194.0" text="Delete" />
+            <Button layoutX="644.0" layoutY="627.0" mnemonicParsing="false" onAction="#btnSupplierUpdateAction" prefHeight="26.0" prefWidth="194.0" text="Update" />
+            <Button layoutX="875.0" layoutY="627.0" mnemonicParsing="false" onAction="#btnSupplierResetAction" prefHeight="26.0" prefWidth="194.0" text="Reset" />
+            <TableView fx:id="tblSupplier" layoutX="66.0" layoutY="107.0" prefHeight="298.0" prefWidth="1103.0">
+               <columns>
+                  <TableColumn fx:id="colSupplierId" prefWidth="67.19998168945312" text="ID" />
+                  <TableColumn fx:id="colSupplierName" prefWidth="134.39996337890625" text="Name" />
+                  <TableColumn fx:id="colSupplierCompanyName" prefWidth="131.20001220703125" text="Company Name" />
+                  <TableColumn fx:id="colSupplierAddress" prefWidth="125.5999755859375" text="Address" />
+                  <TableColumn fx:id="colSupplierCity" prefWidth="126.39996337890625" text="City" />
+                  <TableColumn fx:id="colSupplierProvince" prefWidth="144.79998779296875" text="Province" />
+                  <TableColumn fx:id="colSupplierPostalCode" prefWidth="119.2000732421875" text="Postal Code" />
+                  <TableColumn fx:id="colSupplierPhone" prefWidth="96.0" text="Phone" />
+                  <TableColumn fx:id="colSupplierEmail" prefWidth="164.0" text="Email" />
+               </columns>
+            </TableView>
+            <TextField fx:id="txtSupplierId" layoutX="177.0" layoutY="439.0" prefHeight="26.0" prefWidth="269.0" />
+            <TextField fx:id="txtSupplierName" layoutX="509.0" layoutY="439.0" prefHeight="26.0" prefWidth="270.0" />
+            <Label layoutX="177.0" layoutY="420.0" prefHeight="18.0" prefWidth="120.0" text="Supplier ID" />
+            <Label layoutX="509.0" layoutY="420.0" prefHeight="18.0" prefWidth="120.0" text="Name" />
+            <Label layoutX="840.0" layoutY="420.0" prefHeight="18.0" prefWidth="120.0" text="Company Name" />
+            <TextField fx:id="txtSupplierPhone" layoutX="509.0" layoutY="494.0" prefHeight="26.0" prefWidth="270.0" />
+            <Label layoutX="509.0" layoutY="475.0" prefHeight="18.0" prefWidth="120.0" text="Phone" />
+            <Label layoutX="177.0" layoutY="475.0" prefHeight="18.0" prefWidth="120.0" text="Email" />
+            <TextField fx:id="txtSupplierAddress" layoutX="840.0" layoutY="494.0" prefHeight="26.0" prefWidth="270.0" />
+            <Label layoutX="840.0" layoutY="475.0" prefHeight="18.0" prefWidth="120.0" text="Address" />
+            <TextField fx:id="txtSupplierCity" layoutX="177.0" layoutY="554.0" prefHeight="26.0" prefWidth="270.0" />
+            <Label layoutX="177.0" layoutY="535.0" prefHeight="18.0" prefWidth="120.0" text="city" />
+            <TextField fx:id="txtSupplierProvince" layoutX="509.0" layoutY="553.0" prefHeight="26.0" prefWidth="270.0" />
+            <Label layoutX="509.0" layoutY="534.0" prefHeight="18.0" prefWidth="120.0" text="province" />
+            <TextField fx:id="txtSupplierPostalCode" layoutX="840.0" layoutY="552.0" prefHeight="26.0" prefWidth="270.0" />
+            <Label layoutX="840.0" layoutY="533.0" prefHeight="18.0" prefWidth="120.0" text="postalCode" />
+            <TextField fx:id="txtSupplierEmail" layoutX="177.0" layoutY="495.0" prefHeight="26.0" prefWidth="270.0" />
+            <TextField fx:id="txtSupplierCompanyName" layoutX="840.0" layoutY="439.0" prefHeight="26.0" prefWidth="270.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="employeePane" layoutX="116.0" layoutY="29.0" prefHeight="708.0" prefWidth="1236.0" visible="false">
+         <children>
+            <Label alignment="CENTER" layoutX="452.0" layoutY="46.0" prefHeight="32.0" prefWidth="330.0" text="Employee Management">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Button layoutX="165.0" layoutY="627.0" mnemonicParsing="false" onAction="#btnEmployeeAddAction" prefHeight="26.0" prefWidth="194.0" text="Add" />
+            <Button layoutX="406.0" layoutY="627.0" mnemonicParsing="false" onAction="#btnEmployeeDeleteAction" prefHeight="26.0" prefWidth="194.0" text="Delete" />
+            <Button layoutX="644.0" layoutY="627.0" mnemonicParsing="false" onAction="#btnEmployeeUpdateAction" prefHeight="26.0" prefWidth="194.0" text="Update" />
+            <Button layoutX="875.0" layoutY="627.0" mnemonicParsing="false" onAction="#btnEmployeeResetAction" prefHeight="26.0" prefWidth="194.0" text="Reset" />
+            <TableView fx:id="tblEmployee" layoutX="67.0" layoutY="107.0" prefHeight="298.0" prefWidth="1103.0">
+               <columns>
+                  <TableColumn fx:id="colEmployeeId" prefWidth="67.19998168945312" text="ID" />
+                  <TableColumn fx:id="colEmployeeName" prefWidth="87.99993896484375" text="Name" />
+                  <TableColumn fx:id="colEmployeeDOB" prefWidth="127.20001220703125" text="Date Of Birth" />
+                  <TableColumn fx:id="colEmployeeNIC" prefWidth="72.0" text="NIC" />
+                  <TableColumn fx:id="colEmployeeSalary" prefWidth="104.79998779296875" text="Salary" />
+                  <TableColumn fx:id="colEmployeeAddress" prefWidth="136.0" text="Address" />
+                  <TableColumn fx:id="colEmployeePosition" prefWidth="122.4000244140625" text="position" />
+                  <TableColumn fx:id="colEmployeePhone" prefWidth="136.79998779296875" text="Phone" />
+                  <TableColumn fx:id="colEmployeeJoinedDate" prefWidth="139.20001220703125" text="joinedDate" />
+                  <TableColumn fx:id="colEmployeeStatus" prefWidth="106.40008544921875" text="status" />
+               </columns>
+            </TableView>
+            <TextField fx:id="txtEmployeeId" layoutX="169.0" layoutY="433.0" prefHeight="26.0" prefWidth="255.0" />
+            <TextField fx:id="txtEmployeeName" layoutX="492.0" layoutY="432.0" prefHeight="26.0" prefWidth="238.0" />
+            <DatePicker fx:id="txtEmployeeDOB" layoutX="796.0" layoutY="433.0" prefHeight="26.0" prefWidth="238.0" />
+            <Label layoutX="169.0" layoutY="414.0" prefHeight="18.0" prefWidth="120.0" text="Employee ID" />
+            <Label layoutX="492.0" layoutY="413.0" prefHeight="18.0" prefWidth="120.0" text="Name" />
+            <Label layoutX="796.0" layoutY="414.0" prefHeight="18.0" prefWidth="120.0" text="Date of Birth" />
+            <TextField fx:id="txtEmployeeSalary" layoutX="492.0" layoutY="484.0" prefHeight="26.0" prefWidth="238.0" />
+            <Label layoutX="492.0" layoutY="465.0" prefHeight="18.0" prefWidth="120.0" text="Salary" />
+            <Label layoutX="169.0" layoutY="466.0" prefHeight="18.0" prefWidth="120.0" text="nic" />
+            <TextField fx:id="txtEmployeeAddress" layoutX="796.0" layoutY="485.0" prefHeight="26.0" prefWidth="238.0" />
+            <Label layoutX="796.0" layoutY="466.0" prefHeight="18.0" prefWidth="120.0" text="Address" />
+            <TextField fx:id="txtEmployeePhone" layoutX="169.0" layoutY="537.0" prefHeight="26.0" prefWidth="255.0" />
+            <Label layoutX="169.0" layoutY="518.0" prefHeight="18.0" prefWidth="120.0" text="Phone" />
+            <TextField fx:id="txtEmployeePosition" layoutX="492.0" layoutY="536.0" prefHeight="26.0" prefWidth="238.0" />
+            <Label layoutX="492.0" layoutY="517.0" prefHeight="18.0" prefWidth="120.0" text="Position" />
+            <TextField fx:id="txtEmployeeStatus" layoutX="796.0" layoutY="536.0" prefHeight="26.0" prefWidth="238.0" />
+            <Label layoutX="796.0" layoutY="517.0" prefHeight="18.0" prefWidth="120.0" text="Status" />
+            <DatePicker fx:id="txtEmployeeJoinedDate" layoutX="492.0" layoutY="590.0" prefHeight="26.0" prefWidth="238.0" />
+            <Label layoutX="492.0" layoutY="571.0" prefHeight="18.0" prefWidth="120.0" text="Joined Date" />
+            <TextField fx:id="txtEmployeeNic" layoutX="169.0" layoutY="485.0" prefHeight="26.0" prefWidth="255.0" />
          </children>
       </AnchorPane>
    </children>
