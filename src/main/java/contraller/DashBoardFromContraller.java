@@ -534,19 +534,52 @@ public class DashBoardFromContraller implements Initializable {
             }
     }
 
+    //----------------------------------------Delete Customer-------------------------------------------------->
     @FXML
     void btnCustomerDeleteAction(ActionEvent event) {
         dashBoardService.deleteCustomer(tblCustomer.getSelectionModel().getSelectedItem());
         tblCustomer.refresh();
     }
 
+    //----------------------------------------Reset Customer-------------------------------------------------->
     @FXML
     void btnCustomerResetAction(ActionEvent event) {
-
+        txtCustomerId.clear();
+        txtCustomerName.clear();
+        txtCustomerCity.clear();
+        txtCustomerProvince.clear();
+        txtCustomerPostalCode.clear();
+        txtCustomerAddress.clear();
+        txtCustomerTitle.setValue(null);
+        txtCustomerDate.setValue(null);
     }
 
+    //----------------------------------------Update Customer-------------------------------------------------->
     @FXML
-    void btnCustomerUpdateAction(ActionEvent event) {
-
+    void btnCustomerUpdateAction(ActionEvent event) {if (
+            txtCustomerId.getText().isEmpty() ||
+                    txtCustomerTitle.getValue() == null ||
+                    txtCustomerName.getText().isEmpty() ||
+                    txtCustomerDate.getValue() == null ||
+                    txtCustomerCity.getText().isEmpty() ||
+                    txtCustomerProvince.getText().isEmpty() ||
+                    txtCustomerPostalCode.getText().isEmpty() ||
+                    txtCustomerAddress.getText().isEmpty()
+    ) {
+        new Alert(Alert.AlertType.WARNING, "Please fill all fields before proceeding!").show();
+    }else {
+        Customer customer = new Customer(
+                txtCustomerId.getText(),
+                txtCustomerTitle.getValue(),
+                txtCustomerName.getText(),
+                String.valueOf(txtCustomerDate.getValue()),
+                txtCustomerAddress.getText(),
+                txtCustomerCity.getText(),
+                txtCustomerProvince.getText(),
+                txtCustomerPostalCode.getText()
+        );
+        dashBoardService.updateCustomer(customer);
+        tblCustomer.refresh();
+    }
     }
 }

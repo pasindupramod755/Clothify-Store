@@ -103,4 +103,25 @@ public class DashBoardService {
             throw new RuntimeException(e);
         }
     }
+
+    public void updateCustomer(Customer customer) {
+        try {
+            dashBoardRepository.updateCustomer(customer);
+            for (int i = 0; i < customers.size(); i++) {
+                if (customers.get(i).getId().equals(customer.getId())) {
+                    customers.get(i).setTitle(customer.getTitle());
+                    customers.get(i).setName(customer.getName());
+                    customers.get(i).setDob(customer.getDob());
+                    customers.get(i).setAddress(customer.getAddress());
+                    customers.get(i).setCity(customer.getCity());
+                    customers.get(i).setProvince(customer.getProvince());
+                    customers.get(i).setPostalCode(customer.getPostalCode());
+                    break;
+                }
+            }
+            new Alert(Alert.AlertType.INFORMATION, "Customer updated successfully!").show();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

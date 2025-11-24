@@ -74,4 +74,18 @@ public class DashBoardRepository {
         preparedStatement.setString(1,id);
         preparedStatement.executeUpdate();
     }
+
+    public void updateCustomer(Customer customer) throws SQLException {
+        String sql = "UPDATE Customer SET CustTitle=?, CustName=?, DOB=?, CustAddress=?, City=?, Province=?, PostalCode=? WHERE CustID=?";
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement(sql);
+        preparedStatement.setString(8, customer.getId());
+        preparedStatement.setString(1, customer.getTitle());
+        preparedStatement.setString(2, customer.getName());
+        preparedStatement.setString(3, customer.getDob());
+        preparedStatement.setString(4, customer.getAddress());
+        preparedStatement.setString(5, customer.getCity());
+        preparedStatement.setString(6, customer.getProvince());
+        preparedStatement.setString(7, customer.getPostalCode());
+        preparedStatement.executeUpdate();
+    }
 }
