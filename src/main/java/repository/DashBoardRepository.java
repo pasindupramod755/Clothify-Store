@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.dto.Customer;
 import model.dto.Item;
+import model.dto.Supplier;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -93,5 +94,41 @@ public class DashBoardRepository {
         PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM supplier");
         ResultSet resultSet = preparedStatement.executeQuery();
         return resultSet;
+    }
+
+
+    //----------------------------------------------Supplier----------------------------------------------->
+    public void addSupplier(Supplier supplier) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("INSERT INTO supplier VALUES (?,?,?,?,?,?,?,?,?)");
+        preparedStatement.setString(1, supplier.getId());
+        preparedStatement.setString(2, supplier.getName());
+        preparedStatement.setString(3, supplier.getCompanyName());
+        preparedStatement.setString(4, supplier.getAddress());
+        preparedStatement.setString(5, supplier.getCity());
+        preparedStatement.setString(6, supplier.getProvince());
+        preparedStatement.setString(7, supplier.getPostalCode());
+        preparedStatement.setString(8, supplier.getPhone());
+        preparedStatement.setString(9, supplier.getEmail());
+        preparedStatement.executeUpdate();
+    }
+
+    public void deleteSupplier(String id) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("DELETE FROM supplier WHERE supplier_id = ?");
+        preparedStatement.setString(1, id);
+        preparedStatement.executeUpdate();
+    }
+
+    public void updataSupplier(Supplier supplier) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("UPDATE supplier SET name=?, company_name=?, address=?, city=?, province=?, postal_code=?, phone=?, email=? WHERE supplier_id=?");
+        preparedStatement.setString(9, supplier.getId());
+        preparedStatement.setString(1, supplier.getName());
+        preparedStatement.setString(2, supplier.getCompanyName());
+        preparedStatement.setString(3, supplier.getAddress());
+        preparedStatement.setString(4, supplier.getCity());
+        preparedStatement.setString(5, supplier.getProvince());
+        preparedStatement.setString(6, supplier.getPostalCode());
+        preparedStatement.setString(7, supplier.getPhone());
+        preparedStatement.setString(8, supplier.getEmail());
+        preparedStatement.executeUpdate();
     }
 }

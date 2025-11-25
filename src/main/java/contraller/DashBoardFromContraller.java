@@ -593,14 +593,28 @@ public class DashBoardFromContraller implements Initializable {
     //--------------------------------------Add Supplier------------------------------------------------>
     @FXML
     void btnSupplierAddAction(ActionEvent event) {
-
+        Supplier supplier = new Supplier(
+                txtSupplierId.getText(),
+                txtSupplierName.getText(),
+                txtSupplierCompanyName.getText(),
+                txtSupplierAddress.getText(),
+                txtSupplierCity.getText(),
+                txtSupplierProvince.getText(),
+                txtSupplierPostalCode.getText(),
+                txtSupplierPhone.getText(),
+                txtSupplierEmail.getText()
+        );
+        dashBoardService.addSupplier(supplier);
     }
 
+    //--------------------------------------Delete Supplier------------------------------------------------>
     @FXML
     void btnSupplierDeleteAction(ActionEvent event) {
-
+        dashBoardService.deleteSupplier(tblSupplier.getSelectionModel().getSelectedItem().getId());
+        tblSupplier.refresh();
     }
 
+    //---------------------------------------Reset Supplier------------------------------------------------>
     @FXML
     void btnSupplierResetAction(ActionEvent event) {
 
@@ -608,6 +622,18 @@ public class DashBoardFromContraller implements Initializable {
 
     @FXML
     void btnSupplierUpdateAction(ActionEvent event) {
-
+        Supplier supplier = new Supplier(
+                tblSupplier.getSelectionModel().getSelectedItem().getId(),
+                txtSupplierName.getText(),
+                txtSupplierCompanyName.getText(),
+                txtSupplierAddress.getText(),
+                txtSupplierCity.getText(),
+                txtSupplierProvince.getText(),
+                txtSupplierPostalCode.getText(),
+                txtSupplierPhone.getText(),
+                txtSupplierEmail.getText()
+        );
+        dashBoardService.updateSupplier(supplier);
+        tblSupplier.refresh();
     }
 }

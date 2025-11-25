@@ -147,4 +147,44 @@ public class DashBoardService {
         }
         return suppliers;
     }
+
+    public void addSupplier(Supplier supplier) {
+        try {
+            dashBoardRepository.addSupplier(supplier);
+            suppliers.add(supplier);
+            new Alert(Alert.AlertType.INFORMATION, "Supplier Added successfully!").show();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+    }
+
+    public void deleteSupplier(String id) {
+        try {
+            dashBoardRepository.deleteSupplier(id);
+            for (int i = 0; i < suppliers.size(); i++) {
+                if (suppliers.get(i).getId().equals(id)) {
+                    suppliers.remove(i);
+                    break;
+                }
+            }
+            new Alert(Alert.AlertType.INFORMATION, "Supplier Deleted successfully!").show();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+    }
+
+    public void updateSupplier(Supplier supplier) {
+        try {
+            dashBoardRepository.updataSupplier(supplier);
+            for (int i = 0; i < suppliers.size(); i++) {
+                if (suppliers.get(i).getId().equals(supplier.getId())) {
+                    suppliers.set(i, supplier);
+                    break;
+                }
+            }
+            new Alert(Alert.AlertType.INFORMATION, "Supplier Update successfully!").show();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+    }
 }
