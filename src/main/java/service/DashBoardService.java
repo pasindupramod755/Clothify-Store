@@ -147,4 +147,13 @@ public class DashBoardService {
         }
         return suppliers;
     }
+
+    public void addSupplier(Supplier supplier) {
+        try {
+            dashBoardRepository.addSupplier(supplier);
+            suppliers.add(supplier);
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+    }
 }

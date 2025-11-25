@@ -593,6 +593,18 @@ public class DashBoardFromContraller implements Initializable {
     //--------------------------------------Add Supplier------------------------------------------------>
     @FXML
     void btnSupplierAddAction(ActionEvent event) {
+        Supplier supplier = new Supplier(
+                txtSupplierId.getText(),
+                txtSupplierName.getText(),
+                txtSupplierCompanyName.getText(),
+                txtSupplierAddress.getText(),
+                txtSupplierCity.getText(),
+                txtSupplierProvince.getText(),
+                txtSupplierPostalCode.getText(),
+                txtSupplierPhone.getText(),
+                txtSupplierEmail.getText()
+        );
+        dashBoardService.addSupplier(supplier);
 
     }
 
