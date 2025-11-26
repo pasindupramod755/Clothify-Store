@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import model.dto.Customer;
+import model.dto.Employee;
 import model.dto.Item;
 import model.dto.Supplier;
 import repository.DashBoardRepository;
@@ -17,6 +18,7 @@ public class DashBoardService {
     ObservableList<Item> orderItem = FXCollections.observableArrayList();
     ObservableList<Customer> customers = FXCollections.observableArrayList();
     ObservableList<Supplier> suppliers = FXCollections.observableArrayList();
+    ObservableList<Employee> employees = FXCollections.observableArrayList();
 
 
     //--------------------------------Order--------------------------------------------------------------->
@@ -69,6 +71,7 @@ public class DashBoardService {
     }
 
     //-----------------------------------------------Customer--------------------------------------------->
+
     public ObservableList<Customer> getAllCustomer() {
         try {
             customers = dashBoardRepository.getAllCustomer();
@@ -126,6 +129,7 @@ public class DashBoardService {
     }
 
     //-----------------------------------------------Supplier--------------------------------------------->
+
     public ObservableList<Supplier> getAllSupplier() {
         try {
             ResultSet allSupplier = dashBoardRepository.getAllSupplier();
@@ -186,5 +190,31 @@ public class DashBoardService {
         } catch (SQLException e) {
             new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
         }
+    }
+
+
+    //----------------------------------------Employee------------------------------------------------>
+
+    public ObservableList<Employee> getAllEmployee() {
+        try {
+            ResultSet resultSet = dashBoardRepository.getAllEmployee();
+            while (resultSet.next()){
+                employees.add(new Employee(
+                        resultSet.getString("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("nic"),
+                        resultSet.getString("dob"),
+                        resultSet.getString("position"),
+                        resultSet.getDouble("salary"),
+                        resultSet.getString("contact_number"),
+                        resultSet.getString("address"),
+                        resultSet.getString("joined_date"),
+                        resultSet.getString("status")
+                ));
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+        return employees;
     }
 }

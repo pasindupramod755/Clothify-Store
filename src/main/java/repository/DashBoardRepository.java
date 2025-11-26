@@ -131,4 +131,10 @@ public class DashBoardRepository {
         preparedStatement.setString(8, supplier.getEmail());
         preparedStatement.executeUpdate();
     }
+
+    public ResultSet getAllEmployee() throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM employee");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return resultSet;
+    }
 }
