@@ -217,4 +217,23 @@ public class DashBoardService {
         }
         return employees;
     }
+
+    public void addEmployee(Employee employee) {
+        try {
+            dashBoardRepository.addEmployee(employee);
+            employees.add(employee);
+            new Alert(Alert.AlertType.INFORMATION, "employee Added successfully!").show();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+    }
+
+    public void deleteEmployee(Employee selectedItem) {
+        try {
+            dashBoardRepository.deleteEmployee(selectedItem.getId());
+            employees.remove(selectedItem);
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+    }
 }

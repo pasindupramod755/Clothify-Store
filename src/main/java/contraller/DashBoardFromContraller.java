@@ -300,27 +300,6 @@ public class DashBoardFromContraller implements Initializable {
     @FXML
     private DatePicker txtEmployeeJoinedDate;
 
-
-    @FXML
-    void btnEmployeeAddAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnEmployeeDeleteAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnEmployeeResetAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnEmployeeUpdateAction(ActionEvent event) {
-
-    }
-
     @FXML
     void bthHistoryAction(ActionEvent event) {
 
@@ -679,4 +658,38 @@ public class DashBoardFromContraller implements Initializable {
 
     //--------------------------------------------Employee---------------------------------------------->
     //--------------------------------------Add Employee------------------------------------------------>
+    @FXML
+    void btnEmployeeAddAction(ActionEvent event) {
+        dashBoardService.addEmployee(new Employee(
+                txtEmployeeId.getText(),
+                txtEmployeeName.getText(),
+                txtEmployeeNic.getText(),
+                txtEmployeeDOB.getValue().toString(),
+                txtEmployeePosition.getText(),
+                Double.parseDouble(txtEmployeeSalary.getText()),
+                txtEmployeePhone.getText(),
+                txtEmployeeAddress.getText(),
+                txtEmployeeJoinedDate.getValue().toString(),
+                txtEmployeeStatus.getText()
+        ));
+        
+
+    }
+
+    //--------------------------------------Add Employee------------------------------------------------>
+    @FXML
+    void btnEmployeeDeleteAction(ActionEvent event) {
+        dashBoardService.deleteEmployee(tblEmployee.getSelectionModel().getSelectedItem());
+        tblEmployee.refresh();
+    }
+
+    @FXML
+    void btnEmployeeResetAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnEmployeeUpdateAction(ActionEvent event) {
+
+    }
 }
