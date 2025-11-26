@@ -236,4 +236,18 @@ public class DashBoardService {
             new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
         }
     }
+
+    public void updateEmployee(Employee employee) {
+        try {
+            dashBoardRepository.updateEmployee(employee);
+            for (int i = 0; i < employees.size(); i++) {
+                if (employees.get(i).getId().equals(employee.getId())) {
+                    employees.set(i, employee);
+                    break;
+                }
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+    }
 }

@@ -676,20 +676,43 @@ public class DashBoardFromContraller implements Initializable {
 
     }
 
-    //--------------------------------------Add Employee------------------------------------------------>
+    //--------------------------------------Delete Employee------------------------------------------------>
     @FXML
     void btnEmployeeDeleteAction(ActionEvent event) {
         dashBoardService.deleteEmployee(tblEmployee.getSelectionModel().getSelectedItem());
         tblEmployee.refresh();
     }
 
+    //--------------------------------------Reset Employee------------------------------------------------>
     @FXML
     void btnEmployeeResetAction(ActionEvent event) {
-
+        txtEmployeeId.clear();
+        txtEmployeeName.clear();
+        txtEmployeeNic.clear();
+        txtEmployeeDOB.setValue(null);
+        txtEmployeePosition.clear();
+        txtEmployeeSalary.clear();
+        txtEmployeePhone.clear();
+        txtEmployeeAddress.clear();
+        txtEmployeeJoinedDate.setValue(null);
+        txtEmployeeStatus.clear();
     }
 
+    //--------------------------------------Update Employee------------------------------------------------>
     @FXML
     void btnEmployeeUpdateAction(ActionEvent event) {
-
+        dashBoardService.updateEmployee(new Employee(
+                tblEmployee.getSelectionModel().getSelectedItem().getId(),
+                txtEmployeeName.getText(),
+                txtEmployeeNic.getText(),
+                txtEmployeeDOB.getValue().toString(),
+                txtEmployeePosition.getText(),
+                Double.parseDouble(txtEmployeeSalary.getText()),
+                txtEmployeePhone.getText(),
+                txtEmployeeAddress.getText(),
+                txtEmployeeJoinedDate.getValue().toString(),
+                txtEmployeeStatus.getText()
+        ));
+        tblEmployee.refresh();
     }
 }
