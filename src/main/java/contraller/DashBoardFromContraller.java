@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import model.dto.Customer;
+import model.dto.Employee;
 import model.dto.Item;
 import model.dto.Supplier;
 import service.DashBoardService;
@@ -23,6 +24,7 @@ public class DashBoardFromContraller implements Initializable {
     ObservableList<Item> itemObservableList = dashBoardService.getAllItem();
     ObservableList<Customer> customerObservableList = dashBoardService.getAllCustomer();
     ObservableList<Supplier> supplierObservableList = dashBoardService.getAllSupplier();
+    ObservableList<Employee> employeeObservableList = dashBoardService.getAllEmployee();
     String[] titleArray = {"Mr", "Mrs", "Miss", "Ms"};
 
     @FXML
@@ -194,7 +196,7 @@ public class DashBoardFromContraller implements Initializable {
     private TableView<Customer> tblCustomer;
 
     @FXML
-    private TableView<?> tblEmployee;
+    private TableView<Employee> tblEmployee;
 
     @FXML
     private TableView<Item> tblOrder;
@@ -292,26 +294,11 @@ public class DashBoardFromContraller implements Initializable {
     @FXML
     private DatePicker txtCustomerDate;
 
+    @FXML
+    private DatePicker txtEmployeeDOB;
 
     @FXML
-    void btnEmployeeAddAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnEmployeeDeleteAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnEmployeeResetAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnEmployeeUpdateAction(ActionEvent event) {
-
-    }
+    private DatePicker txtEmployeeJoinedDate;
 
     @FXML
     void bthHistoryAction(ActionEvent event) {
@@ -401,7 +388,6 @@ public class DashBoardFromContraller implements Initializable {
         });
 
         //-------------------------------------------------customer--------------------------------------------->
-
         txtCustomerTitle.getItems().addAll(titleArray);
         colCustomerId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colCustomerTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -459,6 +445,31 @@ public class DashBoardFromContraller implements Initializable {
             txtSupplierEmail.setText(newValue.getEmail());
         });
 
+        //---------------------------------------Employee---------------------------------------------->
+        colEmployeeId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colEmployeeName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colEmployeeNIC.setCellValueFactory(new PropertyValueFactory<>("nic"));
+        colEmployeeDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        colEmployeePosition.setCellValueFactory(new PropertyValueFactory<>("position"));
+        colEmployeeSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+        colEmployeePhone.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
+        colEmployeeAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colEmployeeStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        colEmployeeJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
+        tblEmployee.setItems(employeeObservableList);
+        tblEmployee.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            txtEmployeeId.setText(newValue.getId());
+            txtEmployeeName.setText(newValue.getName());
+            txtEmployeeNic.setText(newValue.getNic());
+            txtEmployeeDOB.setValue(LocalDate.parse(newValue.getDob()));
+            txtEmployeePosition.setText(newValue.getPosition());
+            txtEmployeeSalary.setText(String.valueOf(newValue.getSalary()));
+            txtEmployeePhone.setText(newValue.getContactNumber());
+            txtEmployeeAddress.setText(newValue.getAddress());
+            txtEmployeeJoinedDate.setValue(LocalDate.parse(newValue.getJoinedDate()));
+            txtEmployeeStatus.setText(newValue.getStatus());
+        });
+
 
     }
 
@@ -474,7 +485,6 @@ public class DashBoardFromContraller implements Initializable {
     }
 
     //------------------------------------------OrderPane----------------------------------------------->
-
     //------------------------------------------Add Order----------------------------------------------->
     @FXML
     void btnAddOrderAction(ActionEvent event) {
@@ -617,9 +627,18 @@ public class DashBoardFromContraller implements Initializable {
     //---------------------------------------Reset Supplier------------------------------------------------>
     @FXML
     void btnSupplierResetAction(ActionEvent event) {
-
+        txtSupplierId.setText("");
+        txtSupplierName.setText("");
+        txtSupplierCompanyName.setText("");
+        txtSupplierAddress.setText("");
+        txtSupplierCity.setText("");
+        txtSupplierProvince.setText("");
+        txtSupplierPostalCode.setText("");
+        txtSupplierPhone.setText("");
+        txtSupplierEmail.setText("");
     }
 
+    //---------------------------------------Update Supplier------------------------------------------------>
     @FXML
     void btnSupplierUpdateAction(ActionEvent event) {
         Supplier supplier = new Supplier(
@@ -635,5 +654,65 @@ public class DashBoardFromContraller implements Initializable {
         );
         dashBoardService.updateSupplier(supplier);
         tblSupplier.refresh();
+    }
+
+    //--------------------------------------------Employee---------------------------------------------->
+    //--------------------------------------Add Employee------------------------------------------------>
+    @FXML
+    void btnEmployeeAddAction(ActionEvent event) {
+        dashBoardService.addEmployee(new Employee(
+                txtEmployeeId.getText(),
+                txtEmployeeName.getText(),
+                txtEmployeeNic.getText(),
+                txtEmployeeDOB.getValue().toString(),
+                txtEmployeePosition.getText(),
+                Double.parseDouble(txtEmployeeSalary.getText()),
+                txtEmployeePhone.getText(),
+                txtEmployeeAddress.getText(),
+                txtEmployeeJoinedDate.getValue().toString(),
+                txtEmployeeStatus.getText()
+        ));
+        
+
+    }
+
+    //--------------------------------------Delete Employee------------------------------------------------>
+    @FXML
+    void btnEmployeeDeleteAction(ActionEvent event) {
+        dashBoardService.deleteEmployee(tblEmployee.getSelectionModel().getSelectedItem());
+        tblEmployee.refresh();
+    }
+
+    //--------------------------------------Reset Employee------------------------------------------------>
+    @FXML
+    void btnEmployeeResetAction(ActionEvent event) {
+        txtEmployeeId.clear();
+        txtEmployeeName.clear();
+        txtEmployeeNic.clear();
+        txtEmployeeDOB.setValue(null);
+        txtEmployeePosition.clear();
+        txtEmployeeSalary.clear();
+        txtEmployeePhone.clear();
+        txtEmployeeAddress.clear();
+        txtEmployeeJoinedDate.setValue(null);
+        txtEmployeeStatus.clear();
+    }
+
+    //--------------------------------------Update Employee------------------------------------------------>
+    @FXML
+    void btnEmployeeUpdateAction(ActionEvent event) {
+        dashBoardService.updateEmployee(new Employee(
+                tblEmployee.getSelectionModel().getSelectedItem().getId(),
+                txtEmployeeName.getText(),
+                txtEmployeeNic.getText(),
+                txtEmployeeDOB.getValue().toString(),
+                txtEmployeePosition.getText(),
+                Double.parseDouble(txtEmployeeSalary.getText()),
+                txtEmployeePhone.getText(),
+                txtEmployeeAddress.getText(),
+                txtEmployeeJoinedDate.getValue().toString(),
+                txtEmployeeStatus.getText()
+        ));
+        tblEmployee.refresh();
     }
 }

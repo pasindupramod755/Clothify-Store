@@ -4,6 +4,7 @@ import dbConnection.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.dto.Customer;
+import model.dto.Employee;
 import model.dto.Item;
 import model.dto.Supplier;
 
@@ -56,7 +57,6 @@ public class DashBoardRepository {
 
 
     //-----------------------------------------Customer---------------------------------------------->
-
     public void addCustomer(Customer customer) throws SQLException {
         PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?,?,?,?)");
         preparedStatement.setString(1, customer.getId());
@@ -129,6 +129,50 @@ public class DashBoardRepository {
         preparedStatement.setString(6, supplier.getPostalCode());
         preparedStatement.setString(7, supplier.getPhone());
         preparedStatement.setString(8, supplier.getEmail());
+        preparedStatement.executeUpdate();
+    }
+
+    //----------------------------------------------Employee----------------------------------------------->
+    public ResultSet getAllEmployee() throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM employee");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return resultSet;
+    }
+
+
+    public void addEmployee(Employee employee) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("INSERT INTO Employee (id, name, nic, dob, position, salary, contact_number, address, joined_date, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        preparedStatement.setString(1, employee.getId());
+        preparedStatement.setString(2, employee.getName());
+        preparedStatement.setString(3, employee.getNic());
+        preparedStatement.setString(4, employee.getDob());
+        preparedStatement.setString(5, employee.getPosition());
+        preparedStatement.setDouble(6, employee.getSalary());
+        preparedStatement.setString(7, employee.getContactNumber());
+        preparedStatement.setString(8, employee.getAddress());
+        preparedStatement.setString(9, employee.getJoinedDate());
+        preparedStatement.setString(10, employee.getStatus());
+        preparedStatement.executeUpdate();
+    }
+
+    public void deleteEmployee(String id) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("DELETE FROM employee WHERE id = ?");
+        preparedStatement.setString(1, id);
+        preparedStatement.executeUpdate();
+    }
+
+    public void updateEmployee(Employee employee) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("UPDATE employee SET name=?, nic=?, dob=?, position=?, salary=?, contact_number=?, address=?, joined_date=?, status=? WHERE id=?");
+        preparedStatement.setString(1, employee.getName());
+        preparedStatement.setString(2, employee.getNic());
+        preparedStatement.setString(3, employee.getDob());
+        preparedStatement.setString(4, employee.getPosition());
+        preparedStatement.setDouble(5, employee.getSalary());
+        preparedStatement.setString(6, employee.getContactNumber());
+        preparedStatement.setString(7, employee.getAddress());
+        preparedStatement.setString(8, employee.getJoinedDate());
+        preparedStatement.setString(9, employee.getStatus());
+        preparedStatement.setString(10, employee.getId());
         preparedStatement.executeUpdate();
     }
 }

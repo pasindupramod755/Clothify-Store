@@ -206,7 +206,7 @@
             <Button layoutX="875.0" layoutY="627.0" mnemonicParsing="false" onAction="#btnCustomerResetAction" prefHeight="26.0" prefWidth="194.0" text="Reset" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="supplierPane" layoutX="116.0" layoutY="30.0" prefHeight="708.0" prefWidth="1236.0">
+      <AnchorPane fx:id="supplierPane" layoutX="116.0" layoutY="30.0" prefHeight="708.0" prefWidth="1236.0" visible="false">
          <children>
             <Label alignment="CENTER" layoutX="452.0" layoutY="46.0" prefHeight="32.0" prefWidth="330.0" text="Supplier Management">
                <font>
@@ -250,7 +250,7 @@
             <TextField fx:id="txtSupplierCompanyName" layoutX="840.0" layoutY="439.0" prefHeight="26.0" prefWidth="270.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="employeePane" layoutX="116.0" layoutY="29.0" prefHeight="708.0" prefWidth="1236.0" visible="false">
+      <AnchorPane fx:id="employeePane" layoutX="116.0" layoutY="29.0" prefHeight="708.0" prefWidth="1236.0">
          <children>
             <Label alignment="CENTER" layoutX="452.0" layoutY="46.0" prefHeight="32.0" prefWidth="330.0" text="Employee Management">
                <font>
