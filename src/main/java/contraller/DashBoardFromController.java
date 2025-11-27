@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class DashBoardFromContraller implements Initializable {
+public class DashBoardFromController implements Initializable {
 
     DashBoardService dashBoardService = new DashBoardService();
     ObservableList<Item> itemObservableList = dashBoardService.getAllItem();
@@ -163,6 +163,27 @@ public class DashBoardFromContraller implements Initializable {
     private TableColumn<?, ?> colSupplierProvince;
 
     @FXML
+    private TableColumn<?, ?> colItemCategory;
+
+    @FXML
+    private TableColumn<?, ?> colItemId;
+
+    @FXML
+    private TableColumn<?, ?> colItemIsAvailable;
+
+    @FXML
+    private TableColumn<?, ?> colItemName;
+
+    @FXML
+    private TableColumn<?, ?> colItemPrice;
+
+    @FXML
+    private TableColumn<?, ?> colItemQty;
+
+    @FXML
+    private TableColumn<?, ?> colItemSize;
+
+    @FXML
     private AnchorPane customerPane;
 
     @FXML
@@ -301,6 +322,37 @@ public class DashBoardFromContraller implements Initializable {
     private DatePicker txtEmployeeJoinedDate;
 
     @FXML
+    private AnchorPane itemPane;
+
+    @FXML
+    private TableView<Item> tblItem;
+
+    @FXML
+    private TextField txtItemCategory;
+
+    @FXML
+    private TextField txtItemId;
+
+    @FXML
+    private CheckBox txtItemIsAvailable;
+
+    @FXML
+    private TextField txtItemName;
+
+    @FXML
+    private TextField txtItemPrice;
+
+    @FXML
+    private TextField txtItemQty;
+
+    @FXML
+    private TextField txtItemSize;
+
+
+    @FXML
+    private Button btnEmployee;
+
+    @FXML
     void bthHistoryAction(ActionEvent event) {
 
     }
@@ -312,7 +364,18 @@ public class DashBoardFromContraller implements Initializable {
 
     @FXML
     void btnCustomerAction(ActionEvent event) {
+        customerPane.setVisible(true);
+        employeePane.setVisible(false);
+        supplierPane.setVisible(false);
+        orderPane.setVisible(false);
+    }
 
+    @FXML
+    void btnEmployeeAction(ActionEvent event) {
+        customerPane.setVisible(false);
+        employeePane.setVisible(true);
+        supplierPane.setVisible(false);
+        orderPane.setVisible(false);
     }
 
     @FXML
@@ -322,12 +385,14 @@ public class DashBoardFromContraller implements Initializable {
 
     @FXML
     void btnItemAction(ActionEvent event) {
-
     }
 
     @FXML
     void btnOrderAction(ActionEvent event) {
-
+        customerPane.setVisible(false);
+        employeePane.setVisible(false);
+        supplierPane.setVisible(false);
+        orderPane.setVisible(true);
     }
 
     @FXML
@@ -352,7 +417,10 @@ public class DashBoardFromContraller implements Initializable {
 
     @FXML
     void btnSupplierAction(ActionEvent event) {
-
+        customerPane.setVisible(false);
+        employeePane.setVisible(false);
+        supplierPane.setVisible(true);
+        orderPane.setVisible(false);
     }
 
     @FXML
@@ -470,6 +538,28 @@ public class DashBoardFromContraller implements Initializable {
             txtEmployeeStatus.setText(newValue.getStatus());
         });
 
+        //-------------------------------------------Item--------------------------------------------------->
+        colItemId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colItemCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        colItemSize.setCellValueFactory(new PropertyValueFactory<>("size"));
+        colItemPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colItemQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colItemIsAvailable.setCellValueFactory(new PropertyValueFactory<>("available"));
+        tblItem.setItems(itemObservableList);
+        tblItem.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            txtItemId.setText(newValue.getId());
+            txtItemName.setText(newValue.getName());
+            txtItemCategory.setText(newValue.getCategory());
+            txtItemSize.setText(newValue.getSize());
+            txtItemPrice.setText(String.valueOf(newValue.getPrice()));
+            txtItemQty.setText(String.valueOf(newValue.getQty()));
+            if (newValue.getAvailable()) {
+                txtItemIsAvailable.setSelected(true);
+            } else {
+                txtItemIsAvailable.setSelected(false);
+            }
+        });
 
     }
 
@@ -672,7 +762,7 @@ public class DashBoardFromContraller implements Initializable {
                 txtEmployeeJoinedDate.getValue().toString(),
                 txtEmployeeStatus.getText()
         ));
-        
+
 
     }
 
@@ -714,5 +804,27 @@ public class DashBoardFromContraller implements Initializable {
                 txtEmployeeStatus.getText()
         ));
         tblEmployee.refresh();
+    }
+
+    //-------------------------------------Item------------------------------------------------------------->
+    //----------------------------Add Item------------------------------------------------------------------>
+    @FXML
+    void btnItemAddAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnItemDeleteAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnItemResetAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnItemUpdateAction(ActionEvent event) {
+
     }
 }
