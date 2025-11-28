@@ -15,36 +15,33 @@ import java.sql.SQLException;
 public class DashBoardService {
 
     DashBoardRepository dashBoardRepository = new DashBoardRepository();
-    ObservableList<Item> orderItem = FXCollections.observableArrayList();
+    ObservableList<Item> orderItems = FXCollections.observableArrayList();
     ObservableList<Customer> customers = FXCollections.observableArrayList();
     ObservableList<Supplier> suppliers = FXCollections.observableArrayList();
     ObservableList<Employee> employees = FXCollections.observableArrayList();
+    ObservableList<Item> items = FXCollections.observableArrayList();;
+
+
 
 
     //--------------------------------Order--------------------------------------------------------------->
 
     public ObservableList<Item> getAllItem() {
-        try {
-            orderItem =  dashBoardRepository.getAllItem();
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
-            throw new RuntimeException(e);
-        }
-        return  orderItem;
+        return orderItems;
     }
 
     public ObservableList<Item> addItem(Item selectedItem, int orderQty) {
         if (searchOrderItem(selectedItem, orderQty)) {
-            return orderItem;
+            return orderItems;
         }
         selectedItem.setQty(orderQty);
         selectedItem.setTotal((selectedItem.getPrice()) * orderQty);
-        orderItem.add(selectedItem);
-        return orderItem;
+        orderItems.add(selectedItem);
+        return orderItems;
     }
 
     public boolean searchOrderItem(Item item, int qty) {
-        for (Item item1 : orderItem) {
+        for (Item item1 : orderItems) {
             if ((item1.getId()).equals((item.getId()))) {
                 item.setQty((item.getQty()) + qty);
                 item.setTotal((item.getPrice()) * (item.getQty()));
@@ -55,15 +52,15 @@ public class DashBoardService {
     }
 
     public void deleteOrder(Item selectedItem) {
-        for (Item item : orderItem) {
+        for (Item item : orderItems) {
             if ((item.getId()).equals((selectedItem.getId()))) {
-                orderItem.remove(item);
+                orderItems.remove(item);
             }
         }
     }
 
     public void updateOrder(Item selectedItem, int qty) {
-        for (Item item : orderItem) {
+        for (Item item : orderItems) {
             if ((item.getId()).equals((selectedItem.getId()))) {
                 item.setQty(qty);
                 item.setTotal((item.getPrice()) * qty);
@@ -199,7 +196,7 @@ public class DashBoardService {
     public ObservableList<Employee> getAllEmployee() {
         try {
             ResultSet resultSet = dashBoardRepository.getAllEmployee();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 employees.add(new Employee(
                         resultSet.getString("id"),
                         resultSet.getString("name"),
@@ -258,7 +255,7 @@ public class DashBoardService {
         try {
             dashBoardRepository.addNewItem(item);
             new Alert(Alert.AlertType.INFORMATION, "Item Added successfully!").show();
-            orderItem.add(item);
+            items.add(item);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
         }
@@ -267,7 +264,7 @@ public class DashBoardService {
     public void deleteItem(Item selectedItem) {
         try {
             dashBoardRepository.deleteItem(selectedItem.getId());
-            orderItem.remove(selectedItem);
+            items.remove(selectedItem);
             new Alert(Alert.AlertType.INFORMATION, "Item Deleted successfully!").show();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
@@ -277,15 +274,24 @@ public class DashBoardService {
     public void updateItem(Item item) {
         try {
             dashBoardRepository.updateItem(item);
-            for (int i = 0; i < orderItem.size(); i++) {
-                if ((orderItem.get(i).getId()).equals(item.getId())) {
-                    orderItem.set(i, item);
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i).getId().equals(item.getId())) {
+                    items.set(i, item);
                     break;
                 }
             }
-            new Alert(Alert.AlertType.INFORMATION, "Item Update successfully!").show();
+            new Alert(Alert.AlertType.INFORMATION, "Item updated successfully!").show();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
         }
+    }
+
+    public ObservableList<Item> getAllNewItem() {
+        try {
+            items = dashBoardRepository.getAllItem();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return items;
     }
 }

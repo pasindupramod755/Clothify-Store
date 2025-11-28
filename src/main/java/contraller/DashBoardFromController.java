@@ -21,10 +21,11 @@ import java.util.ResourceBundle;
 public class DashBoardFromController implements Initializable {
 
     DashBoardService dashBoardService = new DashBoardService();
-    ObservableList<Item> itemObservableList = dashBoardService.getAllItem();
+    ObservableList<Item> orderObservableList = dashBoardService.getAllItem();
     ObservableList<Customer> customerObservableList = dashBoardService.getAllCustomer();
     ObservableList<Supplier> supplierObservableList = dashBoardService.getAllSupplier();
     ObservableList<Employee> employeeObservableList = dashBoardService.getAllEmployee();
+    ObservableList<Item> itemObservableList = dashBoardService.getAllNewItem();
     String[] titleArray = {"Mr", "Mrs", "Miss", "Ms"};
 
     @FXML
@@ -397,6 +398,7 @@ public class DashBoardFromController implements Initializable {
 
     @FXML
     void btnOrderAction(ActionEvent event) {
+        tblOrder.refresh();
         customerPane.setVisible(false);
         employeePane.setVisible(false);
         supplierPane.setVisible(false);

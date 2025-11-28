@@ -326,8 +326,7 @@
                   <TableColumn fx:id="colItemSize" prefWidth="139.20001220703125" text="size" />
                   <TableColumn fx:id="colItemPrice" prefWidth="174.39996337890625" text="price" />
                   <TableColumn fx:id="colItemQty" prefWidth="106.4000244140625" text="qty" />
-                  <TableColumn fx:id="colItemIsAvailable" prefWidth="126.39996337890625" text="isAvailable" />
-                  <TableColumn fx:id="colEmployeeId11" prefWidth="67.19998168945312" text="ID" />
+                  <TableColumn fx:id="colItemIsAvailable" prefWidth="122.4000244140625" text="isAvailable" />
                </columns>
             </TableView>
             <TextField fx:id="txtItemId" layoutX="169.0" layoutY="420.0" prefHeight="26.0" prefWidth="255.0" />

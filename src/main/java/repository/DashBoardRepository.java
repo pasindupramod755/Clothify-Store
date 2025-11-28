@@ -195,7 +195,6 @@ public class DashBoardRepository {
     }
 
     public void updateItem(Item item) throws SQLException {
-        System.out.println(item);
         PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("UPDATE item SET name=?, category=?, size=?, price=?, qty=?, isAvailable=? WHERE id=?");
         preparedStatement.setString(1,item.getName());
         preparedStatement.setString(2,item.getCategory());
