@@ -1,5 +1,8 @@
 package contraller;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import model.dto.Customer;
 import model.dto.Employee;
 import model.dto.Item;
@@ -15,6 +19,7 @@ import service.DashBoardService;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
@@ -349,9 +354,15 @@ public class DashBoardFromController implements Initializable {
     @FXML
     private TextField txtItemSize;
 
-
     @FXML
     private Button btnEmployee;
+
+    @FXML
+    private Label lblDateName;
+
+    @FXML
+    private TextField txtDiscountField;
+
 
     @FXML
     void bthHistoryAction(ActionEvent event) {
@@ -501,6 +512,28 @@ public class DashBoardFromController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // Set current date
+        lblDate.setText(LocalDate.now().toString());
+
+        DateTimeFormatter dayFormat = DateTimeFormatter.ofPattern("EEEE");
+        String dayName = LocalDate.now().format(dayFormat);
+        lblDateName.setText(dayName);
+
+        // Auto-updating time
+        Timeline clock = new Timeline(
+                new KeyFrame(Duration.ZERO, e -> {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                    lblTime.setText(LocalTime.now().format(formatter));
+                }),
+                new KeyFrame(Duration.seconds(1))
+        );
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
+
+
+
+
+
         //-------------------------------------Order---------------------------------------------->
         colOrderId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colOrderName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -642,8 +675,16 @@ public class DashBoardFromController implements Initializable {
             subTotal += item.getTotal();
         }
         lblOrderSubTotal.setText("Rs." + String.format("%.2f", subTotal));
+        double netTotal =subTotal - ((subTotal * Integer.parseInt(txtDiscountField.getText())) / 100);
+        lblOrderTotal.setText("Rs." + String.format("%.2f", netTotal));
 
     }
+
+    @FXML
+    void txtDiscountFieldAction(ActionEvent event) {
+        updateTotalSummary();
+    }
+
 
     //------------------------------------------OrderPane----------------------------------------------->
     //------------------------------------------Add Order----------------------------------------------->

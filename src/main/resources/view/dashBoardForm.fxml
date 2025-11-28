@@ -9,6 +9,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -56,7 +57,7 @@
                   <Font name="System Bold" size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnEmployee" alignment="TOP_LEFT" layoutX="35.0" layoutY="239.0" mnemonicParsing="false" onAction="#btnEmployeeAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="👨‍💻" textFill="WHITE">
+            <Button fx:id="btnEmployee" alignment="TOP_LEFT" layoutX="34.0" layoutY="239.0" mnemonicParsing="false" onAction="#btnEmployeeAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="👨‍💻" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -148,11 +149,13 @@
             <Button layoutX="875.0" layoutY="627.0" mnemonicParsing="false" onAction="#btnCustomerResetAction" prefHeight="26.0" prefWidth="194.0" text="Reset" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="orderPane" layoutX="103.0" layoutY="30.0" prefHeight="708.0" prefWidth="1236.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44); -fx-background-radius: 20;" visible="false">
+      <AnchorPane fx:id="orderPane" layoutX="103.0" layoutY="30.0" prefHeight="708.0" prefWidth="1236.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44); -fx-background-radius: 20;">
          <children>
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#2d3e50" height="614.0" layoutX="27.0" layoutY="76.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="852.0" />
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#2d3e50" height="48.0" layoutX="27.0" layoutY="22.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="852.0" />
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#2d3e50" height="668.0" layoutX="886.0" layoutY="21.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="324.0" />
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#1c364e" height="452.0" layoutX="898.0" layoutY="148.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#1c364e" height="98.0" layoutX="898.0" layoutY="35.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
             <TextField fx:id="txtOrderSearch" layoutX="52.0" layoutY="30.0" onAction="#txtOrderSearchAction" prefHeight="32.0" prefWidth="259.0" />
             <Button layoutX="280.0" layoutY="33.0" mnemonicParsing="false" onAction="#btnOrderSearchAction" style="-fx-background-color: white;" text="🔍">
                <font>
@@ -190,7 +193,7 @@
             <Button layoutX="258.0" layoutY="370.0" mnemonicParsing="false" onAction="#btnDeleteOrderAction" prefHeight="26.0" prefWidth="174.0" text="Delete" />
             <Button layoutX="473.0" layoutY="370.0" mnemonicParsing="false" onAction="#btnUpdateOrderAction" prefHeight="26.0" prefWidth="174.0" text="Update" />
             <Button layoutX="681.0" layoutY="370.0" mnemonicParsing="false" onAction="#btnResetOrderAction" prefHeight="26.0" prefWidth="174.0" text="Reset" />
-            <TableView fx:id="tblOrder1" layoutX="51.0" layoutY="430.0" prefHeight="250.0" prefWidth="808.0">
+            <TableView fx:id="tblOrder1" layoutX="51.0" layoutY="430.0" prefHeight="235.0" prefWidth="808.0">
                <columns>
                   <TableColumn fx:id="colOrderName1" prefWidth="175.19998168945312" text="Name" />
                   <TableColumn fx:id="colOrderSize1" prefWidth="124.00003051757812" text="Size" />
@@ -199,55 +202,56 @@
                   <TableColumn fx:id="colOrderTotalPrice1" prefWidth="183.2000732421875" text="Price" />
                </columns>
             </TableView>
-            <Label fx:id="lblDate" alignment="CENTER_RIGHT" layoutX="1098.0" layoutY="48.0" prefHeight="18.0" prefWidth="98.0" text="2025/11/10" textFill="WHITE" />
-            <Label fx:id="lblTime" alignment="CENTER_RIGHT" layoutX="1098.0" layoutY="75.0" prefHeight="18.0" prefWidth="98.0" text="12.12 PM" textFill="WHITE" />
-            <Label alignment="CENTER" layoutX="973.0" layoutY="139.0" prefHeight="48.0" prefWidth="174.0" text="Order Summary" textFill="WHITE">
+            <Label fx:id="lblDate" alignment="CENTER_RIGHT" layoutX="1076.0" layoutY="61.0" prefHeight="18.0" prefWidth="98.0" text="2025/11/10" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
+            <Label fx:id="lblTime" alignment="CENTER_RIGHT" layoutX="1076.0" layoutY="87.0" prefHeight="18.0" prefWidth="98.0" text="12.12 PM" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
+            <Label alignment="CENTER" layoutX="966.0" layoutY="174.0" prefHeight="48.0" prefWidth="174.0" text="Order Summary" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="923.0" layoutY="222.0" prefHeight="18.0" prefWidth="71.0" text="Item" textFill="WHITE">
+            <Label layoutX="923.0" layoutY="274.0" prefHeight="38.0" prefWidth="71.0" text="Item" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="923.0" layoutY="254.0" prefHeight="18.0" prefWidth="71.0" text="Sub Total" textFill="WHITE">
+            <Label layoutX="923.0" layoutY="315.0" prefHeight="38.0" prefWidth="71.0" text="Sub Total" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="923.0" layoutY="290.0" prefHeight="18.0" prefWidth="71.0" text="Discount" textFill="WHITE">
+            <Label layoutX="923.0" layoutY="353.0" prefHeight="38.0" prefWidth="98.0" text="Discount(%)" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="923.0" layoutY="340.0" prefHeight="18.0" prefWidth="71.0" text="Total" textFill="WHITE">
+            <Label layoutX="927.0" layoutY="413.0" prefHeight="48.0" prefWidth="90.0" text="Total" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblOrderItem" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="1110.0" layoutY="274.0" prefHeight="38.0" prefWidth="71.0" text="4 Item" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="lblOrderItem" alignment="TOP_RIGHT" layoutX="1111.0" layoutY="228.0" prefHeight="18.0" prefWidth="71.0" text="4 Item" textFill="WHITE">
+            <Label fx:id="lblOrderSubTotal" alignment="CENTER_RIGHT" layoutX="1039.0" layoutY="315.0" prefHeight="38.0" prefWidth="142.0" text="Rs.12500.00" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="lblOrderSubTotal" alignment="TOP_RIGHT" layoutX="1043.0" layoutY="254.0" prefHeight="22.0" prefWidth="141.0" text="Rs.12500.00" textFill="WHITE">
+            <Label fx:id="lblOrderTotal" alignment="CENTER_RIGHT" layoutX="1009.0" layoutY="413.0" prefHeight="48.0" prefWidth="174.0" text="Rs.12500.00" textFill="WHITE">
                <font>
-                  <Font size="15.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblOrderDiscount" alignment="TOP_RIGHT" layoutX="1043.0" layoutY="289.0" prefHeight="22.0" prefWidth="141.0" text="2%" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblOrderTotal" alignment="TOP_RIGHT" layoutX="1043.0" layoutY="339.0" prefHeight="22.0" prefWidth="141.0" text="Rs.12500.00" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Button layoutX="923.0" layoutY="427.0" mnemonicParsing="false" onAction="#btnPlaceOrder" prefHeight="26.0" prefWidth="259.0" text="Place Order" />
-            <Button layoutX="923.0" layoutY="465.0" mnemonicParsing="false" onAction="#btnCancelOrder" prefHeight="26.0" prefWidth="259.0" text="Canel Order" />
+            <Button layoutX="921.0" layoutY="482.0" mnemonicParsing="false" onAction="#btnPlaceOrder" prefHeight="26.0" prefWidth="259.0" text="Place Order" />
+            <Button layoutX="921.0" layoutY="520.0" mnemonicParsing="false" onAction="#btnCancelOrder" prefHeight="26.0" prefWidth="259.0" text="Canel Order" />
             <Label layoutX="357.0" layoutY="35.0" prefHeight="26.0" prefWidth="39.0" text="C001" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -256,6 +260,16 @@
             <Label layoutX="401.0" layoutY="35.0" prefHeight="26.0" prefWidth="246.0" text="Pasindu Pramod" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtDiscountField" alignment="CENTER_RIGHT" layoutX="1065.0" layoutY="359.0" onAction="#txtDiscountFieldAction" prefHeight="26.0" prefWidth="120.0" text="0" />
+            <Line endX="158.5999755859375" layoutX="1024.0" layoutY="314.0" startX="-100.0" />
+            <Line endX="158.5999755859375" layoutX="1023.0" layoutY="353.0" startX="-100.0" />
+            <Line endX="158.5999755859375" layoutX="1022.0" layoutY="274.0" startX="-100.0" />
+            <Line endX="158.5999755859375" layoutX="1023.0" layoutY="391.0" startX="-100.0" />
+            <Label fx:id="lblDateName" alignment="CENTER" layoutX="905.0" layoutY="59.0" prefHeight="48.0" prefWidth="183.0" text="Sunday" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
                </font>
             </Label>
          </children>
