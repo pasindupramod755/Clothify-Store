@@ -368,6 +368,7 @@ public class DashBoardFromController implements Initializable {
         employeePane.setVisible(false);
         supplierPane.setVisible(false);
         orderPane.setVisible(false);
+        itemPane.setVisible(false);
     }
 
     @FXML
@@ -376,6 +377,7 @@ public class DashBoardFromController implements Initializable {
         employeePane.setVisible(true);
         supplierPane.setVisible(false);
         orderPane.setVisible(false);
+        itemPane.setVisible(false);
     }
 
     @FXML
@@ -385,6 +387,12 @@ public class DashBoardFromController implements Initializable {
 
     @FXML
     void btnItemAction(ActionEvent event) {
+        tblOrder.refresh();
+        customerPane.setVisible(false);
+        employeePane.setVisible(false);
+        supplierPane.setVisible(false);
+        orderPane.setVisible(false);
+        itemPane.setVisible(true);
     }
 
     @FXML
@@ -393,6 +401,7 @@ public class DashBoardFromController implements Initializable {
         employeePane.setVisible(false);
         supplierPane.setVisible(false);
         orderPane.setVisible(true);
+        itemPane.setVisible(false);
     }
 
     @FXML
@@ -421,6 +430,7 @@ public class DashBoardFromController implements Initializable {
         employeePane.setVisible(false);
         supplierPane.setVisible(true);
         orderPane.setVisible(false);
+        itemPane.setVisible(false);
     }
 
     @FXML
@@ -810,17 +820,41 @@ public class DashBoardFromController implements Initializable {
     //----------------------------Add Item------------------------------------------------------------------>
     @FXML
     void btnItemAddAction(ActionEvent event) {
+        dashBoardService.addNewItem(
+                new Item(
+                        txtItemId.getText(),
+                        txtItemName.getText(),
+                        txtItemCategory.getText(),
+                        txtItemSize.getText(),
+                        Double.parseDouble(txtItemPrice.getText()),
+                        Integer.parseInt(txtItemQty.getText()),
+                        txtItemIsAvailable.isSelected(),
+                        0.1
+                )
+
+        );
+        tblItem.refresh();
 
     }
 
     @FXML
     void btnItemDeleteAction(ActionEvent event) {
-
+        dashBoardService.deleteItem(tblItem.getSelectionModel().getSelectedItem());
+        tblItem.refresh();
     }
 
     @FXML
     void btnItemResetAction(ActionEvent event) {
-
+        dashBoardService.updateItem(new Item(
+                tblItem.getSelectionModel().getSelectedItem().getId(),
+                txtItemName.getText(),
+                txtItemCategory.getText(),
+                txtItemSize.getText(),
+                Double.parseDouble(txtItemPrice.getText()),
+                Integer.parseInt(txtItemQty.getText()),
+                Boolean.parseBoolean(txtItemIsAvailable.getText()),
+                0.1
+        ));
     }
 
     @FXML

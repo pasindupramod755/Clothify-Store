@@ -175,4 +175,31 @@ public class DashBoardRepository {
         preparedStatement.setString(10, employee.getId());
         preparedStatement.executeUpdate();
     }
+
+    public void addNewItem(Item item) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("INSERT INTO item VALUES (?,?,?,?,?,?,?)");
+        preparedStatement.setString(1, item.getId());
+        preparedStatement.setString(2, item.getName());
+        preparedStatement.setString(3, item.getCategory());
+        preparedStatement.setString(4, item.getSize());
+        preparedStatement.setDouble(5, item.getPrice());
+        preparedStatement.setInt(6, item.getQty());
+        preparedStatement.setBoolean(7, item.getAvailable());
+        preparedStatement.executeUpdate();
+    }
+
+    public void deleteItem(String id) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("DELETE FROM item WHERE id = ?");
+        preparedStatement.setString(1, id);
+        preparedStatement.executeUpdate();
+    }
+
+    public void updateItem(Item item) {
+        try {
+            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("UPDATE item SET name=?, category=?, size=?, price=?, qty=?, isAvailable=? WHERE id=?");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

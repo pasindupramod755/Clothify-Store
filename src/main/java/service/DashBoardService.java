@@ -25,11 +25,12 @@ public class DashBoardService {
 
     public ObservableList<Item> getAllItem() {
         try {
-            return dashBoardRepository.getAllItem();
+            orderItem =  dashBoardRepository.getAllItem();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
             throw new RuntimeException(e);
         }
+        return  orderItem;
     }
 
     public ObservableList<Item> addItem(Item selectedItem, int orderQty) {
@@ -249,5 +250,31 @@ public class DashBoardService {
         } catch (SQLException e) {
             new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
         }
+    }
+
+
+    //----------------------------------------------Item------------------------------------------------>
+    public void addNewItem(Item item) {
+        try {
+            dashBoardRepository.addNewItem(item);
+            new Alert(Alert.AlertType.INFORMATION, "Item Added successfully!").show();
+            orderItem.add(item);
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+    }
+
+    public void deleteItem(Item selectedItem) {
+        try {
+            dashBoardRepository.deleteItem(selectedItem.getId());
+            orderItem.remove(selectedItem);
+            new Alert(Alert.AlertType.INFORMATION, "Item Deleted successfully!").show();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+    }
+
+    public void updateItem(Item item) {
+        dashBoardRepository.updateItem(item);
     }
 }

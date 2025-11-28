@@ -307,7 +307,7 @@
             <TextField fx:id="txtEmployeeNic" layoutX="169.0" layoutY="472.0" prefHeight="26.0" prefWidth="255.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="itemPane" layoutX="99.0" layoutY="29.0" prefHeight="708.0" prefWidth="1236.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44); -fx-background-radius: 20;">
+      <AnchorPane fx:id="itemPane" layoutX="99.0" layoutY="29.0" prefHeight="708.0" prefWidth="1236.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44); -fx-background-radius: 20;" visible="false">
          <children>
             <Label alignment="CENTER" layoutX="452.0" layoutY="46.0" prefHeight="32.0" prefWidth="330.0" text="Item Management" textFill="WHITE">
                <font>
