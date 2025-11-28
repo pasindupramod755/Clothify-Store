@@ -14,6 +14,10 @@ public class Item {
     private String size;
     private double price;
     private int qty;
-    private boolean isAvailable;
+    private boolean available;
     private double total;
+
+    public boolean getAvailable() {
+        return this.available;
+    }
 }
