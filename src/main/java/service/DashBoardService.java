@@ -275,6 +275,17 @@ public class DashBoardService {
     }
 
     public void updateItem(Item item) {
-        dashBoardRepository.updateItem(item);
+        try {
+            dashBoardRepository.updateItem(item);
+            for (int i = 0; i < orderItem.size(); i++) {
+                if ((orderItem.get(i).getId()).equals(item.getId())) {
+                    orderItem.set(i, item);
+                    break;
+                }
+            }
+            new Alert(Alert.AlertType.INFORMATION, "Item Update successfully!").show();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
     }
 }

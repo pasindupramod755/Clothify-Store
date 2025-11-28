@@ -845,6 +845,18 @@ public class DashBoardFromController implements Initializable {
 
     @FXML
     void btnItemResetAction(ActionEvent event) {
+        txtItemId.clear();
+        txtItemName.clear();
+        txtItemCategory.clear();
+        txtItemSize.clear();
+        txtItemPrice.clear();
+        txtItemQty.clear();
+        txtItemIsAvailable.setSelected(false);
+
+    }
+
+    @FXML
+    void btnItemUpdateAction(ActionEvent event) {
         dashBoardService.updateItem(new Item(
                 tblItem.getSelectionModel().getSelectedItem().getId(),
                 txtItemName.getText(),
@@ -852,13 +864,9 @@ public class DashBoardFromController implements Initializable {
                 txtItemSize.getText(),
                 Double.parseDouble(txtItemPrice.getText()),
                 Integer.parseInt(txtItemQty.getText()),
-                Boolean.parseBoolean(txtItemIsAvailable.getText()),
+                txtItemIsAvailable.isSelected(),
                 0.1
         ));
-    }
-
-    @FXML
-    void btnItemUpdateAction(ActionEvent event) {
-
+        tblItem.refresh();
     }
 }
