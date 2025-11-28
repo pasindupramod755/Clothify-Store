@@ -31,30 +31,38 @@ public class DashBoardService {
     }
 
     public ObservableList<Item> addItem(Item selectedItem, int orderQty) {
-        if (searchOrderItem(selectedItem, orderQty)) {
+        if (selectedItem.getQty() >= orderQty){
+            if (searchOrderItem(selectedItem, orderQty)) {
+                return orderItems;
+            }
+            selectedItem.setQty(orderQty);
+            selectedItem.setTotal((selectedItem.getPrice()) * orderQty);
+            orderItems.add(selectedItem);
             return orderItems;
         }
-        selectedItem.setQty(orderQty);
-        selectedItem.setTotal((selectedItem.getPrice()) * orderQty);
-        orderItems.add(selectedItem);
+        new Alert(Alert.AlertType.INFORMATION, "Not Available stock!").show();
         return orderItems;
     }
 
-    public boolean searchOrderItem(Item item, int qty) {
-        for (Item item1 : orderItems) {
-            if ((item1.getId()).equals((item.getId()))) {
-                item.setQty((item.getQty()) + qty);
-                item.setTotal((item.getPrice()) * (item.getQty()));
+
+    public boolean searchOrderItem(Item selectedItem, int qty) {
+        for (Item orderItem : orderItems) {
+            if (orderItem.getId().equals(selectedItem.getId())) {
+                int newQty = orderItem.getQty() + qty;
+                orderItem.setQty(newQty);
+                orderItem.setTotal(orderItem.getPrice() * newQty);
                 return true;
             }
         }
         return false;
     }
 
+
     public void deleteOrder(Item selectedItem) {
-        for (Item item : orderItems) {
-            if ((item.getId()).equals((selectedItem.getId()))) {
-                orderItems.remove(item);
+        for (int i = 0; i < orderItems.size(); i++) {
+            if (orderItems.get(i).getId().equals(selectedItem.getId())) {
+                orderItems.remove(i);
+                break;
             }
         }
     }

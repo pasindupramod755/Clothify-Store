@@ -16,47 +16,47 @@
    <children>
       <AnchorPane layoutX="14.0" layoutY="76.0" prefHeight="613.0" prefWidth="71.0">
          <children>
-            <Button fx:id="btnHome" layoutX="10.0" layoutY="49.0" mnemonicParsing="false" onAction="#btnHomeAction" prefHeight="48.0" prefWidth="50.0" style="-fx-background-color: #2d3e50;" text="🏠" textFill="WHITE">
+            <Button fx:id="btnHome" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="35.0" layoutY="47.0" mnemonicParsing="false" onAction="#btnHomeAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="🏠" textFill="WHITE">
                <font>
                   <Font size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnCustomer" layoutX="10.0" layoutY="102.0" mnemonicParsing="false" onAction="#btnCustomerAction" prefHeight="48.0" prefWidth="50.0" style="-fx-background-color: #2d3e50;" text="👤" textFill="WHITE">
+            <Button fx:id="btnCustomer" alignment="TOP_LEFT" layoutX="35.0" layoutY="95.0" mnemonicParsing="false" onAction="#btnCustomerAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="👤" textFill="WHITE">
                <font>
                   <Font size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnOrder" layoutX="10.0" layoutY="155.0" mnemonicParsing="false" onAction="#btnOrderAction" prefHeight="48.0" prefWidth="50.0" style="-fx-background-color: #2d3e50;" text="🛒" textFill="WHITE">
+            <Button fx:id="btnOrder" alignment="TOP_LEFT" layoutX="35.0" layoutY="143.0" mnemonicParsing="false" onAction="#btnOrderAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="🛒" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnSupplier" layoutX="10.0" layoutY="208.0" mnemonicParsing="false" onAction="#btnSupplierAction" prefHeight="48.0" prefWidth="50.0" style="-fx-background-color: #2d3e50;" text="🚚" textFill="WHITE">
+            <Button fx:id="btnSupplier" alignment="TOP_LEFT" layoutX="35.0" layoutY="191.0" mnemonicParsing="false" onAction="#btnSupplierAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="🚚" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnHistory" layoutX="10.0" layoutY="307.0" mnemonicParsing="false" onAction="#bthHistoryAction" prefHeight="48.0" prefWidth="50.0" style="-fx-background-color: #2d3e50;" text="⌛" textFill="WHITE">
+            <Button fx:id="btnHistory" alignment="TOP_LEFT" layoutX="39.0" layoutY="287.0" mnemonicParsing="false" onAction="#bthHistoryAction" prefHeight="48.0" prefWidth="82.0" style="-fx-background-color: #2d3e50;" text="⌛" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnItem" layoutX="10.0" layoutY="360.0" mnemonicParsing="false" onAction="#btnItemAction" prefHeight="48.0" prefWidth="50.0" style="-fx-background-color: #2d3e50;" text="📦" textFill="WHITE">
+            <Button fx:id="btnItem" alignment="TOP_LEFT" layoutX="35.0" layoutY="335.0" mnemonicParsing="false" onAction="#btnItemAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="📦" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnSetting" layoutX="10.0" layoutY="466.0" mnemonicParsing="false" onAction="#btnSettingAction" prefHeight="48.0" prefWidth="50.0" style="-fx-background-color: #2d3e50;" text="⚙" textFill="WHITE">
+            <Button fx:id="btnSetting" alignment="TOP_LEFT" layoutX="35.0" layoutY="431.0" mnemonicParsing="false" onAction="#btnSettingAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="⚙" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnReport" layoutX="10.0" layoutY="413.0" mnemonicParsing="false" onAction="#btnReportAction" prefHeight="48.0" prefWidth="50.0" style="-fx-background-color: #2d3e50;" text="📝" textFill="WHITE">
+            <Button fx:id="btnReport" alignment="TOP_LEFT" layoutX="35.0" layoutY="383.0" mnemonicParsing="false" onAction="#btnReportAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="📝" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnEmployee" layoutX="10.0" layoutY="256.0" mnemonicParsing="false" onAction="#btnEmployeeAction" prefHeight="48.0" prefWidth="50.0" style="-fx-background-color: #2d3e50;" text="👨‍💻" textFill="WHITE">
+            <Button fx:id="btnEmployee" alignment="TOP_LEFT" layoutX="35.0" layoutY="239.0" mnemonicParsing="false" onAction="#btnEmployeeAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="👨‍💻" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
