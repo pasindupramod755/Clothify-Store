@@ -1,5 +1,8 @@
 package contraller;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import model.dto.Customer;
 import model.dto.Employee;
 import model.dto.Item;
@@ -15,16 +19,18 @@ import service.DashBoardService;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class DashBoardFromController implements Initializable {
 
     DashBoardService dashBoardService = new DashBoardService();
-    ObservableList<Item> itemObservableList = dashBoardService.getAllItem();
+    ObservableList<Item> orderObservableList = dashBoardService.getAllItem();
     ObservableList<Customer> customerObservableList = dashBoardService.getAllCustomer();
     ObservableList<Supplier> supplierObservableList = dashBoardService.getAllSupplier();
     ObservableList<Employee> employeeObservableList = dashBoardService.getAllEmployee();
+    ObservableList<Item> itemObservableList = dashBoardService.getAllNewItem();
     String[] titleArray = {"Mr", "Mrs", "Miss", "Ms"};
 
     @FXML
@@ -184,6 +190,30 @@ public class DashBoardFromController implements Initializable {
     private TableColumn<?, ?> colItemSize;
 
     @FXML
+    private TableColumn<?, ?> colOrderCustomerAddress;
+
+    @FXML
+    private TableColumn<?, ?> colOrderCustomerCity;
+
+    @FXML
+    private TableColumn<?, ?> colOrderCustomerDOB;
+
+    @FXML
+    private TableColumn<?, ?> colOrderCustomerId;
+
+    @FXML
+    private TableColumn<?, ?> colOrderCustomerName;
+
+    @FXML
+    private TableColumn<?, ?> colOrderCustomerPostalCode;
+
+    @FXML
+    private TableColumn<?, ?> colOrderCustomerProvince;
+
+    @FXML
+    private TableColumn<?, ?> colOrderCustomerTitle;
+
+    @FXML
     private AnchorPane customerPane;
 
     @FXML
@@ -227,6 +257,9 @@ public class DashBoardFromController implements Initializable {
 
     @FXML
     private TableView<Supplier> tblSupplier;
+
+    @FXML
+    private TableView<Customer> tblOrderCustomer;
 
     @FXML
     private TextField txtCustomerAddress;
@@ -348,9 +381,24 @@ public class DashBoardFromController implements Initializable {
     @FXML
     private TextField txtItemSize;
 
-
     @FXML
     private Button btnEmployee;
+
+    @FXML
+    private Label lblDateName;
+
+    @FXML
+    private TextField txtDiscountField;
+
+    @FXML
+    private AnchorPane orderCustomerPane;
+
+    @FXML
+    private Label lblOrderCustomerId;
+
+    @FXML
+    private Label lblOrderCustomerName;
+
 
     @FXML
     void bthHistoryAction(ActionEvent event) {
@@ -359,7 +407,17 @@ public class DashBoardFromController implements Initializable {
 
     @FXML
     void btnCancelOrder(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                "Do you want to cancel the order?",
+                ButtonType.YES, ButtonType.NO);
 
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            orderObservableList = dashBoardService.cancelOrder();
+            orderPane.setVisible(false);
+            orderCustomerPane.setVisible(true);
+        }
     }
 
     @FXML
@@ -368,6 +426,16 @@ public class DashBoardFromController implements Initializable {
         employeePane.setVisible(false);
         supplierPane.setVisible(false);
         orderPane.setVisible(false);
+        itemPane.setVisible(false);
+        btnCustomer.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHistory.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnItem.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnOrder.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnReport.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSetting.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSupplier.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
     }
 
     @FXML
@@ -376,23 +444,67 @@ public class DashBoardFromController implements Initializable {
         employeePane.setVisible(true);
         supplierPane.setVisible(false);
         orderPane.setVisible(false);
+        itemPane.setVisible(false);
+        btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnEmployee.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHistory.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnItem.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnOrder.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnReport.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSetting.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSupplier.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
     }
 
     @FXML
     void btnHomeAction(ActionEvent event) {
-
+        btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHome.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHistory.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnItem.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnOrder.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnReport.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSetting.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSupplier.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
     }
 
     @FXML
     void btnItemAction(ActionEvent event) {
+        tblOrder.refresh();
+        customerPane.setVisible(false);
+        employeePane.setVisible(false);
+        supplierPane.setVisible(false);
+        orderPane.setVisible(false);
+        itemPane.setVisible(true);
+        btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHistory.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnItem.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnOrder.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnReport.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSetting.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSupplier.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
     }
 
     @FXML
     void btnOrderAction(ActionEvent event) {
+        tblOrder.refresh();
         customerPane.setVisible(false);
         employeePane.setVisible(false);
         supplierPane.setVisible(false);
         orderPane.setVisible(true);
+        itemPane.setVisible(false);
+        btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHistory.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnItem.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnOrder.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnReport.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSetting.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSupplier.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
     }
 
     @FXML
@@ -400,10 +512,6 @@ public class DashBoardFromController implements Initializable {
 
     }
 
-    @FXML
-    void btnPlaceOrder(ActionEvent event) {
-
-    }
 
     @FXML
     void btnReportAction(ActionEvent event) {
@@ -421,6 +529,16 @@ public class DashBoardFromController implements Initializable {
         employeePane.setVisible(false);
         supplierPane.setVisible(true);
         orderPane.setVisible(false);
+        itemPane.setVisible(false);
+        btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHistory.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnItem.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnOrder.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnReport.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSetting.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSupplier.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
     }
 
     @FXML
@@ -436,6 +554,25 @@ public class DashBoardFromController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // Set current date
+        lblDate.setText(LocalDate.now().toString());
+
+        DateTimeFormatter dayFormat = DateTimeFormatter.ofPattern("EEEE");
+        String dayName = LocalDate.now().format(dayFormat);
+        lblDateName.setText(dayName);
+
+        // Auto-updating time
+        Timeline clock = new Timeline(
+                new KeyFrame(Duration.ZERO, e -> {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                    lblTime.setText(LocalTime.now().format(formatter));
+                }),
+                new KeyFrame(Duration.seconds(1))
+        );
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
+
+
         //-------------------------------------Order---------------------------------------------->
         colOrderId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colOrderName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -447,6 +584,12 @@ public class DashBoardFromController implements Initializable {
             txtOrderName.setText(newValue.getName());
             txtOrderPrice.setText(String.valueOf(newValue.getPrice()));
             txtOrderQty.setText("1");
+        });
+
+        tblOrder.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            txtOrderName.setText(newValue.getName());
+            txtOrderPrice.setText(String.valueOf(newValue.getPrice()));
+            txtOrderQty.setText(String.valueOf(1));
         });
 
         tblOrder1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -561,6 +704,19 @@ public class DashBoardFromController implements Initializable {
             }
         });
 
+        //-------------------------------------------Order Customer-------------------------------------------->
+        colOrderCustomerId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colOrderCustomerTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colOrderCustomerName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colOrderCustomerDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        colOrderCustomerAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colOrderCustomerCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+        colOrderCustomerProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
+        colOrderCustomerPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        tblOrderCustomer.setItems(customerObservableList);
+
+
+
     }
 
     //------------------------------------Update Total Summary------------------------------------------>
@@ -571,8 +727,31 @@ public class DashBoardFromController implements Initializable {
             subTotal += item.getTotal();
         }
         lblOrderSubTotal.setText("Rs." + String.format("%.2f", subTotal));
+        double netTotal =subTotal - ((subTotal * Integer.parseInt(txtDiscountField.getText())) / 100);
+        lblOrderTotal.setText("Rs." + String.format("%.2f", netTotal));
 
     }
+
+    @FXML
+    void txtDiscountFieldAction(ActionEvent event) {
+        updateTotalSummary();
+    }
+
+
+    //-------------------------Select Customer-------------------------------------->
+    @FXML
+    void btnCustomerSelectOrderAction(ActionEvent event) {
+        Customer selectedItem = tblOrderCustomer.getSelectionModel().getSelectedItem();
+        if (selectedItem != null){
+            lblOrderCustomerId.setText(selectedItem.getId());
+            lblOrderCustomerName.setText(selectedItem.getName());
+            orderCustomerPane.setVisible(false);
+            orderPane.setVisible(true);
+        }else {
+            new Alert(Alert.AlertType.INFORMATION, "Select Customer fro Order").show();
+        }
+    }
+
 
     //------------------------------------------OrderPane----------------------------------------------->
     //------------------------------------------Add Order----------------------------------------------->
@@ -580,13 +759,13 @@ public class DashBoardFromController implements Initializable {
     void btnAddOrderAction(ActionEvent event) {
         Item selectedItem = tblOrder.getSelectionModel().getSelectedItem();
         int OrderQty = Integer.parseInt(txtOrderQty.getText());
-        ObservableList<Item> item = dashBoardService.addItem(selectedItem, OrderQty);
+        orderObservableList = dashBoardService.addItem(selectedItem, OrderQty);
         colOrderName1.setCellValueFactory(new PropertyValueFactory<>("name"));
         colOrderSize1.setCellValueFactory(new PropertyValueFactory<>("size"));
         colOrderQty1.setCellValueFactory(new PropertyValueFactory<>("qty"));
         colOrderPrice1.setCellValueFactory(new PropertyValueFactory<>("price"));
         colOrderTotalPrice1.setCellValueFactory(new PropertyValueFactory<>("total"));
-        tblOrder1.setItems(item);
+        tblOrder1.setItems(orderObservableList);
         updateTotalSummary();
         tblOrder1.refresh();
     }
@@ -606,6 +785,17 @@ public class DashBoardFromController implements Initializable {
         dashBoardService.updateOrder(tblOrder1.getSelectionModel().getSelectedItem(), qty);
         tblOrder1.refresh();
         updateTotalSummary();
+    }
+
+
+    //--------------------------------------------Place Order---------------------------------------->
+    @FXML
+    void btnPlaceOrder(ActionEvent event) {
+        ObservableList<Item> placeOrders = tblOrder1.getItems();
+        String cusId = lblOrderCustomerId.getText();
+        double discount = Double.parseDouble(txtDiscountField.getText());
+        String date = lblDate.getText();
+        dashBoardService.placeOrder(placeOrders, cusId, discount,date);
     }
 
     //-------------------------------------------Customer--------------------------------------------------->
@@ -810,21 +1000,53 @@ public class DashBoardFromController implements Initializable {
     //----------------------------Add Item------------------------------------------------------------------>
     @FXML
     void btnItemAddAction(ActionEvent event) {
+        dashBoardService.addNewItem(
+                new Item(
+                        txtItemId.getText(),
+                        txtItemName.getText(),
+                        txtItemCategory.getText(),
+                        txtItemSize.getText(),
+                        Double.parseDouble(txtItemPrice.getText()),
+                        Integer.parseInt(txtItemQty.getText()),
+                        txtItemIsAvailable.isSelected(),
+                        0.1
+                )
+
+        );
+        tblItem.refresh();
 
     }
 
     @FXML
     void btnItemDeleteAction(ActionEvent event) {
-
+        dashBoardService.deleteItem(tblItem.getSelectionModel().getSelectedItem());
+        tblItem.refresh();
     }
 
     @FXML
     void btnItemResetAction(ActionEvent event) {
+        txtItemId.clear();
+        txtItemName.clear();
+        txtItemCategory.clear();
+        txtItemSize.clear();
+        txtItemPrice.clear();
+        txtItemQty.clear();
+        txtItemIsAvailable.setSelected(false);
 
     }
 
     @FXML
     void btnItemUpdateAction(ActionEvent event) {
-
+        dashBoardService.updateItem(new Item(
+                tblItem.getSelectionModel().getSelectedItem().getId(),
+                txtItemName.getText(),
+                txtItemCategory.getText(),
+                txtItemSize.getText(),
+                Double.parseDouble(txtItemPrice.getText()),
+                Integer.parseInt(txtItemQty.getText()),
+                txtItemIsAvailable.isSelected(),
+                0.1
+        ));
+        tblItem.refresh();
     }
 }

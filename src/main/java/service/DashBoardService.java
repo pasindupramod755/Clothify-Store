@@ -1,5 +1,6 @@
 package service;
 
+import dbConnection.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -9,60 +10,69 @@ import model.dto.Item;
 import model.dto.Supplier;
 import repository.DashBoardRepository;
 
+import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashBoardService {
 
     DashBoardRepository dashBoardRepository = new DashBoardRepository();
-    ObservableList<Item> orderItem = FXCollections.observableArrayList();
+    ObservableList<Item> orderItems = FXCollections.observableArrayList();
     ObservableList<Customer> customers = FXCollections.observableArrayList();
     ObservableList<Supplier> suppliers = FXCollections.observableArrayList();
     ObservableList<Employee> employees = FXCollections.observableArrayList();
+    ObservableList<Item> items = FXCollections.observableArrayList();
+    ;
 
 
     //--------------------------------Order--------------------------------------------------------------->
 
     public ObservableList<Item> getAllItem() {
-        try {
-            return dashBoardRepository.getAllItem();
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
-            throw new RuntimeException(e);
-        }
+        return orderItems;
     }
 
     public ObservableList<Item> addItem(Item selectedItem, int orderQty) {
-        if (searchOrderItem(selectedItem, orderQty)) {
-            return orderItem;
+        if (selectedItem.getQty() >= orderQty) {
+            if (searchOrderItem(selectedItem, orderQty)) {
+                return orderItems;
+            }
+            selectedItem.setQty(orderQty);
+            selectedItem.setTotal((selectedItem.getPrice()) * orderQty);
+            orderItems.add(selectedItem);
+            return orderItems;
         }
-        selectedItem.setQty(orderQty);
-        selectedItem.setTotal((selectedItem.getPrice()) * orderQty);
-        orderItem.add(selectedItem);
-        return orderItem;
+        new Alert(Alert.AlertType.INFORMATION, "Not Available stock!").show();
+        return orderItems;
     }
 
-    public boolean searchOrderItem(Item item, int qty) {
-        for (Item item1 : orderItem) {
-            if ((item1.getId()).equals((item.getId()))) {
-                item.setQty((item.getQty()) + qty);
-                item.setTotal((item.getPrice()) * (item.getQty()));
+
+    public boolean searchOrderItem(Item selectedItem, int qty) {
+        for (Item orderItem : orderItems) {
+            if (orderItem.getId().equals(selectedItem.getId())) {
+                int newQty = orderItem.getQty() + qty;
+                orderItem.setQty(newQty);
+                orderItem.setTotal(orderItem.getPrice() * newQty);
                 return true;
             }
         }
         return false;
     }
 
+
     public void deleteOrder(Item selectedItem) {
-        for (Item item : orderItem) {
-            if ((item.getId()).equals((selectedItem.getId()))) {
-                orderItem.remove(item);
+        for (int i = 0; i < orderItems.size(); i++) {
+            if (orderItems.get(i).getId().equals(selectedItem.getId())) {
+                orderItems.remove(i);
+                break;
             }
         }
     }
 
     public void updateOrder(Item selectedItem, int qty) {
-        for (Item item : orderItem) {
+        for (Item item : orderItems) {
             if ((item.getId()).equals((selectedItem.getId()))) {
                 item.setQty(qty);
                 item.setTotal((item.getPrice()) * qty);
@@ -198,7 +208,7 @@ public class DashBoardService {
     public ObservableList<Employee> getAllEmployee() {
         try {
             ResultSet resultSet = dashBoardRepository.getAllEmployee();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 employees.add(new Employee(
                         resultSet.getString("id"),
                         resultSet.getString("name"),
@@ -250,4 +260,123 @@ public class DashBoardService {
             new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
         }
     }
+
+
+    //----------------------------------------------Item------------------------------------------------>
+    public void addNewItem(Item item) {
+        try {
+            dashBoardRepository.addNewItem(item);
+            new Alert(Alert.AlertType.INFORMATION, "Item Added successfully!").show();
+            items.add(item);
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+    }
+
+    public void deleteItem(Item selectedItem) {
+        try {
+            dashBoardRepository.deleteItem(selectedItem.getId());
+            items.remove(selectedItem);
+            new Alert(Alert.AlertType.INFORMATION, "Item Deleted successfully!").show();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+    }
+
+    public void updateItem(Item item) {
+        try {
+            dashBoardRepository.updateItem(item);
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i).getId().equals(item.getId())) {
+                    items.set(i, item);
+                    break;
+                }
+            }
+            new Alert(Alert.AlertType.INFORMATION, "Item updated successfully!").show();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+    }
+
+    public ObservableList<Item> getAllNewItem() {
+        try {
+            items = dashBoardRepository.getAllItem();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return items;
+    }
+
+    //--------------------------------------cancel Order------------------------------------------------->
+    public ObservableList<Item> cancelOrder() {
+        orderItems.clear();
+        return orderItems;
+    }
+
+    public void placeOrder(ObservableList<Item> placeOrders, String id, double discount, String date) {
+        Connection connection = null;
+
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            connection.setAutoCommit(false);
+            String orderId = getOrderId();
+
+            if (!dashBoardRepository.addOrder(orderId, id, Date.valueOf(date))) {
+                connection.rollback();
+                return;
+            }
+
+            if (!dashBoardRepository.addOrderDetails(placeOrders, discount, orderId)) {
+                connection.rollback();
+                return;
+            }
+
+            if (!dashBoardRepository.changeStock(placeOrders)) {
+                connection.rollback();
+                return;
+            }
+
+            connection.commit();
+            new Alert(Alert.AlertType.INFORMATION, "Order placed successfully!").show();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.INFORMATION, e.getMessage()).show();
+        } finally {
+            try {
+                if (connection != null) connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, "Failed to place order!").show();
+            }
+        }
+    }
+
+    //----------------------------------------Genarate OrderId----------------------------------->
+    public String getOrderId() {
+        List<String> allId = new ArrayList<>();
+        try {
+            ResultSet resultSet = dashBoardRepository.getAllOrder();
+            while (resultSet.next()) {
+                allId.add(resultSet.getString(1));
+            }
+            return nextId(allId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String nextId(List<String> allId) {
+        if (allId.isEmpty()) {
+            return "K001";
+        }
+        int i = (allId.size()) - 1;
+        String lastId = allId.get(i);
+        int lastNo = Integer.parseInt(lastId.substring(1)) + 1;
+        if (lastNo > 99) {
+            return "K" + lastNo;
+        } else if (lastNo > 9) {
+            return "K0" + lastNo;
+        } else
+            return "K00" + lastNo;
+    }
+    //----------------------------------------------------------------------------------------------------->
+
 }
