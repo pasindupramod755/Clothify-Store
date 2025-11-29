@@ -512,10 +512,6 @@ public class DashBoardFromController implements Initializable {
 
     }
 
-    @FXML
-    void btnPlaceOrder(ActionEvent event) {
-
-    }
 
     @FXML
     void btnReportAction(ActionEvent event) {
@@ -575,9 +571,6 @@ public class DashBoardFromController implements Initializable {
         );
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
-
-
-
 
 
         //-------------------------------------Order---------------------------------------------->
@@ -792,7 +785,17 @@ public class DashBoardFromController implements Initializable {
         dashBoardService.updateOrder(tblOrder1.getSelectionModel().getSelectedItem(), qty);
         tblOrder1.refresh();
         updateTotalSummary();
+    }
 
+
+    //--------------------------------------------Place Order---------------------------------------->
+    @FXML
+    void btnPlaceOrder(ActionEvent event) {
+        ObservableList<Item> placeOrders = tblOrder1.getItems();
+        String cusId = lblOrderCustomerId.getText();
+        double discount = Double.parseDouble(txtDiscountField.getText());
+        String date = lblDate.getText();
+        dashBoardService.placeOrder(placeOrders, cusId, discount,date);
     }
 
     //-------------------------------------------Customer--------------------------------------------------->

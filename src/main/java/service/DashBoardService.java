@@ -1,5 +1,6 @@
 package service;
 
+import dbConnection.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -9,8 +10,12 @@ import model.dto.Item;
 import model.dto.Supplier;
 import repository.DashBoardRepository;
 
+import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashBoardService {
 
@@ -19,9 +24,8 @@ public class DashBoardService {
     ObservableList<Customer> customers = FXCollections.observableArrayList();
     ObservableList<Supplier> suppliers = FXCollections.observableArrayList();
     ObservableList<Employee> employees = FXCollections.observableArrayList();
-    ObservableList<Item> items = FXCollections.observableArrayList();;
-
-
+    ObservableList<Item> items = FXCollections.observableArrayList();
+    ;
 
 
     //--------------------------------Order--------------------------------------------------------------->
@@ -31,7 +35,7 @@ public class DashBoardService {
     }
 
     public ObservableList<Item> addItem(Item selectedItem, int orderQty) {
-        if (selectedItem.getQty() >= orderQty){
+        if (selectedItem.getQty() >= orderQty) {
             if (searchOrderItem(selectedItem, orderQty)) {
                 return orderItems;
             }
@@ -308,4 +312,71 @@ public class DashBoardService {
         orderItems.clear();
         return orderItems;
     }
+
+    public void placeOrder(ObservableList<Item> placeOrders, String id, double discount, String date) {
+        Connection connection = null;
+
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            connection.setAutoCommit(false);
+            String orderId = getOrderId();
+
+            if (!dashBoardRepository.addOrder(orderId, id, Date.valueOf(date))) {
+                connection.rollback();
+                return;
+            }
+
+            if (!dashBoardRepository.addOrderDetails(placeOrders, discount, orderId)) {
+                connection.rollback();
+                return;
+            }
+
+            if (!dashBoardRepository.changeStock(placeOrders)) {
+                connection.rollback();
+                return;
+            }
+
+            connection.commit();
+            new Alert(Alert.AlertType.INFORMATION, "Order placed successfully!").show();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.INFORMATION, e.getMessage()).show();
+        } finally {
+            try {
+                if (connection != null) connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, "Failed to place order!").show();
+            }
+        }
+    }
+
+    //----------------------------------------Genarate OrderId----------------------------------->
+    public String getOrderId() {
+        List<String> allId = new ArrayList<>();
+        try {
+            ResultSet resultSet = dashBoardRepository.getAllOrder();
+            while (resultSet.next()) {
+                allId.add(resultSet.getString(1));
+            }
+            return nextId(allId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String nextId(List<String> allId) {
+        if (allId.isEmpty()) {
+            return "K001";
+        }
+        int i = (allId.size()) - 1;
+        String lastId = allId.get(i);
+        int lastNo = Integer.parseInt(lastId.substring(1)) + 1;
+        if (lastNo > 99) {
+            return "K" + lastNo;
+        } else if (lastNo > 9) {
+            return "K0" + lastNo;
+        } else
+            return "K00" + lastNo;
+    }
+    //----------------------------------------------------------------------------------------------------->
+
 }

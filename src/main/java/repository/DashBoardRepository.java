@@ -206,4 +206,52 @@ public class DashBoardRepository {
         preparedStatement.executeUpdate();
 
     }
+
+    public boolean addOrder(String orderId, String id, java.sql.Date date) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("INSERT INTO orders (OrderID, CustID, OrderDate) VALUES (?, ?, ?)");
+        preparedStatement.setString(1,orderId);
+        preparedStatement.setString(2,id);
+        preparedStatement.setDate(3,date);
+        return preparedStatement.executeUpdate()>0;
+    }
+
+    public boolean addOrderDetails(ObservableList<Item> placeOrders, double discount, String orderId) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("INSERT INTO orderdetails (OrderID, ItemID, Qty, Discount) VALUES (?, ?, ?, ?)");
+        for (Item item : placeOrders){
+            preparedStatement.setString(1,orderId);
+            preparedStatement.setString(2, item.getId());
+            preparedStatement.setInt(3, item.getQty());
+            preparedStatement.setDouble(4,discount);
+            preparedStatement.addBatch();
+        }
+        int[] results = preparedStatement.executeBatch();
+        for (int res : results) {
+            if (res <= 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean changeStock(ObservableList<Item> placeOrders) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("UPDATE item SET qty = qty - ? WHERE id = ?");
+        for (Item item : placeOrders){
+            preparedStatement.setInt(1,item.getQty());
+            preparedStatement.setString(2,item.getId());
+            preparedStatement.addBatch();
+        }
+        int[] results = preparedStatement.executeBatch();
+        for (int res : results) {
+            if (res <= 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public ResultSet getAllOrder() throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM orders");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return resultSet;
+    }
 }
