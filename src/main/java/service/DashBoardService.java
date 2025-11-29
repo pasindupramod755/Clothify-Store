@@ -302,4 +302,10 @@ public class DashBoardService {
         }
         return items;
     }
+
+    //--------------------------------------cancel Order------------------------------------------------->
+    public ObservableList<Item> cancelOrder() {
+        orderItems.clear();
+        return orderItems;
+    }
 }

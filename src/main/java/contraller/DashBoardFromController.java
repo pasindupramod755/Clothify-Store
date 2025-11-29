@@ -190,6 +190,30 @@ public class DashBoardFromController implements Initializable {
     private TableColumn<?, ?> colItemSize;
 
     @FXML
+    private TableColumn<?, ?> colOrderCustomerAddress;
+
+    @FXML
+    private TableColumn<?, ?> colOrderCustomerCity;
+
+    @FXML
+    private TableColumn<?, ?> colOrderCustomerDOB;
+
+    @FXML
+    private TableColumn<?, ?> colOrderCustomerId;
+
+    @FXML
+    private TableColumn<?, ?> colOrderCustomerName;
+
+    @FXML
+    private TableColumn<?, ?> colOrderCustomerPostalCode;
+
+    @FXML
+    private TableColumn<?, ?> colOrderCustomerProvince;
+
+    @FXML
+    private TableColumn<?, ?> colOrderCustomerTitle;
+
+    @FXML
     private AnchorPane customerPane;
 
     @FXML
@@ -233,6 +257,9 @@ public class DashBoardFromController implements Initializable {
 
     @FXML
     private TableView<Supplier> tblSupplier;
+
+    @FXML
+    private TableView<Customer> tblOrderCustomer;
 
     @FXML
     private TextField txtCustomerAddress;
@@ -363,6 +390,15 @@ public class DashBoardFromController implements Initializable {
     @FXML
     private TextField txtDiscountField;
 
+    @FXML
+    private AnchorPane orderCustomerPane;
+
+    @FXML
+    private Label lblOrderCustomerId;
+
+    @FXML
+    private Label lblOrderCustomerName;
+
 
     @FXML
     void bthHistoryAction(ActionEvent event) {
@@ -371,7 +407,17 @@ public class DashBoardFromController implements Initializable {
 
     @FXML
     void btnCancelOrder(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                "Do you want to cancel the order?",
+                ButtonType.YES, ButtonType.NO);
 
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            orderObservableList = dashBoardService.cancelOrder();
+            orderPane.setVisible(false);
+            orderCustomerPane.setVisible(true);
+        }
     }
 
     @FXML
@@ -665,6 +711,19 @@ public class DashBoardFromController implements Initializable {
             }
         });
 
+        //-------------------------------------------Order Customer-------------------------------------------->
+        colOrderCustomerId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colOrderCustomerTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colOrderCustomerName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colOrderCustomerDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        colOrderCustomerAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colOrderCustomerCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+        colOrderCustomerProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
+        colOrderCustomerPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        tblOrderCustomer.setItems(customerObservableList);
+
+
+
     }
 
     //------------------------------------Update Total Summary------------------------------------------>
@@ -683,6 +742,21 @@ public class DashBoardFromController implements Initializable {
     @FXML
     void txtDiscountFieldAction(ActionEvent event) {
         updateTotalSummary();
+    }
+
+
+    //-------------------------Select Customer-------------------------------------->
+    @FXML
+    void btnCustomerSelectOrderAction(ActionEvent event) {
+        Customer selectedItem = tblOrderCustomer.getSelectionModel().getSelectedItem();
+        if (selectedItem != null){
+            lblOrderCustomerId.setText(selectedItem.getId());
+            lblOrderCustomerName.setText(selectedItem.getName());
+            orderCustomerPane.setVisible(false);
+            orderPane.setVisible(true);
+        }else {
+            new Alert(Alert.AlertType.INFORMATION, "Select Customer fro Order").show();
+        }
     }
 
 
