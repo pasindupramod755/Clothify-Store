@@ -409,7 +409,6 @@ public class DashBoardFromController implements Initializable {
     private TextField txtUserName;
 
 
-
     @FXML
     void btnCancelOrder(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
@@ -514,6 +513,7 @@ public class DashBoardFromController implements Initializable {
     @FXML
     void btnOrderAction(ActionEvent event) {
         tblOrder.refresh();
+        tblOrderCustomer.refresh();
         customerPane.setVisible(false);
         employeePane.setVisible(false);
         supplierPane.setVisible(false);
@@ -781,7 +781,6 @@ public class DashBoardFromController implements Initializable {
         tblOrderCustomer.setItems(customerObservableList);
 
 
-
     }
 
     //------------------------------------Update Total Summary------------------------------------------>
@@ -792,7 +791,7 @@ public class DashBoardFromController implements Initializable {
             subTotal += item.getTotal();
         }
         lblOrderSubTotal.setText("Rs." + String.format("%.2f", subTotal));
-        double netTotal =subTotal - ((subTotal * Integer.parseInt(txtDiscountField.getText())) / 100);
+        double netTotal = subTotal - ((subTotal * Integer.parseInt(txtDiscountField.getText())) / 100);
         lblOrderTotal.setText("Rs." + String.format("%.2f", netTotal));
 
     }
@@ -807,7 +806,7 @@ public class DashBoardFromController implements Initializable {
     @FXML
     void btnCustomerSelectOrderAction(ActionEvent event) {
         Customer selectedItem = tblOrderCustomer.getSelectionModel().getSelectedItem();
-        if (selectedItem != null){
+        if (selectedItem != null) {
             lblOrderCustomerId.setText(selectedItem.getId());
             lblOrderCustomerName.setText(selectedItem.getName());
             orderCustomerPane.setVisible(false);
@@ -822,7 +821,7 @@ public class DashBoardFromController implements Initializable {
             btnSetting.setDisable(true);
             btnSupplier.setDisable(true);
 
-        }else {
+        } else {
             new Alert(Alert.AlertType.INFORMATION, "Select Customer for Order").show();
         }
     }
@@ -870,7 +869,7 @@ public class DashBoardFromController implements Initializable {
         String cusId = lblOrderCustomerId.getText();
         double discount = Double.parseDouble(txtDiscountField.getText());
         String date = lblDate.getText();
-        dashBoardService.placeOrder(placeOrders, cusId, discount,date);
+        dashBoardService.placeOrder(placeOrders, cusId, discount, date);
     }
 
     //-------------------------------------------Customer--------------------------------------------------->
@@ -1130,6 +1129,35 @@ public class DashBoardFromController implements Initializable {
     void btnLoginAction(ActionEvent event) {
         String userName = txtUserName.getText();
         String password = txtPassword.getText();
-        Boolean b = dashBoardService.login(userName , password);
+        if (dashBoardService.login(userName, password)) {
+            btnCustomer.setDisable(false);
+            btnHome.setDisable(false);
+            btnEmployee.setDisable(false);
+            btnHistory.setDisable(false);
+            btnItem.setDisable(false);
+            btnOrder.setDisable(false);
+            btnReport.setDisable(false);
+            btnSetting.setDisable(false);
+            btnSupplier.setDisable(false);
+            btnHome.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+            loginPane.setVisible(false);
+
+        }
     }
+
+    @FXML
+    void btnpasswordAction(ActionEvent actionEvent) {
+        if (txtPassword.getText().isEmpty()) {
+            txtUserName.requestFocus();
+        } else {
+            btnLoginAction(actionEvent);
+        }
+    }
+
+    @FXML
+    void btnuserName(ActionEvent event) {
+        txtPassword.requestFocus();
+    }
+
+    //------------------------------------------------------------------------------------------------------------->
 }

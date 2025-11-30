@@ -255,7 +255,12 @@ public class DashBoardRepository {
         return resultSet;
     }
 
-    public Boolean login(String userName, String password) {
-        return null;
+    public Boolean login(String userName, String password) throws SQLException {
+        PreparedStatement pst = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM Login WHERE username = ? AND password = ?");
+        pst.setString(1, userName);
+        pst.setString(2, password);
+        ResultSet rs = pst.executeQuery();
+        return rs.next();
     }
+
 }

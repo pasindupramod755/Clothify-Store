@@ -21,47 +21,47 @@
    <children>
       <AnchorPane layoutX="14.0" layoutY="76.0" prefHeight="613.0" prefWidth="71.0">
          <children>
-            <Button fx:id="btnHome" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="35.0" layoutY="47.0" mnemonicParsing="false" onAction="#btnHomeAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="🏠" textFill="WHITE">
+            <Button fx:id="btnHome" alignment="TOP_LEFT" contentDisplay="CENTER" disable="true" layoutX="35.0" layoutY="47.0" mnemonicParsing="false" onAction="#btnHomeAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="🏠" textFill="WHITE">
                <font>
                   <Font size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnCustomer" alignment="TOP_LEFT" layoutX="35.0" layoutY="95.0" mnemonicParsing="false" onAction="#btnCustomerAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="👤" textFill="WHITE">
+            <Button fx:id="btnCustomer" alignment="TOP_LEFT" disable="true" layoutX="35.0" layoutY="95.0" mnemonicParsing="false" onAction="#btnCustomerAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="👤" textFill="WHITE">
                <font>
                   <Font size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnOrder" alignment="TOP_LEFT" layoutX="35.0" layoutY="143.0" mnemonicParsing="false" onAction="#btnOrderAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="🛒" textFill="WHITE">
+            <Button fx:id="btnOrder" alignment="TOP_LEFT" disable="true" layoutX="35.0" layoutY="143.0" mnemonicParsing="false" onAction="#btnOrderAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="🛒" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnSupplier" alignment="TOP_LEFT" layoutX="35.0" layoutY="191.0" mnemonicParsing="false" onAction="#btnSupplierAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="🚚" textFill="WHITE">
+            <Button fx:id="btnSupplier" alignment="TOP_LEFT" disable="true" layoutX="35.0" layoutY="191.0" mnemonicParsing="false" onAction="#btnSupplierAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="🚚" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnHistory" alignment="TOP_LEFT" layoutX="37.0" layoutY="287.0" mnemonicParsing="false" onAction="#bthHistoryAction" prefHeight="48.0" prefWidth="82.0" style="-fx-background-color: #2d3e50;" text="⌛" textFill="WHITE">
+            <Button fx:id="btnHistory" alignment="TOP_LEFT" disable="true" layoutX="37.0" layoutY="287.0" mnemonicParsing="false" onAction="#bthHistoryAction" prefHeight="48.0" prefWidth="82.0" style="-fx-background-color: #2d3e50;" text="⌛" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnItem" alignment="TOP_LEFT" layoutX="35.0" layoutY="335.0" mnemonicParsing="false" onAction="#btnItemAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="📦" textFill="WHITE">
+            <Button fx:id="btnItem" alignment="TOP_LEFT" disable="true" layoutX="35.0" layoutY="335.0" mnemonicParsing="false" onAction="#btnItemAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="📦" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnSetting" alignment="TOP_LEFT" layoutX="35.0" layoutY="431.0" mnemonicParsing="false" onAction="#btnSettingAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="⚙" textFill="WHITE">
+            <Button fx:id="btnSetting" alignment="TOP_LEFT" disable="true" layoutX="35.0" layoutY="431.0" mnemonicParsing="false" onAction="#btnSettingAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="⚙" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnReport" alignment="TOP_LEFT" layoutX="35.0" layoutY="383.0" mnemonicParsing="false" onAction="#btnReportAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="📝" textFill="WHITE">
+            <Button fx:id="btnReport" alignment="TOP_LEFT" disable="true" layoutX="35.0" layoutY="383.0" mnemonicParsing="false" onAction="#btnReportAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="📝" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnEmployee" alignment="TOP_LEFT" layoutX="34.0" layoutY="239.0" mnemonicParsing="false" onAction="#btnEmployeeAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="👨‍💻" textFill="WHITE">
+            <Button fx:id="btnEmployee" alignment="TOP_LEFT" disable="true" layoutX="34.0" layoutY="239.0" mnemonicParsing="false" onAction="#btnEmployeeAction" prefHeight="48.0" prefWidth="90.0" style="-fx-background-color: #2d3e50;" text="👨‍💻" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -418,6 +418,11 @@
                   <DropShadow color="#00000060" radius="10.0" />
                </effect>
             </Button>
+            <Label alignment="CENTER" layoutX="656.0" layoutY="185.0" prefHeight="43.0" prefWidth="342.0" text="Cloth Royale" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT" size="34.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

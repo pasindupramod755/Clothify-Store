@@ -378,9 +378,17 @@ public class DashBoardService {
             return "K00" + lastNo;
     }
 
-    public Boolean login(String userName, String password) {
-        return dashBoardRepository.login(userName,password);
-    }
     //----------------------------------------------------------------------------------------------------->
+
+    //--------------------------------------Login-------------------------------------------------->
+
+    public Boolean login(String userName, String password) {
+        try {
+            return dashBoardRepository.login(userName,password);
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+        return false;
+    }
 
 }
