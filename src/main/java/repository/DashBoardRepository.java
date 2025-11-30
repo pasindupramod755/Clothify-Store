@@ -254,4 +254,8 @@ public class DashBoardRepository {
         ResultSet resultSet = preparedStatement.executeQuery();
         return resultSet;
     }
+
+    public Boolean login(String userName, String password) {
+        return null;
+    }
 }

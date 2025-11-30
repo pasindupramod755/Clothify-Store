@@ -377,6 +377,10 @@ public class DashBoardService {
         } else
             return "K00" + lastNo;
     }
+
+    public Boolean login(String userName, String password) {
+        return dashBoardRepository.login(userName,password);
+    }
     //----------------------------------------------------------------------------------------------------->
 
 }
