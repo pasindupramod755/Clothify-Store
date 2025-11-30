@@ -399,11 +399,15 @@ public class DashBoardFromController implements Initializable {
     @FXML
     private Label lblOrderCustomerName;
 
+    @FXML
+    private AnchorPane loginPane;
 
     @FXML
-    void bthHistoryAction(ActionEvent event) {
+    private PasswordField txtPassword;
 
-    }
+    @FXML
+    private TextField txtUserName;
+
 
     @FXML
     void btnCancelOrder(ActionEvent event) {
@@ -417,6 +421,15 @@ public class DashBoardFromController implements Initializable {
             orderObservableList = dashBoardService.cancelOrder();
             orderPane.setVisible(false);
             orderCustomerPane.setVisible(true);
+            btnCustomer.setDisable(false);
+            btnHome.setDisable(false);
+            btnEmployee.setDisable(false);
+            btnHistory.setDisable(false);
+            btnItem.setDisable(false);
+            btnOrder.setDisable(false);
+            btnReport.setDisable(false);
+            btnSetting.setDisable(false);
+            btnSupplier.setDisable(false);
         }
     }
 
@@ -427,6 +440,7 @@ public class DashBoardFromController implements Initializable {
         supplierPane.setVisible(false);
         orderPane.setVisible(false);
         itemPane.setVisible(false);
+        orderCustomerPane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
@@ -445,6 +459,7 @@ public class DashBoardFromController implements Initializable {
         supplierPane.setVisible(false);
         orderPane.setVisible(false);
         itemPane.setVisible(false);
+        orderCustomerPane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnEmployee.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
@@ -458,6 +473,12 @@ public class DashBoardFromController implements Initializable {
 
     @FXML
     void btnHomeAction(ActionEvent event) {
+        customerPane.setVisible(false);
+        employeePane.setVisible(false);
+        supplierPane.setVisible(false);
+        orderPane.setVisible(false);
+        itemPane.setVisible(false);
+        orderCustomerPane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnHome.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
@@ -477,6 +498,7 @@ public class DashBoardFromController implements Initializable {
         supplierPane.setVisible(false);
         orderPane.setVisible(false);
         itemPane.setVisible(true);
+        orderCustomerPane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
@@ -491,11 +513,13 @@ public class DashBoardFromController implements Initializable {
     @FXML
     void btnOrderAction(ActionEvent event) {
         tblOrder.refresh();
+        tblOrderCustomer.refresh();
         customerPane.setVisible(false);
         employeePane.setVisible(false);
         supplierPane.setVisible(false);
-        orderPane.setVisible(true);
+        orderPane.setVisible(false);
         itemPane.setVisible(false);
+        orderCustomerPane.setVisible(true);
         btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
@@ -508,19 +532,41 @@ public class DashBoardFromController implements Initializable {
     }
 
     @FXML
-    void btnOrderSearchAction(ActionEvent event) {
-
-    }
-
-
-    @FXML
     void btnReportAction(ActionEvent event) {
-
+        customerPane.setVisible(false);
+        employeePane.setVisible(false);
+        supplierPane.setVisible(false);
+        orderPane.setVisible(false);
+        itemPane.setVisible(false);
+        orderCustomerPane.setVisible(false);
+        btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHistory.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnItem.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnOrder.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnReport.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSetting.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSupplier.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
     }
 
     @FXML
     void btnSettingAction(ActionEvent event) {
-
+        customerPane.setVisible(false);
+        employeePane.setVisible(false);
+        supplierPane.setVisible(false);
+        orderPane.setVisible(false);
+        itemPane.setVisible(false);
+        orderCustomerPane.setVisible(false);
+        btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHistory.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnItem.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnOrder.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnReport.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSetting.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSupplier.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
     }
 
     @FXML
@@ -530,6 +576,7 @@ public class DashBoardFromController implements Initializable {
         supplierPane.setVisible(true);
         orderPane.setVisible(false);
         itemPane.setVisible(false);
+        orderCustomerPane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
@@ -539,6 +586,30 @@ public class DashBoardFromController implements Initializable {
         btnReport.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnSetting.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnSupplier.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+    }
+
+    @FXML
+    void bthHistoryAction(ActionEvent event) {
+        customerPane.setVisible(false);
+        employeePane.setVisible(false);
+        supplierPane.setVisible(false);
+        orderPane.setVisible(false);
+        itemPane.setVisible(false);
+        orderCustomerPane.setVisible(false);
+        btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHistory.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnItem.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnOrder.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnReport.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSetting.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSupplier.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+    }
+
+    @FXML
+    void btnOrderSearchAction(ActionEvent event) {
+
     }
 
     @FXML
@@ -584,12 +655,6 @@ public class DashBoardFromController implements Initializable {
             txtOrderName.setText(newValue.getName());
             txtOrderPrice.setText(String.valueOf(newValue.getPrice()));
             txtOrderQty.setText("1");
-        });
-
-        tblOrder.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            txtOrderName.setText(newValue.getName());
-            txtOrderPrice.setText(String.valueOf(newValue.getPrice()));
-            txtOrderQty.setText(String.valueOf(1));
         });
 
         tblOrder1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -716,7 +781,6 @@ public class DashBoardFromController implements Initializable {
         tblOrderCustomer.setItems(customerObservableList);
 
 
-
     }
 
     //------------------------------------Update Total Summary------------------------------------------>
@@ -727,7 +791,7 @@ public class DashBoardFromController implements Initializable {
             subTotal += item.getTotal();
         }
         lblOrderSubTotal.setText("Rs." + String.format("%.2f", subTotal));
-        double netTotal =subTotal - ((subTotal * Integer.parseInt(txtDiscountField.getText())) / 100);
+        double netTotal = subTotal - ((subTotal * Integer.parseInt(txtDiscountField.getText())) / 100);
         lblOrderTotal.setText("Rs." + String.format("%.2f", netTotal));
 
     }
@@ -742,13 +806,23 @@ public class DashBoardFromController implements Initializable {
     @FXML
     void btnCustomerSelectOrderAction(ActionEvent event) {
         Customer selectedItem = tblOrderCustomer.getSelectionModel().getSelectedItem();
-        if (selectedItem != null){
+        if (selectedItem != null) {
             lblOrderCustomerId.setText(selectedItem.getId());
             lblOrderCustomerName.setText(selectedItem.getName());
             orderCustomerPane.setVisible(false);
             orderPane.setVisible(true);
-        }else {
-            new Alert(Alert.AlertType.INFORMATION, "Select Customer fro Order").show();
+            btnCustomer.setDisable(true);
+            btnHome.setDisable(true);
+            btnEmployee.setDisable(true);
+            btnHistory.setDisable(true);
+            btnItem.setDisable(true);
+            btnOrder.setDisable(true);
+            btnReport.setDisable(true);
+            btnSetting.setDisable(true);
+            btnSupplier.setDisable(true);
+
+        } else {
+            new Alert(Alert.AlertType.INFORMATION, "Select Customer for Order").show();
         }
     }
 
@@ -795,7 +869,7 @@ public class DashBoardFromController implements Initializable {
         String cusId = lblOrderCustomerId.getText();
         double discount = Double.parseDouble(txtDiscountField.getText());
         String date = lblDate.getText();
-        dashBoardService.placeOrder(placeOrders, cusId, discount,date);
+        dashBoardService.placeOrder(placeOrders, cusId, discount, date);
     }
 
     //-------------------------------------------Customer--------------------------------------------------->
@@ -1049,4 +1123,41 @@ public class DashBoardFromController implements Initializable {
         ));
         tblItem.refresh();
     }
+
+    //---------------------------------------------Login Action--------------------------------------------------->
+    @FXML
+    void btnLoginAction(ActionEvent event) {
+        String userName = txtUserName.getText();
+        String password = txtPassword.getText();
+        if (dashBoardService.login(userName, password)) {
+            btnCustomer.setDisable(false);
+            btnHome.setDisable(false);
+            btnEmployee.setDisable(false);
+            btnHistory.setDisable(false);
+            btnItem.setDisable(false);
+            btnOrder.setDisable(false);
+            btnReport.setDisable(false);
+            btnSetting.setDisable(false);
+            btnSupplier.setDisable(false);
+            btnHome.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+            loginPane.setVisible(false);
+
+        }
+    }
+
+    @FXML
+    void btnpasswordAction(ActionEvent actionEvent) {
+        if (txtPassword.getText().isEmpty()) {
+            txtUserName.requestFocus();
+        } else {
+            btnLoginAction(actionEvent);
+        }
+    }
+
+    @FXML
+    void btnuserName(ActionEvent event) {
+        txtPassword.requestFocus();
+    }
+
+    //------------------------------------------------------------------------------------------------------------->
 }
