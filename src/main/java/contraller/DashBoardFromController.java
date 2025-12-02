@@ -408,6 +408,18 @@ public class DashBoardFromController implements Initializable {
     @FXML
     private TextField txtUserName;
 
+    @FXML
+    private AnchorPane reportPane;
+
+    @FXML
+    private AnchorPane settingPane;
+
+    @FXML
+    private AnchorPane historyPane;
+
+    @FXML
+    private AnchorPane homePane;
+
 
     @FXML
     void btnCancelOrder(ActionEvent event) {
@@ -441,6 +453,10 @@ public class DashBoardFromController implements Initializable {
         orderPane.setVisible(false);
         itemPane.setVisible(false);
         orderCustomerPane.setVisible(false);
+        historyPane.setVisible(false);
+        reportPane.setVisible(false);
+        settingPane.setVisible(false);
+        homePane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
@@ -460,6 +476,10 @@ public class DashBoardFromController implements Initializable {
         orderPane.setVisible(false);
         itemPane.setVisible(false);
         orderCustomerPane.setVisible(false);
+        historyPane.setVisible(false);
+        reportPane.setVisible(false);
+        settingPane.setVisible(false);
+        homePane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnEmployee.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
@@ -479,6 +499,10 @@ public class DashBoardFromController implements Initializable {
         orderPane.setVisible(false);
         itemPane.setVisible(false);
         orderCustomerPane.setVisible(false);
+        historyPane.setVisible(false);
+        reportPane.setVisible(false);
+        settingPane.setVisible(false);
+        homePane.setVisible(true);
         btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnHome.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
@@ -499,6 +523,10 @@ public class DashBoardFromController implements Initializable {
         orderPane.setVisible(false);
         itemPane.setVisible(true);
         orderCustomerPane.setVisible(false);
+        historyPane.setVisible(false);
+        reportPane.setVisible(false);
+        settingPane.setVisible(false);
+        homePane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
@@ -520,6 +548,10 @@ public class DashBoardFromController implements Initializable {
         orderPane.setVisible(false);
         itemPane.setVisible(false);
         orderCustomerPane.setVisible(true);
+        historyPane.setVisible(false);
+        reportPane.setVisible(false);
+        settingPane.setVisible(false);
+        homePane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
@@ -539,6 +571,10 @@ public class DashBoardFromController implements Initializable {
         orderPane.setVisible(false);
         itemPane.setVisible(false);
         orderCustomerPane.setVisible(false);
+        historyPane.setVisible(false);
+        reportPane.setVisible(true);
+        settingPane.setVisible(false);
+        homePane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
@@ -558,6 +594,10 @@ public class DashBoardFromController implements Initializable {
         orderPane.setVisible(false);
         itemPane.setVisible(false);
         orderCustomerPane.setVisible(false);
+        historyPane.setVisible(false);
+        reportPane.setVisible(false);
+        settingPane.setVisible(true);
+        homePane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
@@ -577,6 +617,10 @@ public class DashBoardFromController implements Initializable {
         orderPane.setVisible(false);
         itemPane.setVisible(false);
         orderCustomerPane.setVisible(false);
+        historyPane.setVisible(false);
+        reportPane.setVisible(false);
+        settingPane.setVisible(false);
+        homePane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
@@ -596,6 +640,10 @@ public class DashBoardFromController implements Initializable {
         orderPane.setVisible(false);
         itemPane.setVisible(false);
         orderCustomerPane.setVisible(false);
+        historyPane.setVisible(true);
+        reportPane.setVisible(false);
+        settingPane.setVisible(false);
+        homePane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
@@ -1141,6 +1189,7 @@ public class DashBoardFromController implements Initializable {
             btnSupplier.setDisable(false);
             btnHome.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
             loginPane.setVisible(false);
+            homePane.setVisible(true);
 
         }
     }

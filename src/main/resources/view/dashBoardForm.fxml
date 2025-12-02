@@ -41,7 +41,7 @@
                   <Font name="System Bold" size="21.0" />
                </font>
             </Button>
-            <Button fx:id="btnHistory" alignment="TOP_LEFT" disable="true" layoutX="37.0" layoutY="287.0" mnemonicParsing="false" onAction="#bthHistoryAction" prefHeight="48.0" prefWidth="82.0" style="-fx-background-color: #2d3e50;" text="⌛" textFill="WHITE">
+            <Button fx:id="btnHistory" alignment="TOP_LEFT" disable="true" layoutX="38.0" layoutY="287.0" mnemonicParsing="false" onAction="#bthHistoryAction" prefHeight="48.0" prefWidth="82.0" style="-fx-background-color: #2d3e50;" text="⌛" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
@@ -421,6 +421,42 @@
             <Label alignment="CENTER" layoutX="656.0" layoutY="185.0" prefHeight="43.0" prefWidth="342.0" text="Cloth Royale" textFill="WHITE">
                <font>
                   <Font name="Gill Sans MT" size="34.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="historyPane" layoutX="102.0" layoutY="31.0" prefHeight="708.0" prefWidth="1236.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44); -fx-background-radius: 20;" visible="false">
+         <children>
+            <Label alignment="CENTER" layoutX="441.0" layoutY="33.0" prefHeight="38.0" prefWidth="300.0" text="Order History" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="29.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="reportPane" layoutX="102.0" layoutY="31.0" prefHeight="708.0" prefWidth="1236.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44); -fx-background-radius: 20;" visible="false">
+         <children>
+            <Label alignment="CENTER" layoutX="441.0" layoutY="33.0" prefHeight="38.0" prefWidth="300.0" text="Report Order" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="29.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="settingPane" layoutX="102.0" layoutY="30.0" prefHeight="708.0" prefWidth="1236.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44); -fx-background-radius: 20;" visible="false">
+         <children>
+            <Label alignment="CENTER" layoutX="441.0" layoutY="33.0" prefHeight="38.0" prefWidth="300.0" text="Setting" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="29.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="homePane" layoutX="102.0" layoutY="30.0" prefHeight="708.0" prefWidth="1236.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44); -fx-background-radius: 20;" visible="false">
+         <children>
+            <Label alignment="CENTER" layoutX="441.0" layoutY="33.0" prefHeight="38.0" prefWidth="300.0" text="Home" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="29.0" />
                </font>
             </Label>
          </children>
