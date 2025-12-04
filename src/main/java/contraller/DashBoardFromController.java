@@ -3,6 +3,7 @@ package contraller;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,10 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-import model.dto.Customer;
-import model.dto.Employee;
-import model.dto.Item;
-import model.dto.Supplier;
+import model.dto.*;
 import service.DashBoardService;
 
 import java.net.URL;
@@ -31,6 +29,8 @@ public class DashBoardFromController implements Initializable {
     ObservableList<Supplier> supplierObservableList = dashBoardService.getAllSupplier();
     ObservableList<Employee> employeeObservableList = dashBoardService.getAllEmployee();
     ObservableList<Item> itemObservableList = dashBoardService.getAllNewItem();
+    ObservableList<Report> hitoryObservableList = FXCollections.observableArrayList();
+    ObservableList<Order> hitoryItemObservableList = FXCollections.observableArrayList();
     String[] titleArray = {"Mr", "Mrs", "Miss", "Ms"};
 
     @FXML
@@ -419,6 +419,40 @@ public class DashBoardFromController implements Initializable {
 
     @FXML
     private AnchorPane homePane;
+
+    @FXML
+    private TableColumn<?, ?> colHistoryCustomerId;
+
+    @FXML
+    private TableColumn<?, ?> colHistoryName;
+
+    @FXML
+    private TableColumn<?, ?> colHistoryOrderId;
+
+    @FXML
+    private TableView<Report> tblHistory;
+
+    @FXML
+    private DatePicker dateHistory;
+
+    @FXML
+    private TableColumn<?, ?> colHistoryItemDiscountPrice;
+
+    @FXML
+    private TableColumn<?, ?> colHistoryItemName;
+
+    @FXML
+    private TableColumn<?, ?> colHistoryItemPrice;
+
+    @FXML
+    private TableColumn<?, ?> colHistoryItemQty;
+
+    @FXML
+    private TableColumn<?, ?> colHistoryItemTotalPrice;
+
+    @FXML
+    private TableView<Order> tblHistoryItem;
+
 
 
     @FXML
@@ -1190,7 +1224,6 @@ public class DashBoardFromController implements Initializable {
             btnHome.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
             loginPane.setVisible(false);
             homePane.setVisible(true);
-
         }
     }
 
@@ -1209,4 +1242,29 @@ public class DashBoardFromController implements Initializable {
     }
 
     //------------------------------------------------------------------------------------------------------------->
+
+
+    //--------------------------------------------History---------------------------------------------------------->
+    @FXML
+    void btnSearchDataHistoryAction(ActionEvent event) {
+        LocalDate value = dateHistory.getValue();
+        hitoryObservableList = dashBoardService.getAllHistory(value);
+        for(Report report : hitoryObservableList){
+            System.out.println(report);
+        }
+        colHistoryOrderId.setCellValueFactory(new PropertyValueFactory<>("orderId"));
+        colHistoryCustomerId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        colHistoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tblHistory.setItems(hitoryObservableList);
+
+        tblHistory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            hitoryItemObservableList = dashBoardService.getAllOrderItem(tblHistory.getSelectionModel().getSelectedItem().getOrderId());
+            colHistoryItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            colHistoryItemQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+            colHistoryItemPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+            colHistoryItemDiscountPrice.setCellValueFactory(new PropertyValueFactory<>("discountPrice"));
+            colHistoryItemTotalPrice.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
+            tblHistoryItem.setItems(hitoryItemObservableList);
+        });
+    }
 }

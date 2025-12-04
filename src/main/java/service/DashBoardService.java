@@ -4,16 +4,14 @@ import dbConnection.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-import model.dto.Customer;
-import model.dto.Employee;
-import model.dto.Item;
-import model.dto.Supplier;
+import model.dto.*;
 import repository.DashBoardRepository;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +23,8 @@ public class DashBoardService {
     ObservableList<Supplier> suppliers = FXCollections.observableArrayList();
     ObservableList<Employee> employees = FXCollections.observableArrayList();
     ObservableList<Item> items = FXCollections.observableArrayList();
-    ;
+    ObservableList<Report> reports = FXCollections.observableArrayList();
+    ObservableList<Order> orders = FXCollections.observableArrayList();
 
 
     //--------------------------------Order--------------------------------------------------------------->
@@ -391,4 +390,56 @@ public class DashBoardService {
         return false;
     }
 
+
+    public ObservableList<Report> getAllHistory(LocalDate value) {
+        reports.clear();
+        try {
+            ResultSet ides = dashBoardRepository.getIdes(value);
+            if (ides.next()) {
+                String customerID = ides.getString("CustID");
+                ResultSet customerSet = dashBoardRepository.getCustomerDetails(customerID);
+                if (customerSet.next()) {
+                    reports.add(
+                            new Report(
+                                    ides.getString("OrderID"),
+                                    customerID,
+                                    customerSet.getString("CustName")
+                            )
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+        return reports;
+    }
+
+    public ObservableList<Order> getAllOrderItem(String orderId) {
+        try {
+            orders.clear();
+            ResultSet resultSet = dashBoardRepository.getAllOrderItem(orderId);
+            while (resultSet.next()){
+                String itemId = resultSet.getString("ItemID");
+                int qty = resultSet.getInt("Qty");
+                Double discount = resultSet.getDouble("Discount");
+                ResultSet itemSet = dashBoardRepository.getItem(itemId);
+                if (itemSet.next()){
+                    Double price = itemSet.getDouble("price");
+                    Double discountPrice = price*discount/100;
+                    orders.add(
+                            new Order(
+                                    itemSet.getString("name"),
+                                    qty,
+                                    price,
+                                    discountPrice,
+                                    (price-discountPrice)*qty
+                            )
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return orders;
+    }
 }
