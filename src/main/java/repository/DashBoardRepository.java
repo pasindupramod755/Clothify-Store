@@ -3,14 +3,12 @@ package repository;
 import dbConnection.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.dto.Customer;
-import model.dto.Employee;
-import model.dto.Item;
-import model.dto.Supplier;
+import model.dto.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class DashBoardRepository {
 
@@ -237,6 +235,7 @@ public class DashBoardRepository {
         PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("UPDATE item SET qty = qty - ? WHERE id = ?");
         for (Item item : placeOrders){
             preparedStatement.setInt(1,item.getQty());
+            System.out.println(item.getQty());
             preparedStatement.setString(2,item.getId());
             preparedStatement.addBatch();
         }
@@ -263,4 +262,27 @@ public class DashBoardRepository {
         return rs.next();
     }
 
+    public ResultSet getIdes(LocalDate value) throws SQLException {
+        PreparedStatement pst = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM orders WHERE OrderDate = ?");
+        pst.setString(1, String.valueOf(value));
+        return pst.executeQuery();
+    }
+
+    public ResultSet getCustomerDetails(String customerID) throws SQLException {
+        PreparedStatement pst = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM customer WHERE CustID = ?");
+        pst.setString(1, customerID);
+        return pst.executeQuery();
+    }
+
+    public ResultSet getAllOrderItem(String orderId) throws SQLException {
+        PreparedStatement pst = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM orderdetails WHERE OrderID = ?");
+        pst.setString(1, orderId);
+        return pst.executeQuery();
+    }
+
+    public ResultSet getItem(String itemId) throws SQLException {
+        PreparedStatement pst = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM item WHERE id = ?");
+        pst.setString(1, itemId);
+        return pst.executeQuery();
+    }
 }

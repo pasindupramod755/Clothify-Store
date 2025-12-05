@@ -254,8 +254,8 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Button layoutX="921.0" layoutY="482.0" mnemonicParsing="false" onAction="#btnPlaceOrder" prefHeight="26.0" prefWidth="259.0" text="Place Order" />
-            <Button layoutX="921.0" layoutY="520.0" mnemonicParsing="false" onAction="#btnCancelOrder" prefHeight="26.0" prefWidth="259.0" text="Canel Order" />
+            <Button layoutX="921.0" layoutY="559.0" mnemonicParsing="false" onAction="#btnPlaceOrder" prefHeight="26.0" prefWidth="259.0" text="Place Order" />
+            <Button layoutX="921.0" layoutY="597.0" mnemonicParsing="false" onAction="#btnCancelOrder" prefHeight="26.0" prefWidth="259.0" text="Canel Order" />
             <Label fx:id="lblOrderCustomerId" layoutX="357.0" layoutY="35.0" prefHeight="26.0" prefWidth="39.0" text="C001" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -276,6 +276,12 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
+            <Label layoutX="917.0" layoutY="468.0" prefHeight="38.0" prefWidth="112.0" text="Checkout" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtOrderCustomerFee" layoutX="1043.0" layoutY="475.0" prefHeight="25.0" prefWidth="142.0" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="employeePane" layoutX="100.0" layoutY="29.0" prefHeight="708.0" prefWidth="1236.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44); -fx-background-radius: 20;" visible="false">
@@ -432,6 +438,24 @@
                   <Font name="System Bold" size="29.0" />
                </font>
             </Label>
+            <Button layoutX="441.0" layoutY="113.0" mnemonicParsing="false" onAction="#btnSearchDataHistoryAction" prefHeight="26.0" prefWidth="71.0" text="Search" />
+            <DatePicker fx:id="dateHistory" layoutX="210.0" layoutY="113.0" prefHeight="26.0" prefWidth="231.0" />
+            <TableView fx:id="tblHistory" layoutX="126.0" layoutY="186.0" prefHeight="200.0" prefWidth="449.0">
+              <columns>
+                <TableColumn fx:id="colHistoryOrderId" prefWidth="114.40003967285156" text="Order Id" />
+                <TableColumn fx:id="colHistoryCustomerId" prefWidth="142.4000244140625" text="Customer Id" />
+                  <TableColumn fx:id="colHistoryName" prefWidth="187.199951171875" text="Name" />
+              </columns>
+            </TableView>
+            <TableView fx:id="tblHistoryItem" layoutX="598.0" layoutY="186.0" prefHeight="362.0" prefWidth="570.0">
+              <columns>
+                <TableColumn fx:id="colHistoryItemName" prefWidth="124.0" text="Item Name" />
+                <TableColumn fx:id="colHistoryItemQty" prefWidth="111.199951171875" text="Qty" />
+                  <TableColumn fx:id="colHistoryItemPrice" prefWidth="111.199951171875" text="Price" />
+                  <TableColumn fx:id="colHistoryItemDiscountPrice" prefWidth="111.199951171875" text="Discount Price" />
+                  <TableColumn fx:id="colHistoryItemTotalPrice" prefWidth="111.199951171875" text="Total Price" />
+              </columns>
+            </TableView>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="reportPane" layoutX="102.0" layoutY="31.0" prefHeight="708.0" prefWidth="1236.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44); -fx-background-radius: 20;" visible="false">
