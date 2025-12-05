@@ -235,6 +235,7 @@ public class DashBoardRepository {
         PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("UPDATE item SET qty = qty - ? WHERE id = ?");
         for (Item item : placeOrders){
             preparedStatement.setInt(1,item.getQty());
+            System.out.println(item.getQty());
             preparedStatement.setString(2,item.getId());
             preparedStatement.addBatch();
         }

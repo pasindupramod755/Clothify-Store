@@ -395,9 +395,10 @@ public class DashBoardService {
         reports.clear();
         try {
             ResultSet ides = dashBoardRepository.getIdes(value);
-            if (ides.next()) {
+            while (ides.next()) {
                 String customerID = ides.getString("CustID");
                 ResultSet customerSet = dashBoardRepository.getCustomerDetails(customerID);
+
                 if (customerSet.next()) {
                     reports.add(
                             new Report(
@@ -408,11 +409,14 @@ public class DashBoardService {
                     );
                 }
             }
+
         } catch (SQLException e) {
             new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
         }
+
         return reports;
     }
+
 
     public ObservableList<Order> getAllOrderItem(String orderId) {
         try {
@@ -442,4 +446,5 @@ public class DashBoardService {
         }
         return orders;
     }
+
 }

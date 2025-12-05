@@ -453,6 +453,9 @@ public class DashBoardFromController implements Initializable {
     @FXML
     private TableView<Order> tblHistoryItem;
 
+    @FXML
+    private TextField txtOrderCustomerFee;
+
 
 
     @FXML
@@ -500,6 +503,39 @@ public class DashBoardFromController implements Initializable {
         btnReport.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnSetting.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnSupplier.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+
+        //-------------------------------------------------customer--------------------------------------------->
+        txtCustomerTitle.getItems().addAll(titleArray);
+        colCustomerId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colCustomerTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colCustomerName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colCustomerDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        colCustomerAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colCustomerCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+        colCustomerProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
+        colCustomerPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        tblCustomer.setItems(customerObservableList);
+
+        tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            txtCustomerId.setText(newValue.getId());
+            txtCustomerName.setText(newValue.getName());
+            txtCustomerAddress.setText(newValue.getAddress());
+            txtCustomerProvince.setText(newValue.getProvince());
+            txtCustomerPostalCode.setText(newValue.getPostalCode());
+            txtCustomerCity.setText(newValue.getCity());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate localDate = LocalDate.parse(newValue.getDob(), formatter);
+            txtCustomerDate.setValue(localDate);
+            if (newValue.getTitle().equals("Mr")) {
+                txtCustomerTitle.setValue(txtCustomerTitle.getItems().get(0));
+            } else if (newValue.getTitle().equals("Mrs")) {
+                txtCustomerTitle.setValue(txtCustomerTitle.getItems().get(1));
+            } else if (newValue.getTitle().equals("Miss")) {
+                txtCustomerTitle.setValue(txtCustomerTitle.getItems().get(2));
+            } else if (newValue.getTitle().equals("Ms")) {
+                txtCustomerTitle.setValue(txtCustomerTitle.getItems().get(3));
+            }
+        });
     }
 
     @FXML
@@ -523,6 +559,30 @@ public class DashBoardFromController implements Initializable {
         btnReport.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnSetting.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnSupplier.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        //---------------------------------------Employee---------------------------------------------->
+        colEmployeeId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colEmployeeName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colEmployeeNIC.setCellValueFactory(new PropertyValueFactory<>("nic"));
+        colEmployeeDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        colEmployeePosition.setCellValueFactory(new PropertyValueFactory<>("position"));
+        colEmployeeSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+        colEmployeePhone.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
+        colEmployeeAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colEmployeeStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        colEmployeeJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
+        tblEmployee.setItems(employeeObservableList);
+        tblEmployee.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            txtEmployeeId.setText(newValue.getId());
+            txtEmployeeName.setText(newValue.getName());
+            txtEmployeeNic.setText(newValue.getNic());
+            txtEmployeeDOB.setValue(LocalDate.parse(newValue.getDob()));
+            txtEmployeePosition.setText(newValue.getPosition());
+            txtEmployeeSalary.setText(String.valueOf(newValue.getSalary()));
+            txtEmployeePhone.setText(newValue.getContactNumber());
+            txtEmployeeAddress.setText(newValue.getAddress());
+            txtEmployeeJoinedDate.setValue(LocalDate.parse(newValue.getJoinedDate()));
+            txtEmployeeStatus.setText(newValue.getStatus());
+        });
     }
 
     @FXML
@@ -550,7 +610,6 @@ public class DashBoardFromController implements Initializable {
 
     @FXML
     void btnItemAction(ActionEvent event) {
-        tblOrder.refresh();
         customerPane.setVisible(false);
         employeePane.setVisible(false);
         supplierPane.setVisible(false);
@@ -570,6 +629,28 @@ public class DashBoardFromController implements Initializable {
         btnReport.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnSetting.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnSupplier.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        //-------------------------------------------Item--------------------------------------------------->
+        colItemId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colItemCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        colItemSize.setCellValueFactory(new PropertyValueFactory<>("size"));
+        colItemPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colItemQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colItemIsAvailable.setCellValueFactory(new PropertyValueFactory<>("available"));
+        tblItem.setItems(itemObservableList);
+        tblItem.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            txtItemId.setText(newValue.getId());
+            txtItemName.setText(newValue.getName());
+            txtItemCategory.setText(newValue.getCategory());
+            txtItemSize.setText(newValue.getSize());
+            txtItemPrice.setText(String.valueOf(newValue.getPrice()));
+            txtItemQty.setText(String.valueOf(newValue.getQty()));
+            if (newValue.getAvailable()) {
+                txtItemIsAvailable.setSelected(true);
+            } else {
+                txtItemIsAvailable.setSelected(false);
+            }
+        });
     }
 
     @FXML
@@ -595,6 +676,35 @@ public class DashBoardFromController implements Initializable {
         btnReport.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnSetting.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnSupplier.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        //-------------------------------------Order---------------------------------------------->
+        colOrderId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colOrderName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colOrderSize.setCellValueFactory(new PropertyValueFactory<>("size"));
+        colOrderPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colOrderQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        tblOrder.setItems(itemObservableList);
+        tblOrder.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            txtOrderName.setText(newValue.getName());
+            txtOrderPrice.setText(String.valueOf(newValue.getPrice()));
+            txtOrderQty.setText("1");
+        });
+
+        tblOrder1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            txtOrderName.setText(newValue.getName());
+            txtOrderPrice.setText(String.valueOf(newValue.getPrice()));
+            txtOrderQty.setText(String.valueOf(newValue.getQty()));
+        });
+
+        //-------------------------------------------Order Customer-------------------------------------------->
+        colOrderCustomerId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colOrderCustomerTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colOrderCustomerName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colOrderCustomerDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        colOrderCustomerAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colOrderCustomerCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+        colOrderCustomerProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
+        colOrderCustomerPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        tblOrderCustomer.setItems(customerObservableList);
     }
 
     @FXML
@@ -664,6 +774,30 @@ public class DashBoardFromController implements Initializable {
         btnReport.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnSetting.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
         btnSupplier.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        //---------------------------------------Supplier---------------------------------------------->
+        colSupplierId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colSupplierName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colSupplierCompanyName.setCellValueFactory(new PropertyValueFactory<>("companyName"));
+        colSupplierAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colSupplierCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+        colSupplierProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
+        colSupplierPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        colSupplierPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        colSupplierEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        tblSupplier.setItems(supplierObservableList);
+
+        tblSupplier.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            txtSupplierId.setText(newValue.getId());
+            txtSupplierName.setText(newValue.getName());
+            txtSupplierCompanyName.setText(newValue.getCompanyName());
+            txtSupplierAddress.setText(newValue.getAddress());
+            txtSupplierCity.setText(newValue.getCity());
+            txtSupplierProvince.setText(newValue.getProvince());
+            txtSupplierPostalCode.setText(newValue.getPostalCode());
+            txtSupplierPhone.setText(newValue.getPhone());
+            txtSupplierEmail.setText(newValue.getEmail());
+        });
     }
 
     @FXML
@@ -724,145 +858,6 @@ public class DashBoardFromController implements Initializable {
         );
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
-
-
-        //-------------------------------------Order---------------------------------------------->
-        colOrderId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colOrderName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colOrderSize.setCellValueFactory(new PropertyValueFactory<>("size"));
-        colOrderPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        colOrderQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
-        tblOrder.setItems(itemObservableList);
-        tblOrder.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            txtOrderName.setText(newValue.getName());
-            txtOrderPrice.setText(String.valueOf(newValue.getPrice()));
-            txtOrderQty.setText("1");
-        });
-
-        tblOrder1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            txtOrderName.setText(newValue.getName());
-            txtOrderPrice.setText(String.valueOf(newValue.getPrice()));
-            txtOrderQty.setText(String.valueOf(newValue.getQty()));
-        });
-
-        //-------------------------------------------------customer--------------------------------------------->
-        txtCustomerTitle.getItems().addAll(titleArray);
-        colCustomerId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colCustomerTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colCustomerName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colCustomerDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
-        colCustomerAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        colCustomerCity.setCellValueFactory(new PropertyValueFactory<>("city"));
-        colCustomerProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
-        colCustomerPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-        tblCustomer.setItems(customerObservableList);
-
-        tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            txtCustomerId.setText(newValue.getId());
-            txtCustomerName.setText(newValue.getName());
-            txtCustomerAddress.setText(newValue.getAddress());
-            txtCustomerProvince.setText(newValue.getProvince());
-            txtCustomerPostalCode.setText(newValue.getPostalCode());
-            txtCustomerCity.setText(newValue.getCity());
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate localDate = LocalDate.parse(newValue.getDob(), formatter);
-            txtCustomerDate.setValue(localDate);
-            if (newValue.getTitle().equals("Mr")) {
-                txtCustomerTitle.setValue(txtCustomerTitle.getItems().get(0));
-            } else if (newValue.getTitle().equals("Mrs")) {
-                txtCustomerTitle.setValue(txtCustomerTitle.getItems().get(1));
-            } else if (newValue.getTitle().equals("Miss")) {
-                txtCustomerTitle.setValue(txtCustomerTitle.getItems().get(2));
-            } else if (newValue.getTitle().equals("Ms")) {
-                txtCustomerTitle.setValue(txtCustomerTitle.getItems().get(3));
-            }
-        });
-
-        //---------------------------------------Supplier---------------------------------------------->
-        colSupplierId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colSupplierName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colSupplierCompanyName.setCellValueFactory(new PropertyValueFactory<>("companyName"));
-        colSupplierAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        colSupplierCity.setCellValueFactory(new PropertyValueFactory<>("city"));
-        colSupplierProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
-        colSupplierPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-        colSupplierPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        colSupplierEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-
-        tblSupplier.setItems(supplierObservableList);
-
-        tblSupplier.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            txtSupplierId.setText(newValue.getId());
-            txtSupplierName.setText(newValue.getName());
-            txtSupplierCompanyName.setText(newValue.getCompanyName());
-            txtSupplierAddress.setText(newValue.getAddress());
-            txtSupplierCity.setText(newValue.getCity());
-            txtSupplierProvince.setText(newValue.getProvince());
-            txtSupplierPostalCode.setText(newValue.getPostalCode());
-            txtSupplierPhone.setText(newValue.getPhone());
-            txtSupplierEmail.setText(newValue.getEmail());
-        });
-
-        //---------------------------------------Employee---------------------------------------------->
-        colEmployeeId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colEmployeeName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colEmployeeNIC.setCellValueFactory(new PropertyValueFactory<>("nic"));
-        colEmployeeDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
-        colEmployeePosition.setCellValueFactory(new PropertyValueFactory<>("position"));
-        colEmployeeSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
-        colEmployeePhone.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
-        colEmployeeAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        colEmployeeStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-        colEmployeeJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
-        tblEmployee.setItems(employeeObservableList);
-        tblEmployee.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            txtEmployeeId.setText(newValue.getId());
-            txtEmployeeName.setText(newValue.getName());
-            txtEmployeeNic.setText(newValue.getNic());
-            txtEmployeeDOB.setValue(LocalDate.parse(newValue.getDob()));
-            txtEmployeePosition.setText(newValue.getPosition());
-            txtEmployeeSalary.setText(String.valueOf(newValue.getSalary()));
-            txtEmployeePhone.setText(newValue.getContactNumber());
-            txtEmployeeAddress.setText(newValue.getAddress());
-            txtEmployeeJoinedDate.setValue(LocalDate.parse(newValue.getJoinedDate()));
-            txtEmployeeStatus.setText(newValue.getStatus());
-        });
-
-        //-------------------------------------------Item--------------------------------------------------->
-        colItemId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colItemCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
-        colItemSize.setCellValueFactory(new PropertyValueFactory<>("size"));
-        colItemPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        colItemQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
-        colItemIsAvailable.setCellValueFactory(new PropertyValueFactory<>("available"));
-        tblItem.setItems(itemObservableList);
-        tblItem.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            txtItemId.setText(newValue.getId());
-            txtItemName.setText(newValue.getName());
-            txtItemCategory.setText(newValue.getCategory());
-            txtItemSize.setText(newValue.getSize());
-            txtItemPrice.setText(String.valueOf(newValue.getPrice()));
-            txtItemQty.setText(String.valueOf(newValue.getQty()));
-            if (newValue.getAvailable()) {
-                txtItemIsAvailable.setSelected(true);
-            } else {
-                txtItemIsAvailable.setSelected(false);
-            }
-        });
-
-        //-------------------------------------------Order Customer-------------------------------------------->
-        colOrderCustomerId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colOrderCustomerTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colOrderCustomerName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colOrderCustomerDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
-        colOrderCustomerAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        colOrderCustomerCity.setCellValueFactory(new PropertyValueFactory<>("city"));
-        colOrderCustomerProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
-        colOrderCustomerPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-        tblOrderCustomer.setItems(customerObservableList);
-
-
     }
 
     //------------------------------------Update Total Summary------------------------------------------>
@@ -947,12 +942,27 @@ public class DashBoardFromController implements Initializable {
     //--------------------------------------------Place Order---------------------------------------->
     @FXML
     void btnPlaceOrder(ActionEvent event) {
-        ObservableList<Item> placeOrders = tblOrder1.getItems();
-        String cusId = lblOrderCustomerId.getText();
-        double discount = Double.parseDouble(txtDiscountField.getText());
-        String date = lblDate.getText();
-        dashBoardService.placeOrder(placeOrders, cusId, discount, date);
+        double customerFee = Double.parseDouble(txtOrderCustomerFee.getText());
+        double totalPrice = Double.parseDouble((lblOrderTotal.getText()).substring(3));
+        if (customerFee >= totalPrice){
+            ObservableList<Item> placeOrders = tblOrder1.getItems();
+            String cusId = lblOrderCustomerId.getText();
+            double discount = Double.parseDouble(txtDiscountField.getText());
+            String date = lblDate.getText();
+
+            dashBoardService.placeOrder(placeOrders, cusId, discount, date);
+
+            orderObservableList.clear();
+            tblOrder1.refresh();
+            itemObservableList = dashBoardService.getAllNewItem();
+            tblOrder.refresh();
+            new Alert(Alert.AlertType.INFORMATION, "Order Successful!").show();
+
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Order not complete! Customer payment is not enough.").show();
+        }
     }
+
 
     //-------------------------------------------Customer--------------------------------------------------->
     //----------------------------------------Add Customer-------------------------------------------------->
