@@ -468,9 +468,17 @@ public class DashBoardService {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
         }
         return orders;
     }
 
+    public boolean addAccount(String userName, String password, String option) {
+        try {
+            return dashBoardRepository.addAccount(userName, password, option);
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+        return false;
+    }
 }

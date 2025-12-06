@@ -1289,7 +1289,24 @@ public class DashBoardFromController implements Initializable {
 
     @FXML
     void btnSignInSignInAction(ActionEvent event) {
+        String signInUserName = txtSignInUserName.getText();
+        String signInPassword = txtSignInPassword.getText();
+        String reSignInPassword = txtSignInRePassword.getText();
+        String selectedItem = cmbSignIn.getSelectionModel().getSelectedItem();
+        if (signInUserName.isEmpty() || signInPassword.isEmpty() || reSignInPassword.isEmpty() || selectedItem == null) {
+            new Alert(Alert.AlertType.INFORMATION, "Complete All Details").show();
+            return;
+        }
+        if (!signInPassword.equals(reSignInPassword)) {
+            new Alert(Alert.AlertType.ERROR, "Password is not equal").show();
+            return;
+        }
 
+        if (dashBoardService.addAccount(signInUserName,signInPassword,selectedItem)){
+            new Alert(Alert.AlertType.INFORMATION, "Your account has been created successfully.").show();
+        }else {
+            new Alert(Alert.AlertType.INFORMATION, "Unable to create your account. Please try again.").show();
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------->

@@ -271,4 +271,12 @@ public class DashBoardRepository {
         pst.setString(1, itemId);
         return pst.executeQuery();
     }
+
+    public boolean addAccount(String userName, String password, String option) throws SQLException {
+        PreparedStatement pst = DBConnection.getInstance().getConnection().prepareStatement("INSERT INTO login VALUES (?, ?, ?)");
+        pst.setString(1,userName);
+        pst.setString(2,password);
+        pst.setString(3,option);
+        return pst.executeUpdate() > 0;
+    }
 }
