@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -66,6 +67,101 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="loginPane" layoutX="102.0" layoutY="30.0" prefHeight="708.0" prefWidth="1236.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44); -fx-background-radius: 20;">
+         <children>
+            <AnchorPane fx:id="loginLoginPane" layoutX="118.0" layoutY="40.0" prefHeight="564.0" prefWidth="1058.0">
+               <children>
+                  <Label alignment="CENTER" layoutX="321.0" layoutY="36.0" prefHeight="48.0" prefWidth="415.0" text="Log In" textFill="WHITE">
+                     <font>
+                        <Font name="Bodoni MT" size="34.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="470.0" fitWidth="638.0" layoutX="148.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/login.jpg" />
+                     </image>
+                  </ImageView>
+                  <Rectangle fill="#2e2e63" height="401.0" layoutX="568.0" layoutY="127.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="342.0" />
+                  <Label layoutX="619.0" layoutY="225.0" text="Username" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtUserName" layoutX="619.0" layoutY="255.0" onAction="#btnuserName" prefHeight="36.0" prefWidth="239.0" promptText="Enter your username" style="-fx-background-color: rgba(255,255,255,0.2);                         -fx-text-fill: white;                         -fx-prompt-text-fill: #bbbbbb;                         -fx-background-radius: 10;                         -fx-border-color: white;                         -fx-border-radius: 10;                         -fx-border-width: 1;" />
+                  <Label layoutX="619.0" layoutY="300.0" text="Password" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="txtPassword" layoutX="619.0" layoutY="330.0" onAction="#btnpasswordAction" prefHeight="36.0" prefWidth="239.0" promptText="Enter your password" style="-fx-background-color: rgba(255,255,255,0.2);                             -fx-text-fill: white;                             -fx-prompt-text-fill: #bbbbbb;                             -fx-background-radius: 10;                             -fx-border-color: white;                             -fx-border-radius: 10;                             -fx-border-width: 1;" />
+                  <Button layoutX="739.0" layoutY="394.0" mnemonicParsing="false" onAction="#btnLoginAction" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: linear-gradient(to right, #6a5acd, #836fff);                      -fx-text-fill: white;                      -fx-font-weight: bold;                      -fx-background-radius: 20;                      -fx-cursor: hand;" text="Log In">
+                     <effect>
+                        <DropShadow color="#00000060" radius="10.0" />
+                     </effect>
+                  </Button>
+                  <Label alignment="CENTER" layoutX="567.0" layoutY="159.0" prefHeight="43.0" prefWidth="342.0" text="Cloth Royale" textFill="WHITE">
+                     <font>
+                        <Font name="Gill Sans MT" size="34.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="616.0" layoutY="394.0" mnemonicParsing="false" onAction="#btnSignInAction" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: linear-gradient(to right, #6a5acd, #836fff);                      -fx-text-fill: white;                      -fx-font-weight: bold;                      -fx-background-radius: 20;                      -fx-cursor: hand;" text="Sign In">
+                     <effect>
+                        <DropShadow color="#00000060" radius="10.0" />
+                     </effect>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="loginSignInPane" layoutX="118.0" layoutY="40.0" prefHeight="564.0" prefWidth="1058.0" visible="false">
+               <children>
+                  <Label alignment="CENTER" layoutX="321.0" layoutY="36.0" prefHeight="48.0" prefWidth="415.0" text="Sign In" textFill="WHITE">
+                     <font>
+                        <Font name="Bodoni MT" size="34.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="470.0" fitWidth="638.0" layoutX="148.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/login.jpg" />
+                     </image>
+                  </ImageView>
+                  <Rectangle fill="#2e2e63" height="401.0" layoutX="568.0" layoutY="127.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="342.0" />
+                  <Label layoutX="618.0" layoutY="189.0" text="Username" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtSignInUserName" layoutX="618.0" layoutY="215.0" onAction="#btnuserName" prefHeight="36.0" prefWidth="239.0" promptText="Enter your username" style="-fx-background-color: rgba(255,255,255,0.2);                         -fx-text-fill: white;                         -fx-prompt-text-fill: #bbbbbb;                         -fx-background-radius: 10;                         -fx-border-color: white;                         -fx-border-radius: 10;                         -fx-border-width: 1;" />
+                  <Label layoutX="618.0" layoutY="257.0" text="Password" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="txtSignInPassword" layoutX="618.0" layoutY="283.0" onAction="#btnpasswordAction" prefHeight="36.0" prefWidth="239.0" promptText="Enter your password" style="-fx-background-color: rgba(255,255,255,0.2);                             -fx-text-fill: white;                             -fx-prompt-text-fill: #bbbbbb;                             -fx-background-radius: 10;                             -fx-border-color: white;                             -fx-border-radius: 10;                             -fx-border-width: 1;" />
+                  <Button layoutX="605.0" layoutY="468.0" mnemonicParsing="false" onAction="#btnSignInLoginAction" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: linear-gradient(to right, #6a5acd, #836fff);                      -fx-text-fill: white;                      -fx-font-weight: bold;                      -fx-background-radius: 20;                      -fx-cursor: hand;" text="Log In">
+                     <effect>
+                        <DropShadow color="#00000060" radius="10.0" />
+                     </effect>
+                  </Button>
+                  <Label alignment="CENTER" layoutX="567.0" layoutY="143.0" prefHeight="43.0" prefWidth="342.0" text="Cloth Royale" textFill="WHITE">
+                     <font>
+                        <Font name="Gill Sans MT" size="34.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="739.0" layoutY="468.0" mnemonicParsing="false" onAction="#btnSignInSignInAction" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: linear-gradient(to right, #6a5acd, #836fff);                      -fx-text-fill: white;                      -fx-font-weight: bold;                      -fx-background-radius: 20;                      -fx-cursor: hand;" text="Sign In">
+                     <effect>
+                        <DropShadow color="#00000060" radius="10.0" />
+                     </effect>
+                  </Button>
+                  <Label layoutX="618.0" layoutY="327.0" prefHeight="19.0" prefWidth="112.0" text="Re-Password" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="txtSignInRePassword" layoutX="618.0" layoutY="351.0" onAction="#btnpasswordAction" prefHeight="36.0" prefWidth="239.0" promptText="Enter your password" style="-fx-background-color: rgba(255,255,255,0.2);                             -fx-text-fill: white;                             -fx-prompt-text-fill: #bbbbbb;                             -fx-background-radius: 10;                             -fx-border-color: white;                             -fx-border-radius: 10;                             -fx-border-width: 1;" />
+                  <ComboBox fx:id="cmbSignIn" layoutX="618.0" layoutY="404.0" prefHeight="36.0" prefWidth="238.0" promptText="Select Type Account" style="-fx-background-radius: 10;" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="supplierPane" layoutX="102.0" layoutY="30.0" prefHeight="708.0" prefWidth="1236.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44); -fx-background-radius: 20;" visible="false">
@@ -392,43 +488,6 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="loginPane" layoutX="102.0" layoutY="30.0" prefHeight="708.0" prefWidth="1236.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44); -fx-background-radius: 20;">
-         <children>
-            <Label alignment="CENTER" layoutX="410.0" layoutY="62.0" prefHeight="48.0" prefWidth="415.0" text="Login" textFill="WHITE">
-               <font>
-                  <Font name="Bodoni MT" size="34.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="470.0" fitWidth="638.0" layoutX="237.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../image/login.jpg" />
-               </image>
-            </ImageView>
-            <Rectangle fill="#2e2e63" height="401.0" layoutX="657.0" layoutY="154.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="342.0" />
-            <Label layoutX="708.0" layoutY="251.0" text="Username" textFill="WHITE">
-               <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtUserName" layoutX="708.0" layoutY="281.0" onAction="#btnuserName" prefHeight="36.0" prefWidth="239.0" promptText="Enter your username" style="-fx-background-color: rgba(255,255,255,0.2);                         -fx-text-fill: white;                         -fx-prompt-text-fill: #bbbbbb;                         -fx-background-radius: 10;                         -fx-border-color: white;                         -fx-border-radius: 10;                         -fx-border-width: 1;" />
-            <Label layoutX="708.0" layoutY="326.0" text="Password" textFill="WHITE">
-               <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="txtPassword" layoutX="708.0" layoutY="356.0" onAction="#btnpasswordAction" prefHeight="36.0" prefWidth="239.0" promptText="Enter your password" style="-fx-background-color: rgba(255,255,255,0.2);                             -fx-text-fill: white;                             -fx-prompt-text-fill: #bbbbbb;                             -fx-background-radius: 10;                             -fx-border-color: white;                             -fx-border-radius: 10;                             -fx-border-width: 1;" />
-            <Button layoutX="771.0" layoutY="421.0" mnemonicParsing="false" onAction="#btnLoginAction" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: linear-gradient(to right, #6a5acd, #836fff);                      -fx-text-fill: white;                      -fx-font-weight: bold;                      -fx-background-radius: 20;                      -fx-cursor: hand;" text="Login">
-               <effect>
-                  <DropShadow color="#00000060" radius="10.0" />
-               </effect>
-            </Button>
-            <Label alignment="CENTER" layoutX="656.0" layoutY="185.0" prefHeight="43.0" prefWidth="342.0" text="Cloth Royale" textFill="WHITE">
-               <font>
-                  <Font name="Gill Sans MT" size="34.0" />
-               </font>
-            </Label>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="historyPane" layoutX="102.0" layoutY="31.0" prefHeight="708.0" prefWidth="1236.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44); -fx-background-radius: 20;" visible="false">

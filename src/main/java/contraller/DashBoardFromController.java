@@ -32,6 +32,11 @@ public class DashBoardFromController implements Initializable {
     ObservableList<Report> hitoryObservableList = FXCollections.observableArrayList();
     ObservableList<Order> hitoryItemObservableList = FXCollections.observableArrayList();
     String[] titleArray = {"Mr", "Mrs", "Miss", "Ms"};
+    String[] accArray = {"Admin","Cashier"};
+
+
+    @FXML
+    private ComboBox<String> cmbSignIn;
 
     @FXML
     private Button btnCustomer;
@@ -456,6 +461,21 @@ public class DashBoardFromController implements Initializable {
     @FXML
     private TextField txtOrderCustomerFee;
 
+    @FXML
+    private AnchorPane loginLoginPane;
+
+    @FXML
+    private AnchorPane loginSignInPane;
+
+    @FXML
+    private PasswordField txtSignInPassword;
+
+    @FXML
+    private PasswordField txtSignInRePassword;
+
+    @FXML
+    private TextField txtSignInUserName;
+
 
 
     @FXML
@@ -844,6 +864,7 @@ public class DashBoardFromController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        cmbSignIn.getItems().addAll(accArray);
         // Set current date
         lblDate.setText(LocalDate.now().toString());
 
@@ -1219,7 +1240,7 @@ public class DashBoardFromController implements Initializable {
         tblItem.refresh();
     }
 
-    //---------------------------------------------Login Action--------------------------------------------------->
+    //---------------------------------------------Login And SignIn Action--------------------------------------------------->
     @FXML
     void btnLoginAction(ActionEvent event) {
         String userName = txtUserName.getText();
@@ -1254,6 +1275,23 @@ public class DashBoardFromController implements Initializable {
         txtPassword.requestFocus();
     }
 
+    @FXML
+    void btnSignInAction(ActionEvent event) {
+        loginLoginPane.setVisible(false);
+        loginSignInPane.setVisible(true);
+    }
+
+    @FXML
+    void btnSignInLoginAction(ActionEvent event) {
+        loginLoginPane.setVisible(true);
+        loginSignInPane.setVisible(false);
+    }
+
+    @FXML
+    void btnSignInSignInAction(ActionEvent event) {
+
+    }
+
     //------------------------------------------------------------------------------------------------------------->
 
 
@@ -1272,6 +1310,9 @@ public class DashBoardFromController implements Initializable {
 
         tblHistory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             hitoryItemObservableList = dashBoardService.getAllOrderItem(tblHistory.getSelectionModel().getSelectedItem().getOrderId());
+            if (newValue == null) {
+                return;
+            }
             colHistoryItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
             colHistoryItemQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
             colHistoryItemPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
