@@ -684,10 +684,13 @@ public class DashBoardFromController implements Initializable {
         colOrderQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
         tblOrder.setItems(itemObservableList);
         tblOrder.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            txtOrderName.setText(newValue.getName());
-            txtOrderPrice.setText(String.valueOf(newValue.getPrice()));
-            txtOrderQty.setText("1");
+            if (newValue != null) {
+                txtOrderName.setText(newValue.getName());
+                txtOrderPrice.setText(String.valueOf(newValue.getPrice()));
+                txtOrderQty.setText("1");
+            }
         });
+
 
         tblOrder1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             txtOrderName.setText(newValue.getName());

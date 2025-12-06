@@ -15,23 +15,9 @@ public class DashBoardRepository {
     ObservableList<Item> items = FXCollections.observableArrayList();
     ObservableList<Customer> customers = FXCollections.observableArrayList();
 
-    public ObservableList<Item> getAllItem() throws SQLException {
+    public ResultSet getAllItem() throws SQLException {
         PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM item");
-        ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()){
-            items.add(
-                    new Item(
-                            resultSet.getString("id"),
-                            resultSet.getString("name"),
-                            resultSet.getString("category"),
-                            resultSet.getString("size"),
-                            resultSet.getDouble("price"),
-                            resultSet.getInt("qty"),
-                            resultSet.getBoolean("isAvailable"),
-                            1.0
-                    ));
-        }
-        return items;
+        return preparedStatement.executeQuery();
     }
 
     public ObservableList<Customer> getAllCustomer() throws SQLException {
