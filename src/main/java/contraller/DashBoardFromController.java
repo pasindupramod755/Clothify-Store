@@ -465,7 +465,7 @@ public class DashBoardFromController implements Initializable {
     private AnchorPane loginLoginPane;
 
     @FXML
-    private AnchorPane loginSignInPane;
+    private AnchorPane createAccountPane;
 
     @FXML
     private PasswordField txtSignInPassword;
@@ -475,6 +475,9 @@ public class DashBoardFromController implements Initializable {
 
     @FXML
     private TextField txtSignInUserName;
+
+    @FXML
+    private AnchorPane settingBtnPane;
 
 
 
@@ -1276,19 +1279,7 @@ public class DashBoardFromController implements Initializable {
     }
 
     @FXML
-    void btnSignInAction(ActionEvent event) {
-        loginLoginPane.setVisible(false);
-        loginSignInPane.setVisible(true);
-    }
-
-    @FXML
-    void btnSignInLoginAction(ActionEvent event) {
-        loginLoginPane.setVisible(true);
-        loginSignInPane.setVisible(false);
-    }
-
-    @FXML
-    void btnSignInSignInAction(ActionEvent event) {
+    void btnCreateAccountAction(ActionEvent event) {
         String signInUserName = txtSignInUserName.getText();
         String signInPassword = txtSignInPassword.getText();
         String reSignInPassword = txtSignInRePassword.getText();
@@ -1307,6 +1298,24 @@ public class DashBoardFromController implements Initializable {
         }else {
             new Alert(Alert.AlertType.INFORMATION, "Unable to create your account. Please try again.").show();
         }
+    }
+
+    @FXML
+    void btnCreateAccountBackAction(ActionEvent event) {
+        createAccountPane.setVisible(false);
+        settingBtnPane.setVisible(true);
+
+    }
+
+    @FXML
+    void btnSettingCreateAccountAction(ActionEvent event) {
+        settingBtnPane.setVisible(false);
+        createAccountPane.setVisible(true);
+    }
+
+    @FXML
+    void btnSettingLogOut(ActionEvent event) {
+
     }
 
     //------------------------------------------------------------------------------------------------------------->
