@@ -15,23 +15,9 @@ public class DashBoardRepository {
     ObservableList<Item> items = FXCollections.observableArrayList();
     ObservableList<Customer> customers = FXCollections.observableArrayList();
 
-    public ObservableList<Item> getAllItem() throws SQLException {
+    public ResultSet getAllItem() throws SQLException {
         PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM item");
-        ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()){
-            items.add(
-                    new Item(
-                            resultSet.getString("id"),
-                            resultSet.getString("name"),
-                            resultSet.getString("category"),
-                            resultSet.getString("size"),
-                            resultSet.getDouble("price"),
-                            resultSet.getInt("qty"),
-                            resultSet.getBoolean("isAvailable"),
-                            1.0
-                    ));
-        }
-        return items;
+        return preparedStatement.executeQuery();
     }
 
     public ObservableList<Customer> getAllCustomer() throws SQLException {
@@ -284,5 +270,13 @@ public class DashBoardRepository {
         PreparedStatement pst = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM item WHERE id = ?");
         pst.setString(1, itemId);
         return pst.executeQuery();
+    }
+
+    public boolean addAccount(String userName, String password, String option) throws SQLException {
+        PreparedStatement pst = DBConnection.getInstance().getConnection().prepareStatement("INSERT INTO login VALUES (?, ?, ?)");
+        pst.setString(1,userName);
+        pst.setString(2,password);
+        pst.setString(3,option);
+        return pst.executeUpdate() > 0;
     }
 }

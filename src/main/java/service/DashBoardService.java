@@ -34,18 +34,30 @@ public class DashBoardService {
     }
 
     public ObservableList<Item> addItem(Item selectedItem, int orderQty) {
-        if (selectedItem.getQty() >= orderQty) {
-            if (searchOrderItem(selectedItem, orderQty)) {
-                return orderItems;
-            }
-            selectedItem.setQty(orderQty);
-            selectedItem.setTotal((selectedItem.getPrice()) * orderQty);
-            orderItems.add(selectedItem);
+
+        if (selectedItem.getQty() < orderQty) {
+            new Alert(Alert.AlertType.INFORMATION, "Not Available stock!").show();
             return orderItems;
         }
-        new Alert(Alert.AlertType.INFORMATION, "Not Available stock!").show();
+
+        if (searchOrderItem(selectedItem, orderQty)) {
+            return orderItems;
+        }
+        Item orderItem = new Item(
+                selectedItem.getId(),
+                selectedItem.getName(),
+                selectedItem.getCategory(),
+                selectedItem.getSize(),
+                selectedItem.getPrice(),
+                orderQty,
+                selectedItem.getAvailable(),
+                selectedItem.getPrice() * orderQty
+        );
+
+        orderItems.add(orderItem);
         return orderItems;
     }
+
 
 
     public boolean searchOrderItem(Item selectedItem, int qty) {
@@ -299,7 +311,21 @@ public class DashBoardService {
 
     public ObservableList<Item> getAllNewItem() {
         try {
-            items = dashBoardRepository.getAllItem();
+            items.clear();
+            ResultSet resultSet = dashBoardRepository.getAllItem();
+            while (resultSet.next()){
+                items.add(
+                        new Item(
+                                resultSet.getString("id"),
+                                resultSet.getString("name"),
+                                resultSet.getString("category"),
+                                resultSet.getString("size"),
+                                resultSet.getDouble("price"),
+                                resultSet.getInt("qty"),
+                                resultSet.getBoolean("isAvailable"),
+                                1.0
+                        ));
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -442,9 +468,17 @@ public class DashBoardService {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
         }
         return orders;
     }
 
+    public boolean addAccount(String userName, String password, String option) {
+        try {
+            return dashBoardRepository.addAccount(userName, password, option);
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+        return false;
+    }
 }

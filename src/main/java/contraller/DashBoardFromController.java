@@ -32,6 +32,11 @@ public class DashBoardFromController implements Initializable {
     ObservableList<Report> hitoryObservableList = FXCollections.observableArrayList();
     ObservableList<Order> hitoryItemObservableList = FXCollections.observableArrayList();
     String[] titleArray = {"Mr", "Mrs", "Miss", "Ms"};
+    String[] accArray = {"Admin","Cashier"};
+
+
+    @FXML
+    private ComboBox<String> cmbSignIn;
 
     @FXML
     private Button btnCustomer;
@@ -456,6 +461,21 @@ public class DashBoardFromController implements Initializable {
     @FXML
     private TextField txtOrderCustomerFee;
 
+    @FXML
+    private AnchorPane loginLoginPane;
+
+    @FXML
+    private AnchorPane loginSignInPane;
+
+    @FXML
+    private PasswordField txtSignInPassword;
+
+    @FXML
+    private PasswordField txtSignInRePassword;
+
+    @FXML
+    private TextField txtSignInUserName;
+
 
 
     @FXML
@@ -684,10 +704,13 @@ public class DashBoardFromController implements Initializable {
         colOrderQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
         tblOrder.setItems(itemObservableList);
         tblOrder.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            txtOrderName.setText(newValue.getName());
-            txtOrderPrice.setText(String.valueOf(newValue.getPrice()));
-            txtOrderQty.setText("1");
+            if (newValue != null) {
+                txtOrderName.setText(newValue.getName());
+                txtOrderPrice.setText(String.valueOf(newValue.getPrice()));
+                txtOrderQty.setText("1");
+            }
         });
+
 
         tblOrder1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             txtOrderName.setText(newValue.getName());
@@ -841,6 +864,7 @@ public class DashBoardFromController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        cmbSignIn.getItems().addAll(accArray);
         // Set current date
         lblDate.setText(LocalDate.now().toString());
 
@@ -1216,7 +1240,7 @@ public class DashBoardFromController implements Initializable {
         tblItem.refresh();
     }
 
-    //---------------------------------------------Login Action--------------------------------------------------->
+    //---------------------------------------------Login And SignIn Action--------------------------------------------------->
     @FXML
     void btnLoginAction(ActionEvent event) {
         String userName = txtUserName.getText();
@@ -1251,6 +1275,40 @@ public class DashBoardFromController implements Initializable {
         txtPassword.requestFocus();
     }
 
+    @FXML
+    void btnSignInAction(ActionEvent event) {
+        loginLoginPane.setVisible(false);
+        loginSignInPane.setVisible(true);
+    }
+
+    @FXML
+    void btnSignInLoginAction(ActionEvent event) {
+        loginLoginPane.setVisible(true);
+        loginSignInPane.setVisible(false);
+    }
+
+    @FXML
+    void btnSignInSignInAction(ActionEvent event) {
+        String signInUserName = txtSignInUserName.getText();
+        String signInPassword = txtSignInPassword.getText();
+        String reSignInPassword = txtSignInRePassword.getText();
+        String selectedItem = cmbSignIn.getSelectionModel().getSelectedItem();
+        if (signInUserName.isEmpty() || signInPassword.isEmpty() || reSignInPassword.isEmpty() || selectedItem == null) {
+            new Alert(Alert.AlertType.INFORMATION, "Complete All Details").show();
+            return;
+        }
+        if (!signInPassword.equals(reSignInPassword)) {
+            new Alert(Alert.AlertType.ERROR, "Password is not equal").show();
+            return;
+        }
+
+        if (dashBoardService.addAccount(signInUserName,signInPassword,selectedItem)){
+            new Alert(Alert.AlertType.INFORMATION, "Your account has been created successfully.").show();
+        }else {
+            new Alert(Alert.AlertType.INFORMATION, "Unable to create your account. Please try again.").show();
+        }
+    }
+
     //------------------------------------------------------------------------------------------------------------->
 
 
@@ -1269,6 +1327,9 @@ public class DashBoardFromController implements Initializable {
 
         tblHistory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             hitoryItemObservableList = dashBoardService.getAllOrderItem(tblHistory.getSelectionModel().getSelectedItem().getOrderId());
+            if (newValue == null) {
+                return;
+            }
             colHistoryItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
             colHistoryItemQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
             colHistoryItemPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
