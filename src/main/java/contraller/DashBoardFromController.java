@@ -8,9 +8,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import model.dto.*;
 import service.DashBoardService;
@@ -19,6 +21,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DashBoardFromController implements Initializable {
@@ -32,7 +36,7 @@ public class DashBoardFromController implements Initializable {
     ObservableList<Report> hitoryObservableList = FXCollections.observableArrayList();
     ObservableList<Order> hitoryItemObservableList = FXCollections.observableArrayList();
     String[] titleArray = {"Mr", "Mrs", "Miss", "Ms"};
-    String[] accArray = {"Admin","Cashier"};
+    String[] accArray = {"Admin", "Cashier"};
 
 
     @FXML
@@ -61,6 +65,9 @@ public class DashBoardFromController implements Initializable {
 
     @FXML
     private Button btnSupplier;
+
+    @FXML
+    private Button btnCreateAccount;
 
     @FXML
     private TableColumn<?, ?> colCustomerAddress;
@@ -479,6 +486,30 @@ public class DashBoardFromController implements Initializable {
     @FXML
     private AnchorPane settingBtnPane;
 
+    @FXML
+    private AnchorPane cashierBtnPane;
+
+    @FXML
+    private AnchorPane adminBtnPane;
+
+    @FXML
+    private Button btnCustomer1;
+
+    @FXML
+    private Button btnHistory1;
+
+    @FXML
+    private Button btnHome1;
+
+    @FXML
+    private Button btnOrder1;
+
+    @FXML
+    private Button btnReport1;
+
+    @FXML
+    private Button btnSetting1;
+
 
     @FXML
     void btnCancelOrder(ActionEvent event) {
@@ -491,8 +522,11 @@ public class DashBoardFromController implements Initializable {
         if (alert.getResult() == ButtonType.YES) {
             orderObservableList = dashBoardService.cancelOrder();
             paneVisible();
+            btnOrder.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+            btnOrder1.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
             orderCustomerPane.setVisible(true);
             buttonVisible(false);
+            cashierButtonVisible(false);
         }
     }
 
@@ -501,6 +535,7 @@ public class DashBoardFromController implements Initializable {
         paneVisible();
         customerPane.setVisible(true);
         btnCustomer.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnCustomer1.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
 
         //-------------------------------------------------customer--------------------------------------------->
         txtCustomerTitle.getItems().addAll(titleArray);
@@ -515,6 +550,9 @@ public class DashBoardFromController implements Initializable {
         tblCustomer.setItems(customerObservableList);
 
         tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
             txtCustomerId.setText(newValue.getId());
             txtCustomerName.setText(newValue.getName());
             txtCustomerAddress.setText(newValue.getAddress());
@@ -555,6 +593,9 @@ public class DashBoardFromController implements Initializable {
         colEmployeeJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
         tblEmployee.setItems(employeeObservableList);
         tblEmployee.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
             txtEmployeeId.setText(newValue.getId());
             txtEmployeeName.setText(newValue.getName());
             txtEmployeeNic.setText(newValue.getNic());
@@ -573,6 +614,7 @@ public class DashBoardFromController implements Initializable {
         paneVisible();
         homePane.setVisible(true);
         btnHome.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHome1.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
     }
 
     @FXML
@@ -590,6 +632,9 @@ public class DashBoardFromController implements Initializable {
         colItemIsAvailable.setCellValueFactory(new PropertyValueFactory<>("available"));
         tblItem.setItems(itemObservableList);
         tblItem.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
             txtItemId.setText(newValue.getId());
             txtItemName.setText(newValue.getName());
             txtItemCategory.setText(newValue.getCategory());
@@ -609,6 +654,7 @@ public class DashBoardFromController implements Initializable {
         paneVisible();
         orderCustomerPane.setVisible(true);
         btnOrder.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnOrder1.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
 
         //-------------------------------------Order---------------------------------------------->
         colOrderId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -627,6 +673,9 @@ public class DashBoardFromController implements Initializable {
 
 
         tblOrder1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
             txtOrderName.setText(newValue.getName());
             txtOrderPrice.setText(String.valueOf(newValue.getPrice()));
             txtOrderQty.setText(String.valueOf(newValue.getQty()));
@@ -649,6 +698,7 @@ public class DashBoardFromController implements Initializable {
         paneVisible();
         reportPane.setVisible(true);
         btnReport.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnReport1.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
     }
 
     @FXML
@@ -656,6 +706,7 @@ public class DashBoardFromController implements Initializable {
         paneVisible();
         settingPane.setVisible(true);
         btnSetting.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnSetting1.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
     }
 
     @FXML
@@ -677,6 +728,9 @@ public class DashBoardFromController implements Initializable {
         tblSupplier.setItems(supplierObservableList);
 
         tblSupplier.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
             txtSupplierId.setText(newValue.getId());
             txtSupplierName.setText(newValue.getName());
             txtSupplierCompanyName.setText(newValue.getCompanyName());
@@ -694,6 +748,7 @@ public class DashBoardFromController implements Initializable {
         paneVisible();
         historyPane.setVisible(true);
         btnHistory.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        btnHistory1.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
     }
 
     @FXML
@@ -763,6 +818,7 @@ public class DashBoardFromController implements Initializable {
             orderCustomerPane.setVisible(false);
             orderPane.setVisible(true);
             buttonVisible(true);
+            cashierButtonVisible(true);
 
         } else {
             new Alert(Alert.AlertType.INFORMATION, "Select Customer for Order").show();
@@ -810,7 +866,7 @@ public class DashBoardFromController implements Initializable {
     void btnPlaceOrder(ActionEvent event) {
         double customerFee = Double.parseDouble(txtOrderCustomerFee.getText());
         double totalPrice = Double.parseDouble((lblOrderTotal.getText()).substring(3));
-        if (customerFee >= totalPrice){
+        if (customerFee >= totalPrice) {
             ObservableList<Item> placeOrders = tblOrder1.getItems();
             String cusId = lblOrderCustomerId.getText();
             double discount = Double.parseDouble(txtDiscountField.getText());
@@ -1089,10 +1145,24 @@ public class DashBoardFromController implements Initializable {
         String password = txtPassword.getText();
         boolean loginAvailable = dashBoardService.login(userName, password);
         if (loginAvailable) {
-            buttonVisible(false);
-            btnHome.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
-            loginPane.setVisible(false);
-            homePane.setVisible(true);
+            String accOption = dashBoardService.getAccountOption(userName);
+            if (accOption.equals("admin")) {
+                adminBtnPane.setVisible(true);
+                buttonVisible(false);
+                btnHome.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+                loginPane.setVisible(false);
+                homePane.setVisible(true);
+                btnCreateAccount.setDisable(false);
+
+            } else {
+                btnCreateAccount.setDisable(true);
+                cashierBtnPane.setVisible(true);
+                cashierButtonVisible(false);
+                buttonVisible(false);
+                btnHome1.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+                loginPane.setVisible(false);
+                homePane.setVisible(true);
+            }
         }
     }
 
@@ -1125,9 +1195,9 @@ public class DashBoardFromController implements Initializable {
             return;
         }
 
-        if (dashBoardService.addAccount(signInUserName,signInPassword,selectedItem)){
+        if (dashBoardService.addAccount(signInUserName, signInPassword, selectedItem)) {
             new Alert(Alert.AlertType.INFORMATION, "Your account has been created successfully.").show();
-        }else {
+        } else {
             new Alert(Alert.AlertType.INFORMATION, "Unable to create your account. Please try again.").show();
         }
     }
@@ -1148,7 +1218,10 @@ public class DashBoardFromController implements Initializable {
     @FXML
     void btnSettingLogOut(ActionEvent event) {
         buttonVisible(true);
+        cashierButtonVisible(true);
         paneVisible();
+        cashierBtnPane.setVisible(false);
+        adminBtnPane.setVisible(false);
         loginPane.setVisible(true);
     }
 
@@ -1160,7 +1233,7 @@ public class DashBoardFromController implements Initializable {
     void btnSearchDataHistoryAction(ActionEvent event) {
         LocalDate value = dateHistory.getValue();
         hitoryObservableList = dashBoardService.getAllHistory(value);
-        for(Report report : hitoryObservableList){
+        for (Report report : hitoryObservableList) {
             System.out.println(report);
         }
         colHistoryOrderId.setCellValueFactory(new PropertyValueFactory<>("orderId"));
@@ -1183,30 +1256,48 @@ public class DashBoardFromController implements Initializable {
     }
 
     //-----------------------------------------------Pane visible------------------------------------------------------>
-    public void paneVisible(){
-        customerPane.setVisible(false);
-        employeePane.setVisible(false);
-        supplierPane.setVisible(false);
-        orderPane.setVisible(false);
-        itemPane.setVisible(false);
-        orderCustomerPane.setVisible(false);
-        historyPane.setVisible(false);
-        reportPane.setVisible(false);
-        settingPane.setVisible(false);
-        homePane.setVisible(false);
-        btnCustomer.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
-        btnHome.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
-        btnEmployee.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
-        btnHistory.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
-        btnItem.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
-        btnOrder.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
-        btnReport.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
-        btnSetting.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
-        btnSupplier.setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+    public void paneVisible() {
+
+        Pane[] pane = new Pane[]{
+                customerPane,
+                employeePane,
+                supplierPane,
+                orderPane,
+                itemPane,
+                orderCustomerPane,
+                historyPane,
+                reportPane,
+                settingPane,
+                homePane
+        };
+        for (int i = 0; i < pane.length; i++) {
+            pane[i].setVisible(false);
+        }
+
+        Button[] btn = new Button[]{
+                btnCustomer,
+                btnHome,
+                btnEmployee,
+                btnItem,
+                btnOrder,
+                btnReport,
+                btnSupplier,
+                btnSetting,
+                btnCustomer1,
+                btnHome1,
+                btnHistory1,
+                btnOrder1,
+                btnReport1,
+                btnSetting1,
+        };
+        for (int i = 0; i < btn.length; i++) {
+            btn[i].setStyle("-fx-background-color: #2d3e50; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
+        }
+
     }
 
     //---------------------------------------button Visible--------------------------------------------------->
-    public void buttonVisible(boolean b){
+    public void buttonVisible(boolean b) {
         btnCustomer.setDisable(b);
         btnHome.setDisable(b);
         btnEmployee.setDisable(b);
@@ -1216,6 +1307,15 @@ public class DashBoardFromController implements Initializable {
         btnReport.setDisable(b);
         btnSetting.setDisable(b);
         btnSupplier.setDisable(b);
+    }
+
+    public void cashierButtonVisible(boolean b) {
+        btnCustomer1.setDisable(b);
+        btnHome1.setDisable(b);
+        btnHistory1.setDisable(b);
+        btnOrder1.setDisable(b);
+        btnReport1.setDisable(b);
+        btnSetting1.setDisable(b);
     }
 
 }

@@ -481,4 +481,19 @@ public class DashBoardService {
         }
         return false;
     }
+
+    public String getAccountOption(String userName) {
+        try {
+            ResultSet resultSet = dashBoardRepository.getAccountOption(userName);
+            if (resultSet.next()) {
+                return resultSet.getString("account_option");
+            } else {
+                return null; // no user found
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+            return null;
+        }
+    }
+
 }

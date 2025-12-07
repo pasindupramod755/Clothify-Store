@@ -279,4 +279,10 @@ public class DashBoardRepository {
         pst.setString(3,option);
         return pst.executeUpdate() > 0;
     }
+
+    public ResultSet getAccountOption(String userName) throws SQLException {
+        PreparedStatement pst = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM login WHERE username = ?");
+        pst.setString(1,userName);
+        return pst.executeQuery();
+    }
 }
