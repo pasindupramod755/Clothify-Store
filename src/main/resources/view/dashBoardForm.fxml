@@ -583,11 +583,36 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="homePane" layoutX="102.0" layoutY="30.0" prefHeight="708.0" prefWidth="1236.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44); -fx-background-radius: 20;" visible="false">
+      <AnchorPane fx:id="homePane" layoutX="102.0" layoutY="30.0" prefHeight="708.0" prefWidth="1236.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44); -fx-background-radius: 20;">
          <children>
-            <Label alignment="CENTER" layoutX="441.0" layoutY="33.0" prefHeight="38.0" prefWidth="300.0" text="Home" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="447.0" layoutY="43.0" prefHeight="38.0" prefWidth="300.0" text="Home" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="29.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblHomeDate" alignment="CENTER_RIGHT" layoutX="890.0" layoutY="22.0" prefHeight="43.0" prefWidth="294.0" text="2025-12-12" textFill="#f4f4f4">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblHomeTime" alignment="CENTER_RIGHT" layoutX="890.0" layoutY="58.0" prefHeight="43.0" prefWidth="294.0" text="2025-12-12" textFill="#f4f4f4">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="236.0" layoutY="101.0" prefHeight="71.0" prefWidth="763.0" text="WellCome To Cloth Royale" textFill="#f4f4f4">
+               <font>
+                  <Font name="Century Schoolbook Bold" size="49.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="48.0" fitWidth="54.0" layoutX="56.0" layoutY="194.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/user.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lblHomeName" layoutX="121.0" layoutY="196.0" prefHeight="43.0" prefWidth="238.0" text="Hi Pasindu" textFill="WHITE">
+               <font>
+                  <Font size="29.0" />
                </font>
             </Label>
          </children>
