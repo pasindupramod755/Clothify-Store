@@ -510,6 +510,15 @@ public class DashBoardFromController implements Initializable {
     @FXML
     private Button btnSetting1;
 
+    @FXML
+    private Label lblHomeDate;
+
+    @FXML
+    private Label lblHomeName;
+
+    @FXML
+    private Label lblHomeTime;
+
 
     @FXML
     void btnCancelOrder(ActionEvent event) {
@@ -772,6 +781,7 @@ public class DashBoardFromController implements Initializable {
         cmbSignIn.getItems().addAll(accArray);
         // Set current date
         lblDate.setText(LocalDate.now().toString());
+        lblHomeDate.setText(LocalDate.now().toString());
 
         DateTimeFormatter dayFormat = DateTimeFormatter.ofPattern("EEEE");
         String dayName = LocalDate.now().format(dayFormat);
@@ -782,6 +792,7 @@ public class DashBoardFromController implements Initializable {
                 new KeyFrame(Duration.ZERO, e -> {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
                     lblTime.setText(LocalTime.now().format(formatter));
+                    lblHomeTime.setText(LocalTime.now().format(formatter));
                 }),
                 new KeyFrame(Duration.seconds(1))
         );
@@ -1153,6 +1164,7 @@ public class DashBoardFromController implements Initializable {
                 loginPane.setVisible(false);
                 homePane.setVisible(true);
                 btnCreateAccount.setDisable(false);
+                lblHomeName.setText("Hi "+userName);
 
             } else {
                 btnCreateAccount.setDisable(true);
@@ -1162,6 +1174,7 @@ public class DashBoardFromController implements Initializable {
                 btnHome1.setStyle("-fx-background-color: #1e1e2f; " + "-fx-text-fill: white; " + "-fx-font-size: 21px;");
                 loginPane.setVisible(false);
                 homePane.setVisible(true);
+                lblHomeName.setText("Hi "+userName);
             }
         }
     }
@@ -1283,6 +1296,7 @@ public class DashBoardFromController implements Initializable {
                 btnReport,
                 btnSupplier,
                 btnSetting,
+                btnHistory,
                 btnCustomer1,
                 btnHome1,
                 btnHistory1,
