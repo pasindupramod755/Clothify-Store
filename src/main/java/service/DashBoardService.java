@@ -362,7 +362,6 @@ public class DashBoardService {
             }
 
             connection.commit();
-            new Alert(Alert.AlertType.INFORMATION, "Order placed successfully!").show();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.INFORMATION, e.getMessage()).show();
         } finally {
@@ -405,7 +404,7 @@ public class DashBoardService {
 
     //----------------------------------------------------------------------------------------------------->
 
-    //--------------------------------------Login-------------------------------------------------->
+    //----------------------------------------------Login-------------------------------------------------->
 
     public Boolean login(String userName, String password) {
         try {
@@ -495,5 +494,4 @@ public class DashBoardService {
             return null;
         }
     }
-
 }

@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -21,8 +20,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class DashBoardFromController implements Initializable {
@@ -469,9 +466,6 @@ public class DashBoardFromController implements Initializable {
     private TextField txtOrderCustomerFee;
 
     @FXML
-    private AnchorPane loginLoginPane;
-
-    @FXML
     private AnchorPane createAccountPane;
 
     @FXML
@@ -889,7 +883,11 @@ public class DashBoardFromController implements Initializable {
             tblOrder1.refresh();
             itemObservableList = dashBoardService.getAllNewItem();
             tblOrder.refresh();
-            new Alert(Alert.AlertType.INFORMATION, "Order Successful!").show();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Payment Info");
+            alert.setHeaderText("Order Successful!");
+            alert.setContentText("Remaining Balance: Rs. " + (customerFee-totalPrice));
+            alert.showAndWait();
 
         } else {
             new Alert(Alert.AlertType.ERROR, "Order not complete! Customer payment is not enough.").show();
@@ -1176,6 +1174,8 @@ public class DashBoardFromController implements Initializable {
                 homePane.setVisible(true);
                 lblHomeName.setText("Hi "+userName);
             }
+        }else{
+            new Alert(Alert.AlertType.INFORMATION, "Username OR Password Incorrect");
         }
     }
 
